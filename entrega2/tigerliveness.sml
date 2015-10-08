@@ -2,6 +2,8 @@ open Array
 open Splayset
 open tigerflow
 open tigertab
+	
+
 fun livenessAnalisis (FGRAPH {control, def, use, ismove}, nodeList) : (tigertemp.temp set array * tigertemp.temp set array) =
 
 
@@ -12,6 +14,7 @@ fun livenessAnalisis (FGRAPH {control, def, use, ismove}, nodeList) : (tigertemp
 		fun getdef index = let val mynode = List.nth (nodeList, index)
 								val defs = (case tabBusca (mynode, def) of SOME x=> x | NONE => [])
 							in addList (empty String.compare, defs) end
+
 
 		val listlen = List.length nodeList
 		val insarray = tabulate (listlen, fn _ => empty String.compare)
