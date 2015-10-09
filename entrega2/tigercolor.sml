@@ -21,12 +21,6 @@ val adjSet = empty tupleCompare
 val moveList = tabNueva()
 val worklistMoves = empty String.compare
 
-fun main fgraph nodes assems =
-let	
-(*	val adjSet = empty tupleCompare *)
-	val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
-in (insarray, outsarray, adjSet) end
-
 fun addEdge (nodeu,nodev) =
 	 if member (adjSet,(nodeu,nodev)) andalso String.compare(nodeu,nodev) = EQUAL
 		then 
@@ -51,7 +45,7 @@ fun addEdge (nodeu,nodev) =
 										else ()
 
 				in () end
-					else ()
+					else print "no member\n"
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
 let
@@ -82,6 +76,13 @@ let
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 
+
+fun main fgraph nodes assems =
+let	
+(*	val adjSet = empty tupleCompare *)
+	val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
+	val _ = build outsarray assems 0 (fgraph,nodes)
+in (insarray, outsarray, adjSet) end
 
 
 

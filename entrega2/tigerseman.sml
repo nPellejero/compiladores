@@ -465,12 +465,12 @@ fun transExp(venv, tenv) =
 			val assems = List.map (format (fn x=>x)) instrs
 			val _ = List.map print assems
 			val (fgraph,nodes) = tigermakegraph.instrs2graph instrs
-			val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes assems 
+			val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes instrs 
 			val _ = print (".-.-.-"^ Int.toString(List.length (tabClaves tigercolor.adjList))) 
 			val _ = tabAAplica (print, (fn set => (print "{"; Splayset.app (fn x => (print x;print ", ")) set ;print "}\n")), tigercolor.adjList) 
-			val _ = Array.appi (fn (i, temps) => (print ("\nLiveins at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) insarray
-			val _ = Array.appi (fn (i, temps) => (print ("\nLiveouts at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) outsarray 
+			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveins at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) insarray*)
+			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveouts at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) outsarray*) 
 			(*val _ = (print ("Nodes:\n"); (List.map (fn x=> print (tigergraph.nodename x^", ")) nodes))*)
 			(*val _ = tigerinterp.inter false a b*)
-		in	print "bien!\n" end
+		in	print "\n bien!\n" end
 	end
