@@ -14,7 +14,6 @@ fun tupleCompare ((a,b),(c,d)) = if String.compare(a,c)=EQUAL andalso String.com
 
 
 val precolored = empty String.compare
-(*val adjSet = empty tupleCompare *)
 val adjList = tabNueva()
 val degree = tabNueva()
 val adjSet = empty tupleCompare
@@ -22,7 +21,7 @@ val moveList = tabNueva()
 val worklistMoves = empty String.compare
 
 fun addEdge (nodeu,nodev) =
-	 if member (adjSet,(nodeu,nodev)) andalso String.compare(nodeu,nodev) = EQUAL
+	 if not(member (adjSet,(nodeu,nodev))) andalso not(String.compare(nodeu,nodev) = EQUAL)
 		then 
 			let
 				val adjSet = add(adjSet, (nodeu,nodev))
@@ -34,7 +33,8 @@ fun addEdge (nodeu,nodev) =
 											val _ = tabInserta(nodeu, adjU, adjList)
 											val _ = tabInserta(nodeu,tabSaca(nodeu,degree)+1, degree) 
 											in () end 
-									else ()
+									else print "es precolored\n" 
+
 				val _ = if not(member(precolored, nodev))
 									then 
 										let 
@@ -42,13 +42,14 @@ fun addEdge (nodeu,nodev) =
 											val _ = tabInserta(nodev, adjV, adjList)
 											val _ = tabInserta(nodev,tabSaca(nodev,degree)+1, degree) 
 											in () end
-										else ()
+										else print "es precolored\n" 
 
 				in () end
 					else print "no member\n"
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
 let
+	(*val _ = print i*)
 	fun getuse index = let val mynode = List.nth (nodes, index)
 										val uses = (case tabBusca (mynode, use) of SOME x=> x | NONE => [])
 									in addList (empty String.compare, uses) end
@@ -79,7 +80,6 @@ in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismov
 
 fun main fgraph nodes assems =
 let	
-(*	val adjSet = empty tupleCompare *)
 	val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = build outsarray assems 0 (fgraph,nodes)
 in (insarray, outsarray, adjSet) end
