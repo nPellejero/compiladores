@@ -19,7 +19,16 @@ val degree = tabNueva()
 val adjSet = empty tupleCompare
 val moveList = tabNueva()
 val worklistMoves = empty String.compare
-
+fun tabSacaConj (item, table) = 
+			let
+				val conj =  tabSaca(item, table)
+				handle noExiste => empty String.compare
+				in conj end
+fun tabSacaInt (item, table) = 
+			let
+				val num =  tabSaca(item, table)
+				handle noExiste => 0
+				in num end
 fun addEdge (nodeu,nodev) =
 	 if not(member (adjSet,(nodeu,nodev))) andalso not(String.compare(nodeu,nodev) = EQUAL)
 		then 
@@ -29,23 +38,23 @@ fun addEdge (nodeu,nodev) =
 				val _ = if not(member(precolored, nodeu))
 									then 
 										let 
-											val adjU = add(tabSaca(nodeu, adjList), nodev)
+											val adjU = add(tabSacaConj(nodeu, adjList), nodev)
 											val _ = tabInserta(nodeu, adjU, adjList)
-											val _ = tabInserta(nodeu,tabSaca(nodeu,degree)+1, degree) 
+											val _ = tabInserta(nodeu,tabSacaInt(nodeu,degree)+1, degree) 
 											in () end 
 									else print "es precolored\n" 
 
 				val _ = if not(member(precolored, nodev))
 									then 
 										let 
-											val adjV = add(tabSaca(nodev, adjList), nodeu)
+											val adjV = add(tabSacaConj(nodev, adjList), nodeu)
 											val _ = tabInserta(nodev, adjV, adjList)
-											val _ = tabInserta(nodev,tabSaca(nodev,degree)+1, degree) 
+											val _ = tabInserta(nodev,tabSacaInt(nodev,degree)+1, degree) 
 											in () end
 										else print "es precolored\n" 
 
 				in () end
-					else print "no member\n"
+					else (*print (nodeu ^ "equals??" ^ nodev ^ "\n") *) ()
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
 let
@@ -73,7 +82,7 @@ let
 			  in () end
 		| _ => ()
 	val live = union(live, getdef(i))
-	val _ = app (fn x => app (fn y => addEdge(x,y)) (getdef i)) live
+	val _ = app (fn x => revapp (fn y => addEdge(x,y)) (getdef i)) live
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 
