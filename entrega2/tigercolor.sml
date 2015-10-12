@@ -13,48 +13,46 @@ fun tupleCompare ((a,b), (c,d)) = if a = c andalso b = d then EQUAL else GREATER
 fun tupleCompare ((a,b),(c,d)) = if String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL then EQUAL else GREATER
 
 
-val precolored = empty String.compare
-val adjList = tabNueva()
-val degree = tabNueva()
-val adjSet = empty tupleCompare
-val moveList = tabNueva()
-val worklistMoves = empty String.compare
+val precolored = ref(empty String.compare)
+val adjList = ref(tabNueva())
+val degree = ref(tabNueva())
+val adjSet = ref(empty tupleCompare)
+val moveList = ref(tabNueva())
+val worklistMoves = ref(empty String.compare)
+
 fun tabSacaConj (item, table) = 
 			let
 				val conj =  tabSaca(item, table)
-				handle noExiste => empty String.compare
 				in conj end
+				handle noExiste => empty String.compare
 fun tabSacaInt (item, table) = 
 			let
 				val num =  tabSaca(item, table)
+				in num end 
 				handle noExiste => 0
-				in num end
+
 fun addEdge (nodeu,nodev) =
-	 if not(member (adjSet,(nodeu,nodev))) andalso not(String.compare(nodeu,nodev) = EQUAL)
+	 if not(member (!adjSet,(nodeu,nodev))) andalso not(String.compare(nodeu,nodev) = EQUAL)
 		then 
 			let
-				val adjSet = add(adjSet, (nodeu,nodev))
-				val adjSet = add(adjSet, (nodev,nodeu))
-				val _ = if not(member(precolored, nodeu))
+				(*val _ =  print ("poniendo noddes: " ^ nodeu ^ nodev ^ "\n" ) *)
+				val _ = app (fn (x,y) => print ("("^x^","^y^")")) (!adjSet)
+				val _ = if not(member(!precolored, nodeu))
 									then 
 										let 
-											val adjU = add(tabSacaConj(nodeu, adjList), nodev)
-											val _ = tabInserta(nodeu, adjU, adjList)
-											val _ = tabInserta(nodeu,tabSacaInt(nodeu,degree)+1, degree) 
-											in () end 
+											val adjU = add(tabSacaConj(nodeu, !adjList), nodev)
+											in adjList := (tabInserta(nodeu, adjU, !adjList)); degree := (tabInserta(nodeu,tabSacaInt(nodeu,!degree)+1, !degree)) end 
+									else print "es precolored\n"
+ 
+				val _ = if not(member(!precolored, nodeu))
+									then 
+										let 
+											val adjU = add(tabSacaConj(nodeu, !adjList), nodev)
+											in adjList := (tabInserta(nodeu, adjU, !adjList)); degree := (tabInserta(nodeu,tabSacaInt(nodeu,!degree)+1, !degree)) end 
 									else print "es precolored\n" 
 
-				val _ = if not(member(precolored, nodev))
-									then 
-										let 
-											val adjV = add(tabSacaConj(nodev, adjList), nodeu)
-											val _ = tabInserta(nodev, adjV, adjList)
-											val _ = tabInserta(nodev,tabSacaInt(nodev,degree)+1, degree) 
-											in () end
-										else print "es precolored\n" 
-
-				in () end
-					else (*print (nodeu ^ "equals??" ^ nodev ^ "\n") *) ()
+				in adjSet := add(!adjSet, (nodeu,nodev)); adjSet := add(!adjSet, (nodeu,nodev)) end
+					else print (nodeu ^ " equals?? " ^ nodev ^ "\n") 
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
 let
@@ -74,15 +72,19 @@ let
 				val live = difference(live,getuse i)
 				fun funaccum (item, (conjX, conjY)) = let
 															val cci =  singleton String.compare item
-														in (union(conjX,cci), union(conjY,cci)) end
+														in (item::conjX, union(conjY,cci)) end
 	val mynode = List.nth (nodes,i)
 	val conjNode = let 
-									val xxs = (case tabBusca(mynode, moveList) of SOME x => x | NONE => [] ) in addList(empty String.compare, xxs) end
-			  val	(conjNode, worklistMoves) = foldr funaccum (conjNode, worklistMoves) (union(getdef(i), getuse(i)))
-			  in () end
+									val xxs = (case tabBusca(mynode, !moveList) of SOME x => x | NONE => [] ) in xxs end
+			  val	(conjNode, worklistTemp) = foldr funaccum (conjNode, !worklistMoves) (union(getdef(i), getuse(i)))
+			  in moveList := (tabInserta(mynode, conjNode, !moveList)); worklistMoves := worklistTemp end
 		| _ => ()
-	val live = union(live, getdef(i))
-	val _ = app (fn x => revapp (fn y => addEdge(x,y)) (getdef i)) live
+	val live = union(live, getdef i)
+	val _ = app (fn x =>( app (fn y => addEdge(x,y)) (getdef i))) live
+	val _ = print "esto es live:\n"
+	val _ = app (fn x => print (x ^ "\n")) live
+	val _ = print "esto es getdefi:\n"
+	val _ = app (fn x => print (x ^ "\n")) (getdef i)
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 
