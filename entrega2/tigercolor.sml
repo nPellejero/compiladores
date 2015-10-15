@@ -21,6 +21,8 @@ val spillWorklist = ref(empty String.compare)
 val freezeWorklist = ref(empty String.compare)
 val simplifyWorklist = ref(empty String.compare)
 val activeMoves = ref(empty String.compare)
+val selectStack = ref([])
+val coalescedNodes = ref(empty String.compare)
 
 fun tabSacaConj (item, table) = 
 			let
@@ -45,10 +47,20 @@ let
 	val init = difference(conjTmpReg,(!precolored))
 in initial := init end
 
+fun adjacent(n) = 
+	let 
+		val miadjList = tabSaca(n, !adjList)
+		val miselectStack = addList(empty String.compare, !selectStack)
+		in difference(miadjList, union(miselectStack, !coalescedNodes))
+   end
 fun nodeMoves n = let
-				val miMoveList = (case tabBusca(n, (!moveList)) of SOME x => x | NONE => (empty String.compare); print "nodeMoves: no esta el nodo")
-				val conjInter = intersection(tabSaca(n,(!moveList)),union(!activeMoves,!worklistMoves)) 
+				val miMoveList = tabSaca(n, !moveList) 
+				val conjInter = intersection(miMoveList,union(!activeMoves,!worklistMoves)) 
 				in conjInter end
+				handle noExiste => let
+														val vacio = empty String.compare
+														val _ =  print "nodeMoves: noExiste\n"
+													 in vacio end
 fun moveRelated n = isEmpty(nodeMoves n)
 
 fun makeWorklist() =
@@ -57,7 +69,7 @@ let
 										val init_n = delete ((!initial),x)
 										val g = tabSaca(x,(!degree))
 										handle noExiste => let
-														 val _ =  print "makeAux: no existe el nodo" in 0 end
+														 val _ =  print "makeAux: no existe el nodo\n" in 0 end
 									  val _ = print ("Degree:"^Int.toString(g)^"\n") 
 										val _ = if (g >= k) 
 													then spillWorklist := add(!spillWorklist,x)	 
@@ -122,7 +134,10 @@ let
 				val mynode = List.nth (nodes,i)
 			  val	(conjNode, worklistTemp) = foldr funaccum (tabSacaConj(nodename mynode, !moveList), !worklistMoves) (union(getdef(i), getuse(i)))
 			  in moveList := (tabRInserta(nodename mynode, conjNode, !moveList)); worklistMoves := worklistTemp end
-		| _ => ()
+		| _ => let 
+							val mynode = List.nth (nodes,i) 
+							in moveList := tabRInserta (nodename mynode, (empty String.compare), !moveList) 
+						end
 	val live = union(live, getdef i)
 	val _ = app (fn x =>( app (fn y => addEdge(x,y)) (getdef i))) live
 	val _ = print "esto es live:\n"
