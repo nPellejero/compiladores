@@ -45,7 +45,10 @@ let
 	val init = difference(conjTmpReg,(!precolored))
 in initial := init end
 
-fun nodeMoves n = intersection(tabSaca(n,(!moveList)),union(!activeMoves,!worklistMoves)) (*Quizas en vez de tabSaca sea tabBusca*)
+fun nodeMoves n = let
+				val miMoveList = (case tabBusca(n, (!moveList)) of SOME x => x | NONE => (empty String.compare); print "nodeMoves: no esta el nodo")
+				val conjInter = intersection(tabSaca(n,(!moveList)),union(!activeMoves,!worklistMoves)) 
+				in conjInter end
 fun moveRelated n = isEmpty(nodeMoves n)
 
 fun makeWorklist() =
@@ -53,10 +56,12 @@ let
   fun makeAux x = let
 										val init_n = delete ((!initial),x)
 										val g = tabSaca(x,(!degree))
+										handle noExiste => let
+														 val _ =  print "makeAux: no existe el nodo" in 0 end
 									  val _ = print ("Degree:"^Int.toString(g)^"\n") 
 										val _ = if (g >= k) 
 													then spillWorklist := add(!spillWorklist,x)	 
-													else if (*moveRelated(x)*) true
+													else if (moveRelated(x))
 															then  freezeWorklist := add(!freezeWorklist,x) 
 															else simplifyWorklist := add(!simplifyWorklist,x)
 									in initial := init_n 
@@ -98,7 +103,6 @@ fun addEdge (nodeu,nodev) =
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
 let
-	(*val _ = print i*)
 	fun getuse index = let val mynode = List.nth (nodes, index)
 										val uses = (case tabBusca (mynode, use) of SOME x=> x | NONE => [])
 									in addList (empty String.compare, uses) end
@@ -116,8 +120,8 @@ let
 															val cci =  singleton String.compare item
 														in (union(conjX,cci), union(conjY,cci)) end
 				val mynode = List.nth (nodes,i)
-			  val	(conjNode, worklistTemp) = foldr funaccum (tabSaca(mynode, !moveList), !worklistMoves) (union(getdef(i), getuse(i)))
-			  in moveList := (tabRInserta(mynode, conjNode, !moveList)); worklistMoves := worklistTemp end
+			  val	(conjNode, worklistTemp) = foldr funaccum (tabSacaConj(nodename mynode, !moveList), !worklistMoves) (union(getdef(i), getuse(i)))
+			  in moveList := (tabRInserta(nodename mynode, conjNode, !moveList)); worklistMoves := worklistTemp end
 		| _ => ()
 	val live = union(live, getdef i)
 	val _ = app (fn x =>( app (fn y => addEdge(x,y)) (getdef i))) live
@@ -135,7 +139,7 @@ let
 	val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = build outsarray assems 0 (fgraph,nodes)
 	val _ = initialInit()
-(*	val _ = makeWorklist() *)
+	val _ = makeWorklist() 
 in (insarray, outsarray, adjSet) end
 
 
