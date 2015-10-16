@@ -6,7 +6,7 @@ open tigerliveness
 open tigergraph
 open tigerassem
 
-fun tupleCompare ((a,b),(c,d)) = if String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL then EQUAL else GREATER
+fun tupleCompare ((a,b),(c,d)) = if (String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL) then EQUAL else GREATER
 
 val precolored_init = [fp,sp,rv,ov]
 val precolored = ref(empty String.compare)
@@ -53,6 +53,10 @@ fun adjacent(n) =
 		val miselectStack = addList(empty String.compare, !selectStack)
 		in difference(miadjList, union(miselectStack, !coalescedNodes))
    end
+	 handle noExiste => let 
+												val _ = print "adjacent: noExiste"
+											in empty String.compare end 
+
 fun nodeMoves n = let
 				val miMoveList = tabSaca(n, !moveList) 
 				val conjInter = intersection(miMoveList,union(!activeMoves,!worklistMoves)) 
@@ -63,14 +67,63 @@ fun nodeMoves n = let
 													 in vacio end
 fun moveRelated n = isEmpty(nodeMoves n)
 
+fun enableMoves(conjuntoNodes) =
+	let
+		fun enableAux(n) = 
+			let
+				fun auxDeAux(m) =
+					let
+						 val sing = singleton String.compare m
+						 val _ = if member(!activeMoves, m)
+										 then
+											 let
+													val dif =  difference(!activeMoves, sing)
+													val un  =   union(!worklistMoves, sing)
+												in activeMoves := dif; worklistMoves := un end
+										 else () 
+						in ()
+					end
+			in app auxDeAux (nodeMoves(n)) end		
+	in app enableAux conjuntoNodes end
+
+	
+
+fun decrementDegree(m) =
+	let 
+		val d = tabSaca(m, !degree)
+		val _ = if d = k
+						then
+							let
+								val sing = singleton String.compare m
+								val uni  = union(sing, adjacent(m))
+								(*val _ = enableMoves(uni)	*)
+								val miSpill = difference(!spillWorklist, sing)
+								val _ = if (moveRelated(m))
+															then  freezeWorklist := add(!freezeWorklist,m) 
+															else simplifyWorklist := add(!simplifyWorklist,m)
+							in spillWorklist := miSpill end
+						else ()
+	in degree := tabRInserta(m, d-1, !degree) end  
+		
+
+fun simplify() = 
+	let 
+		fun justAux(n) = 
+			let
+				val justAuxWorklist = delete(!simplifyWorklist, n)
+				val auxStack = n::(!selectStack)
+				val _ = app decrementDegree	(adjacent(n))		
+			in selectStack := auxStack; simplifyWorklist := justAuxWorklist end  
+		val item = (case (find (fn x => true) (!simplifyWorklist)) of SOME x=> x | NONE => "simplify vacio") 
+	in justAux item end
+			
 fun makeWorklist() =
 let 
   fun makeAux x = let
 										val init_n = delete ((!initial),x)
 										val g = tabSaca(x,(!degree))
 										handle noExiste => let
-														 val _ =  print "makeAux: no existe el nodo\n" in 0 end
-									  val _ = print ("Degree:"^Int.toString(g)^"\n") 
+														 val _ =  print ("makeAux: no existe el nodo:"^x ^" \n") in 0 end
 										val _ = if (g >= k) 
 													then spillWorklist := add(!spillWorklist,x)	 
 													else if (moveRelated(x))
@@ -82,35 +135,39 @@ let
 in app makeAux (!initial) 
 end
 
+fun miMember2(conj, elem) =
+		let 
+			val conjBool = foldr (fn (x,accum) => tupleCompare(x, elem)=EQUAL orelse accum) false conj 
+			in conjBool end
 
 fun addEdge (nodeu,nodev) =
-	 if not(member (!adjSet,(nodeu,nodev))) andalso not(String.compare(nodeu,nodev) = EQUAL)
+	 if (not(miMember2 (!adjSet,(nodeu,nodev))) orelse not(miMember2 (!adjSet,(nodev,nodeu)))) andalso not(String.compare(nodeu,nodev) = EQUAL)
 		then 
 			let
 				(*val _ =  print ("poniendo noddes: " ^ nodeu ^ nodev ^ "\n" ) 
 				val _ = app (fn (x,y) => print ("("^x^","^y^")")) (!adjSet)
-				val _ = print "\n" *)
+				val _ = print "\n"*) 
 				val _ = if not(member(!precolored, nodeu))
 									then 
 										let 
 											val adjU = add(tabSacaConj(nodeu, !adjList), nodev)
-										(*	val _ = print ("Nodeu:"^nodeu^"\n")
+											val _ = print ("Nodeu:"^nodeu^"\n")
 											val _ = app (fn x => print (x^"-")) adjU
-											val _ = print "\n"*)
+											val _ = print "\n"
 											in adjList := (tabRInserta(nodeu, adjU, !adjList)); degree := (tabRInserta(nodeu,tabSacaInt(nodeu,!degree)+1, !degree)) end 
-									else print "es precolored\n"
+									else degree := (tabRInserta(nodeu, 1000, !degree))
  
 				val _ = if not(member(!precolored, nodev))
 									then 
 										let 
 											val adjU = add(tabSacaConj(nodev, !adjList), nodeu)
-										(*	val _ = print ("Nodev:"^nodev^"\n")
+											val _ = print ("Nodev:"^nodev^"\n")
 											val _ = app (fn x => print (x^"-")) adjU
-											val _ = print "\n" *)
-											in adjList := (tabRInserta(nodev, adjU, !adjList)); degree := (tabRInserta(nodeu,tabSacaInt(nodev,!degree)+1, !degree)) end 
-									else print "es precolored\n" 
+											val _ = print "\n" 
+											in adjList := (tabRInserta(nodev, adjU, !adjList)); degree := (tabRInserta(nodev,tabSacaInt(nodev,!degree)+1, !degree)) end 
+									else degree := (tabRInserta(nodev, 1000, !degree))
 
-				in adjSet := add(!adjSet, (nodeu,nodev)); adjSet := add(!adjSet, (nodeu,nodev)) end
+				in adjSet := add(!adjSet, (nodeu,nodev)); adjSet := add(!adjSet, (nodev,nodeu)) end
 					else () (*print (nodeu ^ " equals?? " ^ nodev ^ "\n")*) 
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
@@ -134,16 +191,16 @@ let
 				val mynode = List.nth (nodes,i)
 			  val	(conjNode, worklistTemp) = foldr funaccum (tabSacaConj(nodename mynode, !moveList), !worklistMoves) (union(getdef(i), getuse(i)))
 			  in moveList := (tabRInserta(nodename mynode, conjNode, !moveList)); worklistMoves := worklistTemp end
-		| _ => let 
+		| _ => let
 							val mynode = List.nth (nodes,i) 
 							in moveList := tabRInserta (nodename mynode, (empty String.compare), !moveList) 
 						end
 	val live = union(live, getdef i)
 	val _ = app (fn x =>( app (fn y => addEdge(x,y)) (getdef i))) live
-	val _ = print "esto es live:\n"
+(*	val _ = print "esto es live:\n"
 	val _ = app (fn x => print (x ^ "\n")) live
 	val _ = print "esto es getdefi:\n"
-	val _ = app (fn x => print (x ^ "\n")) (getdef i)
+	val _ = app (fn x => print (x ^ "\n")) (getdef i)*)
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 
