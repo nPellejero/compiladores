@@ -23,7 +23,7 @@ val simplifyWorklist = ref(empty String.compare)
 val activeMoves = ref(empty String.compare)
 val selectStack = ref([])
 val coalescedNodes = ref(empty String.compare)
-
+val alias = ref(tabNueva())
 fun tabSacaConj (item, table) = 
 			let
 				val conj =  tabSaca(item, table)
@@ -47,6 +47,11 @@ let
 	val init = difference(conjTmpReg,(!precolored))
 in initial := init end
 
+fun miMember2(conj, elem) =
+		let 
+			val conjBool = foldr (fn (x,accum) => tupleCompare(x, elem)=EQUAL orelse accum) false conj 
+			in conjBool end
+
 fun adjacent(n) = 
 	let 
 		val miadjList = tabSaca(n, !adjList)
@@ -65,6 +70,7 @@ fun nodeMoves n = let
 														val vacio = empty String.compare
 														val _ =  print "nodeMoves: noExiste\n"
 													 in vacio end
+
 fun moveRelated n = isEmpty(nodeMoves n)
 
 fun enableMoves(conjuntoNodes) =
@@ -114,9 +120,54 @@ fun simplify() =
 				val auxStack = n::(!selectStack)
 				val _ = app decrementDegree	(adjacent(n))		
 			in selectStack := auxStack; simplifyWorklist := justAuxWorklist end  
-		val item = (case (find (fn x => true) (!simplifyWorklist)) of SOME x=> x | NONE => "simplify vacio") 
+		val item = List.hd(listItems(!simplifyWorklist))
 	in justAux item end
-			
+	handle Empty => print "justAux: Empty"		
+
+fun addWorklist u = 
+	let
+		val cond1 = not(member(!precolored, u))
+		val cond2 = not(moveRelated(u)) 
+		val cond3 = tabSaca(u, !degree) < k
+		val _ = if (cond1 andalso cond2 andalso cond3)
+							then
+								let
+									val sing = singleton String.compare u
+								in 	freezeWorklist := difference(!freezeWorklist, sing);
+										simplifyWorklist := union(!simplifyWorklist, sing)
+								end 
+							else ()
+		handle noExiste => print "addWorklist: noExiste"
+	in () end
+
+fun ok(t, r) = 
+	let 
+		val degreeLess = tabSaca(t, !degree) < k
+		val ispre = member(!precolored, t)
+		val isInAdjset = miMember2(!adjSet,(t, r)) 
+	in degreeLess orelse ispre orelse isInAdjset end 
+	handle noExiste => let
+												val _ = print "ok: noExiste"
+											in true end 
+
+fun conservative(nodes) = 
+	let
+		fun funAux (x, y) = if y >= k then 1 else 0 
+		val mapped = map funAux (tabAList(!degree))
+		val reduced = List.foldr (fn (a,b) => a+b) 0 mapped
+	in reduced < k end 
+
+fun getAlias(n) =
+	if member(!coalescedNodes, n)
+			then
+				let
+					val miAlias = tabSaca(n, !alias)
+				in getAlias(miAlias) end
+				handle noExiste => let 
+														val _ = print "getAlias: noExiste"
+														in n end 
+			else n						
+
 fun makeWorklist() =
 let 
   fun makeAux x = let
@@ -135,10 +186,6 @@ let
 in app makeAux (!initial) 
 end
 
-fun miMember2(conj, elem) =
-		let 
-			val conjBool = foldr (fn (x,accum) => tupleCompare(x, elem)=EQUAL orelse accum) false conj 
-			in conjBool end
 
 fun addEdge (nodeu,nodev) =
 	 if (not(miMember2 (!adjSet,(nodeu,nodev))) orelse not(miMember2 (!adjSet,(nodev,nodeu)))) andalso not(String.compare(nodeu,nodev) = EQUAL)
@@ -151,9 +198,9 @@ fun addEdge (nodeu,nodev) =
 									then 
 										let 
 											val adjU = add(tabSacaConj(nodeu, !adjList), nodev)
-											val _ = print ("Nodeu:"^nodeu^"\n")
+											(*val _ = print ("Nodeu:"^nodeu^"\n")
 											val _ = app (fn x => print (x^"-")) adjU
-											val _ = print "\n"
+											val _ = print "\n" *)
 											in adjList := (tabRInserta(nodeu, adjU, !adjList)); degree := (tabRInserta(nodeu,tabSacaInt(nodeu,!degree)+1, !degree)) end 
 									else degree := (tabRInserta(nodeu, 1000, !degree))
  
@@ -161,9 +208,9 @@ fun addEdge (nodeu,nodev) =
 									then 
 										let 
 											val adjU = add(tabSacaConj(nodev, !adjList), nodeu)
-											val _ = print ("Nodev:"^nodev^"\n")
+											(*val _ = print ("Nodev:"^nodev^"\n")
 											val _ = app (fn x => print (x^"-")) adjU
-											val _ = print "\n" 
+											val _ = print "\n" *)
 											in adjList := (tabRInserta(nodev, adjU, !adjList)); degree := (tabRInserta(nodev,tabSacaInt(nodev,!degree)+1, !degree)) end 
 									else degree := (tabRInserta(nodev, 1000, !degree))
 
@@ -204,15 +251,26 @@ let
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 
+fun printConj conjToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n {")	
+		val _ = app (fn x => print (x^" ,")) conjToPrint
+		val _ = print "}\n"
+	in () end
+
 
 fun main fgraph nodes assems =
 let	
 	val _ = precoloredInit()
 	val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = build outsarray assems 0 (fgraph,nodes)
-	val _ = initialInit()
+	val _ = initialInit()	
 	val _ = makeWorklist() 
+	val _ = printConj (!spillWorklist) "spillWorklist"
+	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
+	val _ = printConj (!freezeWorklist) "freezeWorklist" 
+	val _ = printConj (!worklistMoves) "worklistMoves" 
+	val _ = if not(isEmpty(!simplifyWorklist)) then simplify() else () 
 in (insarray, outsarray, adjSet) end
-
 
 
