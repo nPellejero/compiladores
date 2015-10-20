@@ -102,7 +102,7 @@ fun decrementDegree(m) =
 							let
 								val sing = singleton String.compare m
 								val uni  = union(sing, adjacent(m))
-								(*val _ = enableMoves(uni)	*)
+								val _ = enableMoves(uni)	
 								val miSpill = difference(!spillWorklist, sing)
 								val _ = if (moveRelated(m))
 															then  freezeWorklist := add(!freezeWorklist,m) 
@@ -216,6 +216,40 @@ fun addEdge (nodeu,nodev) =
 
 				in adjSet := add(!adjSet, (nodeu,nodev)); adjSet := add(!adjSet, (nodev,nodeu)) end
 					else () (*print (nodeu ^ " equals?? " ^ nodev ^ "\n")*) 
+
+fun combine(u, v) =
+	let
+		val singU =  singleton String.compare u 
+		val singV =  singleton String.compare v
+		val _	=		let 
+						val _ = if member(!freezeWorklist, v) 
+										then
+											freezeWorklist := difference(!freezeWorklist, singV)
+										else
+											spillWorklist := difference(!spillWorklist, singV)
+						val miCoalesced = union(!coalescedNodes, singV)
+						val arg1 = tabSaca(u, (!moveList))
+						val arg2 = tabSaca(v, (!moveList))
+						handle noExiste => let 
+																val _ = print "combine: noExiste"
+															in empty String.compare end
+						val miNodeMoves = union(arg1, arg2)
+					in alias := tabRInserta(v, u, (!alias)); moveList := tabRInserta(u, miNodeMoves, (!moveList)) end
+	val _ = enableMoves(singV)
+	val _ = app (fn t => (addEdge(t, u); decrementDegree(t))) (adjacent v)
+	val degU = tabSaca(u, (!degree)) 
+	val _ = if degU >= k andalso member(!freezeWorklist, u)
+					then 
+						let 
+							val auxFreeze = difference(!freezeWorklist, singU)
+							val auxSpill  = union(!spillWorklist, singU)
+						in freezeWorklist := auxFreeze; spillWorklist := auxSpill end else ()
+	in () end
+
+
+ 
+							
+ 
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
 let
