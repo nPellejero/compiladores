@@ -8,6 +8,19 @@ open tigerassem
 
 fun tupleCompare ((a,b),(c,d)) = if (String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL) then EQUAL else GREATER
 
+fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a2, dst = d2, src = s2, jump = j2})) =
+					if a1 = a2 andalso d1 = d2 andalso s1 = s2 andalso j1 = j2 
+							then EQUAL else GREATER 
+
+|	 compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), _) = GREATER
+|	 compAssem ((LABEL{assem = a1, lab = l1}), (LABEL{assem = a2, lab = l2})) =
+					if a1 = a2 andalso l1 = l2 
+							then EQUAL else GREATER
+|	 compAssem ((LABEL{assem = a1, lab = l1}), _) =  GREATER
+|	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (MOVE{assem = a2, dst = d2, src = s2}))= 
+					if  a1 = a2 andalso d1 = d2 andalso s1 = s2 then EQUAL else GREATER
+|	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
+
 val precolored_init = [fp,sp,rv,ov]
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
@@ -15,12 +28,12 @@ val adjList = ref(tabNueva())
 val degree = ref(tabNueva())
 val adjSet = ref(empty tupleCompare)
 val moveList = ref(tabNueva())
-val worklistMoves = ref(empty String.compare)
+val worklistMoves = ref(empty compAssem)
 val k = 4
 val spillWorklist = ref(empty String.compare)
 val freezeWorklist = ref(empty String.compare)
 val simplifyWorklist = ref(empty String.compare)
-val activeMoves = ref(empty String.compare)
+val activeMoves = ref(empty compAssem)
 val selectStack = ref([])
 val coalescedNodes = ref(empty String.compare)
 val alias = ref(tabNueva())
@@ -67,7 +80,7 @@ fun nodeMoves n = let
 				val conjInter = intersection(miMoveList,union(!activeMoves,!worklistMoves)) 
 				in conjInter end
 				handle noExiste => let
-														val vacio = empty String.compare
+														val vacio = empty compAssem 
 														val _ =  print "nodeMoves: noExiste\n"
 													 in vacio end
 
@@ -79,7 +92,7 @@ fun enableMoves(conjuntoNodes) =
 			let
 				fun auxDeAux(m) =
 					let
-						 val sing = singleton String.compare m
+						 val sing = singleton compAssem m
 						 val _ = if member(!activeMoves, m)
 										 then
 											 let
@@ -97,6 +110,9 @@ fun enableMoves(conjuntoNodes) =
 fun decrementDegree(m) =
 	let 
 		val d = tabSaca(m, !degree)
+		handle noExiste => let
+										val _ = print "decDegree: noExiste"
+										in 0 end
 		val _ = if d = k
 						then
 							let
@@ -232,12 +248,15 @@ fun combine(u, v) =
 						val arg2 = tabSaca(v, (!moveList))
 						handle noExiste => let 
 																val _ = print "combine: noExiste"
-															in empty String.compare end
+															in empty  compAssem end
 						val miNodeMoves = union(arg1, arg2)
 					in alias := tabRInserta(v, u, (!alias)); moveList := tabRInserta(u, miNodeMoves, (!moveList)) end
 	val _ = enableMoves(singV)
 	val _ = app (fn t => (addEdge(t, u); decrementDegree(t))) (adjacent v)
 	val degU = tabSaca(u, (!degree)) 
+	handle noExiste => let 
+												val _ = print "combine: noExiste"
+											in 0 end
 	val _ = if degU >= k andalso member(!freezeWorklist, u)
 					then 
 						let 
@@ -266,15 +285,21 @@ let
 	val _ = case instr of MOVE {assem,dst,src} =>
 			let
 				val live = difference(live,getuse i)
-				fun funaccum (item, (conjX, conjY)) = let
-															val cci =  singleton String.compare item
-														in (union(conjX,cci), union(conjY,cci)) end
 				val mynode = List.nth (nodes,i)
-			  val	(conjNode, worklistTemp) = foldr funaccum (tabSacaConj(nodename mynode, !moveList), !worklistMoves) (union(getdef(i), getuse(i)))
-			  in moveList := (tabRInserta(nodename mynode, conjNode, !moveList)); worklistMoves := worklistTemp end
+				fun myFunAux item =
+						let 
+							val myMoveList = tabSaca(item, (!moveList))
+							val myConj = union(myMoveList, singleton compAssem instr)
+							handle noExiste => let
+														 		val _ =print "build: noExiste"
+																in empty compAssem end
+							in moveList := tabRInserta(item, myConj, (!moveList)) end
+				val _ = app myFunAux (union(getdef(i), getuse(i)))
+				val worklistTemp = union(!worklistMoves, singleton compAssem instr)
+			  in worklistMoves := worklistTemp end
 		| _ => let
 							val mynode = List.nth (nodes,i) 
-							in moveList := tabRInserta (nodename mynode, (empty String.compare), !moveList) 
+							in moveList := tabRInserta (nodename mynode, (empty compAssem), !moveList) 
 						end
 	val live = union(live, getdef i)
 	val _ = app (fn x =>( app (fn y => addEdge(x,y)) (getdef i))) live
@@ -288,10 +313,9 @@ in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismov
 fun printConj conjToPrint nombre = 
 	let
 		val _ = print("\n esto es: "^nombre^"\n {")	
-		val _ = app (fn x => print (x^" ,")) conjToPrint
+		val _ = app (fn x => (print x;(print " ,"))) conjToPrint
 		val _ = print "}\n"
 	in () end
-
 
 fun main fgraph nodes assems =
 let	
@@ -303,8 +327,7 @@ let
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printConj (!freezeWorklist) "freezeWorklist" 
-	val _ = printConj (!worklistMoves) "worklistMoves" 
+	(*val _ = printConj (!worklistMoves) "worklistMoves"  *)
 	val _ = if not(isEmpty(!simplifyWorklist)) then simplify() else () 
 in (insarray, outsarray, adjSet) end
-
 
