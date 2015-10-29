@@ -33,10 +33,14 @@ val k = 4
 val spillWorklist = ref(empty String.compare)
 val freezeWorklist = ref(empty String.compare)
 val simplifyWorklist = ref(empty String.compare)
-val activeMoves = ref(empty compAssem)
 val selectStack = ref([])
 val coalescedNodes = ref(empty String.compare)
 val alias = ref(tabNueva())
+val activeMoves = ref(empty compAssem)
+val coalescedMoves = ref(empty compAssem)
+val constrainedMoves = ref(empty compAssem)
+val frozenMoves = ref(empty compAssem)
+
 fun tabSacaConj (item, table) = 
 			let
 				val conj =  tabSaca(item, table)
