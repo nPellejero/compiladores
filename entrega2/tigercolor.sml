@@ -6,6 +6,12 @@ open tigerliveness
 open tigergraph
 open tigerassem
 
+fun miTabNueva() = let 
+						val table = tabNueva()
+						handle noExiste => let 
+												val _ = print "adjacent: noExiste"
+											in tabNueva() end					
+						in table end 
 fun tupleCompare ((a,b),(c,d)) = if (String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL) then EQUAL else GREATER
 
 fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a2, dst = d2, src = s2, jump = j2})) =
@@ -24,10 +30,10 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 val precolored_init = [fp,sp,rv,ov]
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
-val adjList = ref(tabNueva())
-val degree = ref(tabNueva())
+val adjList = ref(miTabNueva())
+val degree = ref(miTabNueva())
 val adjSet = ref(empty tupleCompare)
-val moveList = ref(tabNueva())
+val moveList = ref(miTabNueva())
 val worklistMoves = ref(empty compAssem)
 val k = 4
 val spillWorklist = ref(empty String.compare)
@@ -35,7 +41,7 @@ val freezeWorklist = ref(empty String.compare)
 val simplifyWorklist = ref(empty String.compare)
 val selectStack = ref([])
 val coalescedNodes = ref(empty String.compare)
-val alias = ref(tabNueva())
+val alias = ref(miTabNueva())
 val activeMoves = ref(empty compAssem)
 val coalescedMoves = ref(empty compAssem)
 val constrainedMoves = ref(empty compAssem)
@@ -50,7 +56,7 @@ fun tabSacaInt (item, table) =
 			let
 				val num =  tabSaca(item, table)
 				in num end 
-				handle noExiste => 0
+				handle noExiste => let val _ = print "tabSacaInt noExiste" in 0 end
 
 fun precoloredInit() =
 let
@@ -206,7 +212,6 @@ let
 in app makeAux (!initial) 
 end
 
-
 fun addEdge (nodeu,nodev) =
 	 if (not(miMember2 (!adjSet,(nodeu,nodev))) orelse not(miMember2 (!adjSet,(nodev,nodeu)))) andalso not(String.compare(nodeu,nodev) = EQUAL)
 		then 
@@ -269,10 +274,46 @@ fun combine(u, v) =
 						in freezeWorklist := auxFreeze; spillWorklist := auxSpill end else ()
 	in () end
 
+ fun coalesce() = 
+let
+	val m = List.hd(listItems(!worklistMoves))
+	val _ = case m of MOVE {assem,dst,src} => let
+						val x = getAlias(dst)
+						val y = getAlias(src)
+						val _ = print ("Coalesce:"^x^","^y^"\n")
+						val (u, v) = if member(!precolored, y) then (y, x) else (x, y)
+						val singM = singleton compAssem m
+						val tempWork = difference(!worklistMoves, singM) 
+						val _ = if (String.compare(u,v) = EQUAL) 
+									 		then let
+												val tempCoalesced1 = union(!coalescedMoves, singM)
+												val _ = addWorklist(u) in coalescedMoves := tempCoalesced1 end
+											else if member(!precolored, v) orelse miMember2(!adjSet, (u,v)) then
+															let
+																val tempConstrained = union(!constrainedMoves, singM)
+																val _ = addWorklist(u)
+																val _ = addWorklist(v) 
+															in constrainedMoves := tempConstrained end
+							             else let
+															val adjconj = adjacent(v)
+															val cond1 = foldr (fn (t,accum) => ok(t,u) andalso accum) true adjconj  
+															val unionConj = union(adjacent(u), adjacent(v))
+															val cond2 = conservative(unionConj)
+															val _ = if member(!precolored,u) andalso cond1 orelse 
+																					not(member(!precolored,u)) andalso cond2
+																			then
+																					let
+																						val tempCoalesced2 = union(!coalescedMoves, singM)	
+																						val _ = combine(u, v)
+																						val _ = addWorklist(u)
+																					in coalescedMoves := tempCoalesced2 end
+																			else activeMoves := union(!activeMoves, singM)
+															in () end
+		
+						in worklistMoves := tempWork end
+						| _ => () 
+in () end
 
- 
-							
- 
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
 let
@@ -299,6 +340,7 @@ let
 																in empty compAssem end
 							in moveList := tabRInserta(item, myConj, (!moveList)) end
 				val _ = app myFunAux (union(getdef(i), getuse(i)))
+				handle noExiste => print "build22: noExiste \n"
 				val worklistTemp = union(!worklistMoves, singleton compAssem instr)
 			  in worklistMoves := worklistTemp end
 		| _ => let
@@ -306,7 +348,7 @@ let
 							in moveList := tabRInserta (nodename mynode, (empty compAssem), !moveList) 
 						end
 	val live = union(live, getdef i)
-	val _ = app (fn x =>( app (fn y => addEdge(x,y)) (getdef i))) live
+	val _ = app (fn x =>( app (fn y => addEdge(x,y)) (getdef i))) live  
 (*	val _ = print "esto es live:\n"
 	val _ = app (fn x => print (x ^ "\n")) live
 	val _ = print "esto es getdefi:\n"
@@ -314,10 +356,55 @@ let
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 
+fun freezeMoves(u) = 
+	let
+		val conjNodeMoves = nodeMoves(u)
+		fun auxFun m = 
+			case m of MOVE{assem , dst, src} =>
+				let 
+					val v =  if String.compare(getAlias(src), getAlias(dst)) = EQUAL 
+										then getAlias(src) else getAlias(dst) (*src = x ; dst = y*) 
+					val singM = singleton compAssem m
+					val tempActiveMoves = difference(!activeMoves, singM)
+					val tempFrozenMoves = union(!frozenMoves, singM)
+					val degreeV = tabSacaInt(v, !degree)
+					val singV = singleton String.compare v
+					val _ = if isEmpty(nodeMoves(v)) andalso degreeV < k 
+										then 
+											let
+												val tempFreeze = difference(!freezeWorklist, singV) 
+												val	tempSimplify = union(!simplifyWorklist, singV) 
+											in freezeWorklist := tempFreeze; simplifyWorklist := tempSimplify end
+										else ()
+					in () end
+			| _ => ()
+		val _ = app auxFun conjNodeMoves
+	in () end
+
+fun freeze() =
+ let
+	val u = List.hd(listItems(!freezeWorklist))
+	val _ = print ("freeze: "^u^"\n")
+	val singU = singleton String.compare u
+	val tempFreeze = difference(!freezeWorklist,singU)
+	val tempSimplify = union(!simplifyWorklist,singU)
+	val _ = freezeMoves(u)
+ in freezeWorklist := tempFreeze; simplifyWorklist := tempSimplify end
+
 fun printConj conjToPrint nombre = 
 	let
 		val _ = print("\n esto es: "^nombre^"\n {")	
 		val _ = app (fn x => (print x;(print " ,"))) conjToPrint
+		val _ = print "}\n"
+	in () end
+
+fun printConjMoves conjToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n { ")	
+		fun printMoves m = 
+			case m of MOVE{assem, dst, src} => print ("MOVE: "^dst^","^src^"\n")				
+			| _ => print "estamo al horno"
+		val _ = app printMoves conjToPrint
 		val _ = print "}\n"
 	in () end
 
@@ -331,7 +418,15 @@ let
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printConj (!freezeWorklist) "freezeWorklist" 
-	(*val _ = printConj (!worklistMoves) "worklistMoves"  *)
-	val _ = if not(isEmpty(!simplifyWorklist)) then simplify() else () 
+	val _ = printConjMoves (!worklistMoves) "worklistMoves"  
+	val _ = if not(isEmpty(!simplifyWorklist)) then simplify() else 
+						 (*if not(isEmpty(!worklistMoves)) then coalesce() else  *)
+						 if not(isEmpty(!freezeWorklist)) then freeze() else ()
+	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
+	val _ = printConjMoves (!worklistMoves) "worklistMoves"
+	val _ = printConjMoves (!activeMoves) "activeMoves"
+	val _ = printConjMoves (!coalescedMoves) "coalescedMoves"
+	val _ = printConjMoves (!constrainedMoves) "constrainedMoves"
+	val _ = printConjMoves (!frozenMoves) "frozenMoves"
 in (insarray, outsarray, adjSet) end
 
