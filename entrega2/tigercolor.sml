@@ -12,6 +12,7 @@ fun miTabNueva() = let
 												val _ = print "adjacent: noExiste"
 											in tabNueva() end					
 						in table end 
+
 fun tupleCompare ((a,b),(c,d)) = if (String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL) then EQUAL else GREATER
 
 fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a2, dst = d2, src = s2, jump = j2})) =
@@ -86,13 +87,14 @@ fun adjacent(n) =
 											in empty String.compare end 
 
 fun nodeMoves n = let
+				val _ = print ("node: "^n^"\n")
 				val miMoveList = tabSaca(n, !moveList) 
-				val conjInter = intersection(miMoveList,union(!activeMoves,!worklistMoves)) 
-				in conjInter end
-				handle noExiste => let
+			  handle noExiste => let
 														val vacio = empty compAssem 
 														val _ =  print "nodeMoves: noExiste\n"
 													 in vacio end
+				val conjInter = intersection(miMoveList,union(!activeMoves,!worklistMoves)) 
+				in conjInter end
 
 fun moveRelated n = isEmpty(nodeMoves n)
 
@@ -334,11 +336,12 @@ let
 				fun myFunAux item =
 						let 
 							val myMoveList = tabSaca(item, (!moveList))
-							val myConj = union(myMoveList, singleton compAssem instr)
 							handle noExiste => let
-														 		val _ =print "build: noExiste"
+														 		val _ =print "build: noExiste\n"
 																in empty compAssem end
-							in moveList := tabRInserta(item, myConj, (!moveList)) end
+							val _ = print ("Build moveList:"^dst^","^src^"\n")
+							val myConj = union(myMoveList, singleton compAssem instr)
+				  	in moveList := tabRInserta(item, myConj, (!moveList)) end
 				val _ = app myFunAux (union(getdef(i), getuse(i)))
 				handle noExiste => print "build22: noExiste \n"
 				val worklistTemp = union(!worklistMoves, singleton compAssem instr)
@@ -356,12 +359,25 @@ let
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 
+fun printConjMoves conjToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n { ")	
+		fun printMoves m = 
+			case m of MOVE{assem, dst, src} => print ("MOVE: "^dst^","^src^"\n")				
+			| _ => print "estamo al horno"
+		val _ = app printMoves conjToPrint
+		val _ = print "}\n"
+	in () end
+
 fun freezeMoves(u) = 
 	let
+		val _ = print ("freezeMoves: "^u^"\n")
 		val conjNodeMoves = nodeMoves(u)
+		val _ = printConjMoves conjNodeMoves ("nodeMoves("^u^")")
 		fun auxFun m = 
 			case m of MOVE{assem , dst, src} =>
-				let 
+				let
+					val _ = print ("NodeMoves(u) -> MOVE: "^dst^","^src^"\n")	
 					val v =  if String.compare(getAlias(src), getAlias(dst)) = EQUAL 
 										then getAlias(src) else getAlias(dst) (*src = x ; dst = y*) 
 					val singM = singleton compAssem m
@@ -398,13 +414,14 @@ fun printConj conjToPrint nombre =
 		val _ = print "}\n"
 	in () end
 
-fun printConjMoves conjToPrint nombre = 
+fun printTab tabToPrint nombre = 
 	let
-		val _ = print("\n esto es: "^nombre^"\n { ")	
+		val _ = print("\n esto es: "^nombre^"\n {")	
 		fun printMoves m = 
 			case m of MOVE{assem, dst, src} => print ("MOVE: "^dst^","^src^"\n")				
 			| _ => print "estamo al horno"
-		val _ = app printMoves conjToPrint
+	  fun printSetMoves s =	let val _ = app printMoves s in () end	
+		val _ = tabAplica (printSetMoves,tabToPrint)  
 		val _ = print "}\n"
 	in () end
 
@@ -417,14 +434,17 @@ let
 	val _ = makeWorklist() 
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
+	val _ = printTab (!moveList) "moveList"
 	val _ = printConj (!freezeWorklist) "freezeWorklist" 
 	val _ = printConjMoves (!worklistMoves) "worklistMoves"  
+  val _ = printConjMoves (!activeMoves) "activeMoves"
 	val _ = if not(isEmpty(!simplifyWorklist)) then simplify() else 
-						 (*if not(isEmpty(!worklistMoves)) then coalesce() else  *)
+						 if not(isEmpty(!worklistMoves)) then coalesce() else  
 						 if not(isEmpty(!freezeWorklist)) then freeze() else ()
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
+	val _ = printConj (!freezeWorklist) "freezeWorklist"
 	val _ = printConjMoves (!worklistMoves) "worklistMoves"
-	val _ = printConjMoves (!activeMoves) "activeMoves"
+  val _ = printConjMoves (!activeMoves) "activeMoves"
 	val _ = printConjMoves (!coalescedMoves) "coalescedMoves"
 	val _ = printConjMoves (!constrainedMoves) "constrainedMoves"
 	val _ = printConjMoves (!frozenMoves) "frozenMoves"
