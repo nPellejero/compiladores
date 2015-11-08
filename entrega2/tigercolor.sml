@@ -425,6 +425,15 @@ fun printTab tabToPrint nombre =
 		val _ = print "}\n"
 	in () end
 
+fun selectSpill() =
+let 
+	val m = List.hd(listItems(!spillWorklist)) (* buscar heuristica*)
+  val singM = singleton String.compare m
+	val tempSpill = difference(!spillWorklist, singM)
+	val tempSimplify = union(!simplifyWorklist, singM)
+	val _ = freezeMoves(m)
+in spillWorklist := tempSpill; simplifyWorklist := tempSimplify end
+
 fun main fgraph nodes assems =
 let	
 	val _ = precoloredInit()
