@@ -466,7 +466,7 @@ fun transExp(venv, tenv) =
 			val _ = List.map print assems
 			val (fgraph,nodes) = tigermakegraph.instrs2graph instrs
 			val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes instrs 
-			val _ = print (".-.-.-"^ Int.toString(List.length (tabClaves (!tigercolor.adjList)))) 
+		(*	val _ = print  (".-.-.-"^ Int.toString(List.length (tabClaves (!tigercolor.adjList))))  *)
 			val _ = tabAAplica (print, (fn set => (print "{"; Splayset.app (fn x => (print x;print ", ")) set ;print "}\n")), (!tigercolor.adjList))
 			val _ = print ("esto es adjSet: \n")
 			val _ = Splayset.app (fn (x,y) => print ("("^x^","^y^")"^ ", ")) (!adjSet)

@@ -53,13 +53,13 @@ val spilledNodes = ref(empty String.compare)
 fun pushStack( item ) = selectStack := item::(!selectStack)
 fun popStack() = let
 					 					val _ = if null(!selectStack) 
-														then print "Error Stack empty"
+														then print "Error Stack empty\n"
 														else ()
 										val stackAux = List.tl(!selectStack)
-
-								in List.hd(!selectStack); selectStack := stackAux  end
+										val item = List.hd(!selectStack)
+								in selectStack := stackAux; item  end
 								handle Empty => let 
-									val _ = print "popStack: Empty"		
+									val _ = print "popStack: Empty\n"		
 									in "vacio" end
 
 fun tabSacaConj (item, table) = 
@@ -71,7 +71,7 @@ fun tabSacaInt (item, table) =
 			let
 				val num =  tabSaca(item, table)
 				in num end 
-				handle noExiste => let val _ = print "tabSacaInt noExiste" in 0 end
+				handle noExiste => 0
 
 fun precoloredInit() =
 let
@@ -83,6 +83,12 @@ fun initialInit() =
 let
 	val conjTmpReg = addList((empty String.compare), (tabClaves(!adjList)))
 	val init = difference(conjTmpReg,(!precolored))
+  (*fun funAuxD n = degree := tabRInserta(n,0,!degree)
+  val _ = app funAuxD conjTmpReg*)
+	fun funPreC i = color := tabRInserta(List.nth(precolored_init,i),singleton Int.compare i,!color)
+  val _ = app funPreC (addList(empty Int.compare, [0, 1, 2, 3])) (*Esto se deberia hacer mas prolijo*)
+  fun funAux n = color := tabRInserta(n,empty Int.compare,!color)
+	val _ = app funAux init
 in initial := init end
 
 fun miMember2(conj, elem) =
@@ -101,7 +107,7 @@ fun adjacent(n) =
 											in empty String.compare end 
 
 fun nodeMoves n = let
-				val _ = print ("node: "^n^"\n")
+		(*	val _ = print ("node: "^n^"\n") *)
 				val miMoveList = tabSaca(n, !moveList) 
 			  handle noExiste => let
 														val vacio = empty compAssem 
@@ -156,7 +162,7 @@ fun decrementDegree(m) =
 
 fun simplify() = 
 	let
-		val _ = print "simplify" 
+		val _ = print "Simplify\n" 
 		fun justAux(n) = 
 			let
 				val justAuxWorklist = delete(!simplifyWorklist, n)
@@ -293,7 +299,7 @@ fun combine(u, v) =
 
  fun coalesce() = 
 let
-	val _ = print "coalesce" 
+	val _ = print "Coalesce\n" 
 	val m = List.hd(listItems(!worklistMoves))
 	val _ = case m of MOVE {assem,dst,src} => let
 						val x = getAlias(dst)
@@ -353,14 +359,14 @@ let
 				fun myFunAux item =
 						let 
 							val myMoveList = tabSaca(item, (!moveList))
-							handle noExiste => let
+							handle noExiste => empty compAssem (*let
 														 		val _ =print "build: noExiste\n"
-																in empty compAssem end
+																in empty compAssem end*)
 							val _ = print ("Build moveList:"^dst^","^src^"\n")
 							val myConj = union(myMoveList, singleton compAssem instr)
 				  	in moveList := tabRInserta(item, myConj, (!moveList)) end
 				val _ = app myFunAux (union(getdef(i), getuse(i)))
-				handle noExiste => print "build22: noExiste \n"
+				handle noExiste => () (* print "build22: noExiste \n" *)
 				val worklistTemp = union(!worklistMoves, singleton compAssem instr)
 			  in worklistMoves := worklistTemp end
 		| _ => let
@@ -447,14 +453,27 @@ fun printTab2 tabToPrint nombre =
 	let
 		val _ = print("\n esto es: "^nombre^"\n {")	
 		(*val claves = tabClaves(tabToPrint) *)
-		fun printColor m = print ("Color: "^Int.toString(m)^"\n") 
-	  fun printSet s =	let val _ = app printColor s in () end	
-		val _ = tabAplica (printSet,tabToPrint)  
+		fun printColor m = print ("Color: "^Int.toString(m)) 
+	  fun printSet s =	let val _ = app printColor s
+													val _ = print "\n" in () end	
+		fun printClave k = print("Nodo: "^k^" -> ")
+		val _ = tabAAplica (printClave,printSet,tabToPrint)  
 		val _ = print "}\n"
 	in () end
+
+fun printTab3 tabToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n {")	
+		fun printValor v = print ("Valor: "^Int.toString(v)^"\n") 
+		fun printClave k = print("Nodo: "^k^" -> ")
+		val _ = tabAAplica (printClave,printValor,tabToPrint)  
+		val _ = print "}\n"
+	in () end
+
+
 fun selectSpill() =
 let
-	val _ = print "selectSpill" 
+	val _ = print "SelectSpill \n" 
 	val m = List.hd(listItems(!spillWorklist)) (* buscar heuristica*)
   val singM = singleton String.compare m
 	val tempSpill = difference(!spillWorklist, singM)
@@ -466,7 +485,7 @@ in spillWorklist := tempSpill; simplifyWorklist := tempSimplify end
 fun assignColors() =
 	case !selectStack of (x::xs) =>
 		let 
-			val _ = print "AssignColors" 
+			val _ = print "AssignColors \n" 
 			val n = popStack()
 			val singN = singleton String.compare n
 			val okColors =ref(addList(empty Int.compare, [0, 1, 2, 3]))
@@ -515,6 +534,8 @@ let
 	val _ = build outsarray assems 0 (fgraph,nodes)
 	val _ = initialInit()	
 	val _ = makeWorklist() 
+	val _ = printTab2 (!color) "color"
+	val _ = printTab3 (!degree) "degree"
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printTab (!moveList) "moveList"
