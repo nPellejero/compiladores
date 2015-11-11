@@ -12,7 +12,6 @@ fun miTabNueva() = let
 												val _ = print "adjacent: noExiste"
 											in tabNueva() end					
 						in table end 
-
 fun tupleCompare ((a,b),(c,d)) = if (String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL) then EQUAL else GREATER
 
 fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a2, dst = d2, src = s2, jump = j2})) =
@@ -47,6 +46,21 @@ val activeMoves = ref(empty compAssem)
 val coalescedMoves = ref(empty compAssem)
 val constrainedMoves = ref(empty compAssem)
 val frozenMoves = ref(empty compAssem)
+val color = ref(miTabNueva())
+val coloredNodes = ref(empty String.compare)
+val spilledNodes = ref(empty String.compare)
+
+fun pushStack( item ) = selectStack := item::(!selectStack)
+fun popStack() = let
+					 					val _ = if null(!selectStack) 
+														then print "Error Stack empty"
+														else ()
+										val stackAux = List.tl(!selectStack)
+
+								in List.hd(!selectStack); selectStack := stackAux  end
+								handle Empty => let 
+									val _ = print "popStack: Empty"		
+									in "vacio" end
 
 fun tabSacaConj (item, table) = 
 			let
@@ -141,13 +155,14 @@ fun decrementDegree(m) =
 		
 
 fun simplify() = 
-	let 
+	let
+		val _ = print "simplify" 
 		fun justAux(n) = 
 			let
 				val justAuxWorklist = delete(!simplifyWorklist, n)
-				val auxStack = n::(!selectStack)
+				val _ = pushStack(n)
 				val _ = app decrementDegree	(adjacent(n))		
-			in selectStack := auxStack; simplifyWorklist := justAuxWorklist end  
+			in simplifyWorklist := justAuxWorklist end  
 		val item = List.hd(listItems(!simplifyWorklist))
 	in justAux item end
 	handle Empty => print "justAux: Empty"		
@@ -199,7 +214,7 @@ fun getAlias(n) =
 fun makeWorklist() =
 let 
   fun makeAux x = let
-										val init_n = delete ((!initial),x)
+										val init_n = delete((!initial),x)
 										val g = tabSaca(x,(!degree))
 										handle noExiste => let
 														 val _ =  print ("makeAux: no existe el nodo:"^x ^" \n") in 0 end
@@ -278,6 +293,7 @@ fun combine(u, v) =
 
  fun coalesce() = 
 let
+	val _ = print "coalesce" 
 	val m = List.hd(listItems(!worklistMoves))
 	val _ = case m of MOVE {assem,dst,src} => let
 						val x = getAlias(dst)
@@ -315,6 +331,7 @@ let
 						in worklistMoves := tempWork end
 						| _ => () 
 in () end
+	handle Empty => print "coalesce: Empty"		
 
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
@@ -406,6 +423,7 @@ fun freeze() =
 	val tempSimplify = union(!simplifyWorklist,singU)
 	val _ = freezeMoves(u)
  in freezeWorklist := tempFreeze; simplifyWorklist := tempSimplify end
+	handle Empty => print "freeze: Empty"		
 
 fun printConj conjToPrint nombre = 
 	let
@@ -425,14 +443,70 @@ fun printTab tabToPrint nombre =
 		val _ = print "}\n"
 	in () end
 
+fun printTab2 tabToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n {")	
+		(*val claves = tabClaves(tabToPrint) *)
+		fun printColor m = print ("Color: "^Int.toString(m)^"\n") 
+	  fun printSet s =	let val _ = app printColor s in () end	
+		val _ = tabAplica (printSet,tabToPrint)  
+		val _ = print "}\n"
+	in () end
 fun selectSpill() =
-let 
+let
+	val _ = print "selectSpill" 
 	val m = List.hd(listItems(!spillWorklist)) (* buscar heuristica*)
   val singM = singleton String.compare m
 	val tempSpill = difference(!spillWorklist, singM)
 	val tempSimplify = union(!simplifyWorklist, singM)
 	val _ = freezeMoves(m)
 in spillWorklist := tempSpill; simplifyWorklist := tempSimplify end
+	handle Empty => print "SelectSpill: Empty"		
+
+fun assignColors() =
+	case !selectStack of (x::xs) =>
+		let 
+			val _ = print "AssignColors" 
+			val n = popStack()
+			val singN = singleton String.compare n
+			val okColors =ref(addList(empty Int.compare, [0, 1, 2, 3]))
+			val miAdjList = tabSacaConj(n, !adjList)
+			fun funAux(w) =
+				let 
+					val miAlias = getAlias(w)
+					val nodosColoreados = union(!coloredNodes, !precolored)
+					val _ = if member(nodosColoreados, miAlias)
+									then 
+										let
+											val col = tabSaca(miAlias, !color)
+											val okColorsAux = difference(!okColors, col)
+										in okColors := okColorsAux end   
+									else ()
+				in () end
+			val _ = app funAux miAdjList
+			handle noExiste =>  print "assignColors1: noExiste"
+			val _ = if isEmpty(!okColors) 
+							then
+								spilledNodes := union(!spilledNodes, singN)
+							else 
+								let
+									val miColored = union(!coloredNodes, singN)
+									val miItem = List.hd(listItems(!okColors))
+									val singM = singleton Int.compare miItem
+								in color := tabRInserta(n, singM, !color); coloredNodes := miColored end
+		handle Empty => print "okColors: Empty"		
+		in assignColors() end	
+	| [] => let 
+						fun funAux n =
+							let
+								val miAlias = getAlias(n)
+								val miColor = tabSaca(miAlias, !color)
+							in color := tabRInserta(n, miColor, !color ) end
+					in app funAux (!coalescedNodes) end
+					handle noExiste =>  print "assignColors2: noExiste/n"
+
+
+
 
 fun main fgraph nodes assems =
 let	
@@ -447,9 +521,14 @@ let
 	val _ = printConj (!freezeWorklist) "freezeWorklist" 
 	val _ = printConjMoves (!worklistMoves) "worklistMoves"  
   val _ = printConjMoves (!activeMoves) "activeMoves"
-	val _ = if not(isEmpty(!simplifyWorklist)) then simplify() else 
+	val condicion =  isEmpty(!simplifyWorklist) andalso isEmpty(!freezeWorklist) andalso isEmpty(!worklistMoves) andalso isEmpty(!spillWorklist)  
+	fun preAssign() = if not(isEmpty(!simplifyWorklist)) then simplify() else 
 						 if not(isEmpty(!worklistMoves)) then coalesce() else  
-						 if not(isEmpty(!freezeWorklist)) then freeze() else ()
+						 if not(isEmpty(!freezeWorklist)) then freeze() else 
+						if not(isEmpty(!spillWorklist)) then selectSpill() else ()
+	val _ = preAssign()
+	val _ = while condicion do ( preAssign() );
+	val _ = assignColors()
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printConj (!freezeWorklist) "freezeWorklist"
 	val _ = printConjMoves (!worklistMoves) "worklistMoves"
@@ -457,5 +536,8 @@ let
 	val _ = printConjMoves (!coalescedMoves) "coalescedMoves"
 	val _ = printConjMoves (!constrainedMoves) "constrainedMoves"
 	val _ = printConjMoves (!frozenMoves) "frozenMoves"
+	val _ = printConj (!spilledNodes) "spilledNodes"
+	val _ = printConj (!coloredNodes) "coloredNodes"
+	val _ = printTab2 (!color) "color"
 in (insarray, outsarray, adjSet) end
 
