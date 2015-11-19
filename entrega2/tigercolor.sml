@@ -9,7 +9,7 @@ open tigerassem
 fun miTabNueva() = let 
 						val table = tabNueva()
 						handle noExiste => let 
-												val _ = print "adjacent: noExiste"
+												val _ = print "miTabNueva: noExiste"
 											in tabNueva() end					
 						in table end 
 fun tupleCompare ((a,b),(c,d)) = if (String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL) then EQUAL else GREATER
@@ -102,17 +102,15 @@ fun adjacent(n) =
 		val miselectStack = addList(empty String.compare, !selectStack)
 		in difference(miadjList, union(miselectStack, !coalescedNodes))
    end
-	 handle noExiste => let 
-												val _ = print "adjacent: noExiste"
-											in empty String.compare end 
+	 handle noExiste =>  empty String.compare (*no esta mal.pasa cuando n es precol.*) 
 
 fun nodeMoves n = let
 		(*	val _ = print ("node: "^n^"\n") *)
 				val miMoveList = tabSaca(n, !moveList) 
 			  handle noExiste => let
 														val vacio = empty compAssem 
-														val _ =  print "nodeMoves: noExiste\n"
-													 in vacio end
+														val _ =  print ("nodeMoves: "^n^" -> noExiste\n")
+													 in vacio end	
 				val conjInter = intersection(miMoveList,union(!activeMoves,!worklistMoves)) 
 				in conjInter end
 
@@ -335,7 +333,7 @@ let
 															in () end
 		
 						in worklistMoves := tempWork end
-						| _ => () 
+						| _ => print "coalesce: estamo al horno" 
 in () end
 	handle Empty => print "coalesce: Empty"		
 
@@ -369,10 +367,10 @@ let
 				handle noExiste => () (* print "build22: noExiste \n" *)
 				val worklistTemp = union(!worklistMoves, singleton compAssem instr)
 			  in worklistMoves := worklistTemp end
-		| _ => let
+		| _ => () (* let
 							val mynode = List.nth (nodes,i) 
 							in moveList := tabRInserta (nodename mynode, (empty compAssem), !moveList) 
-						end
+						end *)
 	val live = union(live, getdef i)
 	val _ = app (fn x =>( app (fn y => addEdge(x,y)) (getdef i))) live  
 (*	val _ = print "esto es live:\n"
@@ -461,6 +459,18 @@ fun printTab2 tabToPrint nombre =
 		val _ = print "}\n"
 	in () end
 
+fun printTab4 tabToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n {")	
+		(*val claves = tabClaves(tabToPrint) *)
+		fun printColor m = print ("vecinos: "^m) 
+	  fun printSet s =	let val _ = app printColor s
+													val _ = print "\n" in () end	
+		fun printClave k = print("Nodo: "^k^" -> ")
+		val _ = tabAAplica (printClave,printSet,tabToPrint)  
+		val _ = print "}\n"
+	in () end
+
 fun printTab3 tabToPrint nombre = 
 	let
 		val _ = print("\n esto es: "^nombre^"\n {")	
@@ -471,10 +481,42 @@ fun printTab3 tabToPrint nombre =
 	in () end
 
 
-fun selectSpill() =
+fun selectSpill() = (*FGRAPH{control, def, use, ismove},nodes)*) 
 let
+(*
+	val tabLive = ref(tabNueva())
+	fun funAux item = tabRInserta(item, 0, !tabLive)
+	val _ = app funAux spillWorklist
+
+	fun getuse index = let val mynode = List.nth (nodes, index)
+										val uses = (case tabBusca (mynode, use) of SOME x=> x | NONE => [])
+									in addList (empty String.compare, uses) end
+	fun getdef index = let val mynode = List.nth (nodes, index)
+										val defs = (case tabBusca (mynode, def) of SOME x=> x | NONE => [])
+									in addList (empty String.compare, defs) end
+
+	fun calcLive i defs uses = 
+	let
+		val def = getdef i
+		val use = getuse i
+		val inter = intersection(def, !spillWorklist) 
+		fun funAux2 item = tabRInserta(item, i, !tabLive)
+		val _ = app funAux2 inter
+		fun 
+		val inter2 = intersection(use, !spillWorklist)
+	in calcLive (i+1) defs uses end
+	*)	
+
 	val _ = print "SelectSpill \n" 
-	val m = List.hd(listItems(!spillWorklist)) (* buscar heuristica*)
+	val max = ref(("string",0))
+	fun funAux item =
+		let
+			val deg = tabSacaInt(item, !degree)
+			val maxTemp = if #2(!max) > deg then !max else (item, deg)
+			in max := maxTemp end 
+
+	val _ = app funAux (!spillWorklist)
+	val m = #1(!max) (* List.hd(listItems(!spillWorklist))  buscar heuristica*)
   val singM = singleton String.compare m
 	val tempSpill = difference(!spillWorklist, singM)
 	val tempSimplify = union(!simplifyWorklist, singM)
@@ -524,8 +566,48 @@ fun assignColors() =
 					in app funAux (!coalescedNodes) end
 					handle noExiste =>  print "assignColors2: noExiste/n"
 
+fun rewrite assems (FGRAPH{control, def, use, ismove},nodes) = 
+	let 
+	fun getuse index = let val mynode = List.nth (nodes, index)
+										val uses = (case tabBusca (mynode, use) of SOME x=> x | NONE => [])
+									in addList (empty String.compare, uses) end
+	fun getdef index = let val mynode = List.nth (nodes, index)
+										val defs = (case tabBusca (mynode, def) of SOME x=> x | NONE => [])
+									in addList (empty String.compare, defs) end
 
+	fun funAuxPrev item =
+		let 
+			val puntero = externalCall("_allocRecord", 1)
+		  fun moveInsn (dst, src) = ()
+      fun store temp punt = moveInsn (punt, temp)
+      fun fetch temp punt = moveInsn (temp,punt)
+	
 
+	fun funAux item assemL puntero i =
+		let
+			val midef = getdef(i)
+			val miuse = getuse(i)	 
+			val assemTemp = if member(item, midef)
+							then
+								let
+									val miTemp = newtemp()
+								  val storeIns = store miTemp puntero
+								  val (preAssem,postAssem) = (List.take(assemL, i), List.drop(assem, i)) 
+								in preAssem @ [storeIns] @ postAssem end
+							else assemL 
+			val assemTemp = if member(item, midef)
+							then
+								let
+									val miTemp = newtemp()
+								  val fetchIns = fetch miTemp puntero
+								  val (preAssem,postAssem) = (List.take(assemL, i-1), List.drop(assem, i-1))
+								in preAssem @ [fetchIns] @ postAssem end
+							else assemL
+  		in funAux item assemTemp puntero (i+1)  end
+			
+		in funAux item assem puntero 0 end
+	
+	in app funAuxPrev (!spillNodes) end
 
 fun main fgraph nodes assems =
 let	
@@ -540,17 +622,34 @@ let
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printTab (!moveList) "moveList"
 	val _ = printConj (!freezeWorklist) "freezeWorklist" 
+	(*val _ = printTab4 (!adjList) "adjList"*)
 	val _ = printConjMoves (!worklistMoves) "worklistMoves"  
   val _ = printConjMoves (!activeMoves) "activeMoves"
-	val condicion =  isEmpty(!simplifyWorklist) andalso isEmpty(!freezeWorklist) andalso isEmpty(!worklistMoves) andalso isEmpty(!spillWorklist)  
+	fun boolcond() =  isEmpty(!simplifyWorklist) andalso isEmpty(!freezeWorklist) andalso isEmpty(!worklistMoves) andalso isEmpty(!spillWorklist)  
 	fun preAssign() = if not(isEmpty(!simplifyWorklist)) then simplify() else 
 						 if not(isEmpty(!worklistMoves)) then coalesce() else  
 						 if not(isEmpty(!freezeWorklist)) then freeze() else 
 						if not(isEmpty(!spillWorklist)) then selectSpill() else ()
 	val _ = preAssign()
-	val _ = while condicion do ( preAssign() );
+  val condicion = ref(boolcond())
+	val _ = print ("CONDICION: "^Bool.toString(!condicion)^"\n") 
+	val _ = printConj (!spillWorklist) "spillWorklist"
+	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
+	val _ = printConj (!freezeWorklist) "freezeWorklist"
+	val _ = printConjMoves (!worklistMoves) "worklistMoves" 
+	val i = ref(0) 
+	fun lengthList() =
+		let 
+			val numSim =  Int.toString(numItems (!simplifyWorklist))
+			val numwor =  Int.toString(numItems (!worklistMoves))
+			val numfre =  Int.toString(numItems (!freezeWorklist))
+			val numSpi =  Int.toString(numItems (!spillWorklist))
+			val _ = print ("num lists: "^numSim^" "^numwor^" "^numfre^" "^numSpi^"\n")
+		in () end 
+	val _ = while not(!condicion) do ( preAssign();condicion:=boolcond();i:=(!i)+1;print ("i:::"^Int.toString(!i)^"\n"); lengthList())
 	val _ = assignColors()
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
+	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!freezeWorklist) "freezeWorklist"
 	val _ = printConjMoves (!worklistMoves) "worklistMoves"
   val _ = printConjMoves (!activeMoves) "activeMoves"
