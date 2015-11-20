@@ -4,7 +4,7 @@ open tigertab
 open tigerframe
 open tigerliveness
 open tigergraph
-open tigerassem
+				open tigerassem
 
 fun miTabNueva() = let 
 						val table = tabNueva()
@@ -481,46 +481,36 @@ fun printTab3 tabToPrint nombre =
 	in () end
 
 
-fun selectSpill() = (*FGRAPH{control, def, use, ismove},nodes)*) 
+fun selectSpill(assem ) = 
 let
-(*
-	val tabLive = ref(tabNueva())
-	fun funAux item = tabRInserta(item, 0, !tabLive)
-	val _ = app funAux spillWorklist
-
-	fun getuse index = let val mynode = List.nth (nodes, index)
-										val uses = (case tabBusca (mynode, use) of SOME x=> x | NONE => [])
-									in addList (empty String.compare, uses) end
-	fun getdef index = let val mynode = List.nth (nodes, index)
-										val defs = (case tabBusca (mynode, def) of SOME x=> x | NONE => [])
-									in addList (empty String.compare, defs) end
-
-	fun calcLive i defs uses = 
-	let
-		val def = getdef i
-		val use = getuse i
-		val inter = intersection(def, !spillWorklist) 
-		fun funAux2 item = tabRInserta(item, i, !tabLive)
-		val _ = app funAux2 inter
-		fun 
-		val inter2 = intersection(use, !spillWorklist)
-	in calcLive (i+1) defs uses end
-	*)	
-
+	
+	fun funAux1 ((OPER{assem = a, dst = d, src = s, jump = j}), accum) = (s @ d @ accum)
+	| funAux1 ((MOVE{assem = a, dst = d, src = s}), accum) = (s::d::accum)
+	| funAux1 ((LABEL{assem = a, lab=l}), accum) = accum
+	val masterList = List.foldl funAux1 [] assem
+	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = print "SelectSpill \n" 
 	val max = ref(("string",0))
-	fun funAux item =
+ 
+	fun nuevaFun (item, (temp,apar)) = let
+		val num = (List.length(List.filter(fn x => String.compare(x, item) = EQUAL) masterList ))	
+	  val _ = print ("("^item^","^Int.toString(num)^")\n")	
+		val ret = if (num > apar) then (item, num) else (temp,apar)
+		in ret end
+		
+	val (temp,num) = foldl nuevaFun ("temp",0)  (!spillWorklist)
+	val _ = print ("Este spilleamos:::"^temp^"\n")
+	(*fun funAux item =
 		let
 			val deg = tabSacaInt(item, !degree)
 			val maxTemp = if #2(!max) > deg then !max else (item, deg)
-			in max := maxTemp end 
-
-	val _ = app funAux (!spillWorklist)
-	val m = #1(!max) (* List.hd(listItems(!spillWorklist))  buscar heuristica*)
-  val singM = singleton String.compare m
+			in max := maxTemp end
+		val _ = app funAux (!spillWorklist)
+	val m = #1(!max)  List.hd(listItems(!spillWorklist))  buscar heuristica*)
+  val singM = singleton String.compare temp 
 	val tempSpill = difference(!spillWorklist, singM)
 	val tempSimplify = union(!simplifyWorklist, singM)
-	val _ = freezeMoves(m)
+	val _ = freezeMoves(temp)
 in spillWorklist := tempSpill; simplifyWorklist := tempSimplify end
 	handle Empty => print "SelectSpill: Empty"		
 
@@ -565,7 +555,7 @@ fun assignColors() =
 							in color := tabRInserta(n, miColor, !color ) end
 					in app funAux (!coalescedNodes) end
 					handle noExiste =>  print "assignColors2: noExiste/n"
-
+(*
 fun rewrite assems (FGRAPH{control, def, use, ismove},nodes) = 
 	let 
 	fun getuse index = let val mynode = List.nth (nodes, index)
@@ -577,7 +567,7 @@ fun rewrite assems (FGRAPH{control, def, use, ismove},nodes) =
 
 	fun funAuxPrev item =
 		let 
-			val puntero = externalCall("_allocRecord", 1)
+			val puntero = externalCall("_allocRecord", [1]) llamar a alloclocal con escape = true. se necesita pasar el frame a alloc local para saber cuanto bajar el stack en prologo y epilogo. ver en el libro procentryexit3 
 		  fun moveInsn (dst, src) = ()
       fun store temp punt = moveInsn (punt, temp)
       fun fetch temp punt = moveInsn (temp,punt)
@@ -590,7 +580,7 @@ fun rewrite assems (FGRAPH{control, def, use, ismove},nodes) =
 			val assemTemp = if member(item, midef)
 							then
 								let
-									val miTemp = newtemp()
+									val miTemp = Frame.newtemp()
 								  val storeIns = store miTemp puntero
 								  val (preAssem,postAssem) = (List.take(assemL, i), List.drop(assem, i)) 
 								in preAssem @ [storeIns] @ postAssem end
@@ -608,7 +598,7 @@ fun rewrite assems (FGRAPH{control, def, use, ismove},nodes) =
 		in funAux item assem puntero 0 end
 	
 	in app funAuxPrev (!spillNodes) end
-
+*)
 fun main fgraph nodes assems =
 let	
 	val _ = precoloredInit()
@@ -629,7 +619,7 @@ let
 	fun preAssign() = if not(isEmpty(!simplifyWorklist)) then simplify() else 
 						 if not(isEmpty(!worklistMoves)) then coalesce() else  
 						 if not(isEmpty(!freezeWorklist)) then freeze() else 
-						if not(isEmpty(!spillWorklist)) then selectSpill() else ()
+						if not(isEmpty(!spillWorklist)) then selectSpill(assems) else ()
 	val _ = preAssign()
   val condicion = ref(boolcond())
 	val _ = print ("CONDICION: "^Bool.toString(!condicion)^"\n") 
