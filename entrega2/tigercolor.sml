@@ -557,18 +557,13 @@ fun assignColors() =
 					in app funAux (!coalescedNodes) end
 					handle noExiste =>  print "assignColors2: noExiste/n"
 (*
-fun rewrite assems (FGRAPH{control, def, use, ismove},nodes) = 
+fun rewrite (assems, frame) = 
 	let 
-	fun getuse index = let val mynode = List.nth (nodes, index)
-										val uses = (case tabBusca (mynode, use) of SOME x=> x | NONE => [])
-									in addList (empty String.compare, uses) end
-	fun getdef index = let val mynode = List.nth (nodes, index)
-										val defs = (case tabBusca (mynode, def) of SOME x=> x | NONE => [])
-									in addList (empty String.compare, defs) end
 
 	fun funAuxPrev item =
 		let 
-			val puntero = externalCall("_allocRecord", [1]) llamar a alloclocal con escape = true. se necesita pasar el frame a alloc local para saber cuanto bajar el stack en prologo y epilogo. ver en el libro procentryexit3 
+			val access = Frame.allocLocal frame true (*no estoy seguro si es true o false*)
+(*			val puntero = externalCall("_allocRecord", [1]) llamar a alloclocal con escape = true. se necesita pasar el frame a alloc local para saber cuanto bajar el stack en prologo y epilogo. ver en el libro procentryexit3 *)
 		  fun moveInsn (dst, src) = ()
       fun store temp punt = moveInsn (punt, temp)
       fun fetch temp punt = moveInsn (temp,punt)
@@ -576,17 +571,23 @@ fun rewrite assems (FGRAPH{control, def, use, ismove},nodes) =
 
 	fun funAux item assemL puntero i =
 		let
-			val midef = getdef(i)
-			val miuse = getuse(i)	 
+			val midef = (* getdef(i) extraer de src *)
+			val miuse = (* getuse(i) extraer de dst *)	 
 			val assemTemp = if member(item, midef)
 							then
 								let
 									val miTemp = Frame.newtemp()
 								  val storeIns = store miTemp puntero
-								  val (preAssem,postAssem) = (List.take(assemL, i), List.drop(assem, i)) 
-								in preAssem @ [storeIns] @ postAssem end
+								  (*Tambien necesitamos reemplazar en la instruccion el temporario por el temporario nuevo *)
+									val (preAssem,I,postAssem) = (List.take(assemL, i),List.nth(assemL,i),List.drop(assem, i+1)) 
+								  val newI = case	I of		
+									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
+											app (fn dst_u => replace(item,miTemp,dst_u)) dst (* dst es conjunto de conjuntos o algo asi*)		
+  								| (MOVE{assem = a, dst = d, src = s}) => 
+											replace(item,miTemp,dst)
+							 in preAssem @ [storeIns] @ I @ postAssem end
 							else assemL 
-			val assemTemp = if member(item, midef)
+			val assemTemp = if member(item, miuse)
 							then
 								let
 									val miTemp = newtemp()
