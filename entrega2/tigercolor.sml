@@ -28,6 +28,8 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
 
 val precolored_init = [fp,sp,rv,ov]
+val listaColors = [0, 1, 2, 3]
+val k = 4
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
 val adjList = ref(miTabNueva())
@@ -35,7 +37,6 @@ val degree = ref(miTabNueva())
 val adjSet = ref(empty tupleCompare)
 val moveList = ref(miTabNueva())
 val worklistMoves = ref(empty compAssem)
-val k = 4
 val spillWorklist = ref(empty String.compare)
 val freezeWorklist = ref(empty String.compare)
 val simplifyWorklist = ref(empty String.compare)
@@ -86,7 +87,7 @@ let
   (*fun funAuxD n = degree := tabRInserta(n,0,!degree)
   val _ = app funAuxD conjTmpReg*)
 	fun funPreC i = color := tabRInserta(List.nth(precolored_init,i),singleton Int.compare i,!color)
-  val _ = app funPreC (addList(empty Int.compare, [0, 1, 2, 3])) (*Esto se deberia hacer mas prolijo*)
+  val _ = app funPreC (addList(empty Int.compare, listaColors)) 
   fun funAux n = color := tabRInserta(n,empty Int.compare,!color)
 	val _ = app funAux init
 in initial := init end
@@ -520,7 +521,7 @@ fun assignColors() =
 			val _ = print "AssignColors \n" 
 			val n = popStack()
 			val singN = singleton String.compare n
-			val okColors =ref(addList(empty Int.compare, [0, 1, 2, 3]))
+			val okColors =ref(addList(empty Int.compare, listaColors )) 
 			val miAdjList = tabSacaConj(n, !adjList)
 			fun funAux(w) =
 				let 
