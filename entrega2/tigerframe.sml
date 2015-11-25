@@ -37,7 +37,7 @@ val localsInicial = 0		(* words *)
 val localsGap = 0 			(* bytes *)
 val calldefs = [rv]
 val specialregs = [rv, fp, sp]
-val argregs = ["ARG1","ARG2", "ARG3"] (*Feli was here*)
+val argregs = ["ARG1","ARG2", "ARG3", "ARG4" ] (*Feli was here*)
 val callersaves = []
 val calleesaves = []
 

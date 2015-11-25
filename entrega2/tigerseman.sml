@@ -474,5 +474,6 @@ fun transExp(venv, tenv) =
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveouts at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) outsarray*) 
 			(*val _ = (print ("Nodes:\n"); (List.map (fn x=> print (tigergraph.nodename x^", ")) nodes))*)
 			(*val _ = tigerinterp.inter false a b*)
+			(* val assems = List.map (format ()) instrs *) 
 		in	print "\n bien!\n" end
 	end

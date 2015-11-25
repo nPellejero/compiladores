@@ -27,9 +27,9 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 					if  a1 = a2 andalso d1 = d2 andalso s1 = s2 then EQUAL else GREATER
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
 
-val precolored_init = [fp,sp,rv,ov]
-val listaColors = [0, 1, 2, 3]
-val k = 4
+val precolored_init = [fp, sp, rv ] @ argregs (*[fp,sp,rv,ov]*)
+val listaColors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+val k = 14
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
 val adjList = ref(miTabNueva())
@@ -86,8 +86,13 @@ let
 	val init = difference(conjTmpReg,(!precolored))
   (*fun funAuxD n = degree := tabRInserta(n,0,!degree)
   val _ = app funAuxD conjTmpReg*)
-	fun funPreC i = color := tabRInserta(List.nth(precolored_init,i),singleton Int.compare i,!color)
-  val _ = app funPreC (addList(empty Int.compare, listaColors)) 
+	fun funPreC i = color := tabRInserta(List.nth(precolored_init,i-14),singleton Int.compare i,!color)
+  val _ = app funPreC (addList(empty Int.compare, [14, 15])) 
+	val _ = color := tabRInserta(rv, singleton Int.compare 0,  !color)
+	val _ = color := tabRInserta(List.nth(argregs, 0), singleton Int.compare 2,  !color)
+	val _ = color := tabRInserta(List.nth(argregs, 1), singleton Int.compare 3,  !color)
+	val _ = color := tabRInserta(List.nth(argregs, 2), singleton Int.compare 4,  !color)
+	val _ = color := tabRInserta(List.nth(argregs, 3), singleton Int.compare 5,  !color)
   fun funAux n = color := tabRInserta(n,empty Int.compare,!color)
 	val _ = app funAux init
 in initial := init end
