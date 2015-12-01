@@ -561,51 +561,76 @@ fun assignColors() =
 							in color := tabRInserta(n, miColor, !color ) end
 					in app funAux (!coalescedNodes) end
 					handle noExiste =>  print "assignColors2: noExiste/n"
+
 (*
 fun rewrite (assems, frame) = 
-	let 
-
-	fun funAuxPrev item =
+let 
+	fun funAuxPrev item_c =
 		let 
-			val access = Frame.allocLocal frame true (*no estoy seguro si es true o false*)
+			val access = tigerframe.allocLocal frame true (*no estoy seguro si es true o false*)
 (*			val puntero = externalCall("_allocRecord", [1]) llamar a alloclocal con escape = true. se necesita pasar el frame a alloc local para saber cuanto bajar el stack en prologo y epilogo. ver en el libro procentryexit3 *)
-		  fun moveInsn (dst, src) = ()
+		  fun moveInsn (dst, src) = List.nth(assems,0) (* FALTA, List.nth(assems,0) puesto para que compile nada mas *)
       fun store temp punt = moveInsn (punt, temp)
       fun fetch temp punt = moveInsn (temp,punt)
-	
-
+			fun getsrc assems i = 
+				let 
+					val ins = List.nth(assems,i)
+ 					val src = case ins of		
+									  (OPER{assem = a, dst = d, src = s, jump = j}) => addList (empty String.compare,s)	
+  								| (MOVE{assem = a, dst = d, src = s}) => singleton String.compare s
+				in src end
+			fun getdst assems i = 
+				let 
+					val ins = List.nth(assems,i)
+ 					val dst = case ins of		
+									  (OPER{assem = a, dst = d, src = s, jump = j}) => addList (empty String.compare, d)	
+  								| (MOVE{assem = a, dst = d, src = s}) => singleton String.compare d
+				in dst end
+			fun replace(item,newtmp,src_dst) = 
+				let
+					val _ = print "hacer algo\n" (*FALTA, creo q es trivial*)
+				in () end
 	fun funAux item assemL puntero i =
 		let
-			val midef = (* getdef(i) extraer de src *)
-			val miuse = (* getuse(i) extraer de dst *)	 
+			val midef = getsrc assemL i (* getdef(i) extraer de src *)
+			val miuse = getdst assemL i (* getuse(i) extraer de dst *)	 
 			val assemTemp = if member(item, midef)
 							then
 								let
-									val miTemp = Frame.newtemp()
+									val miTemp = tigertemp.newtemp()
 								  val storeIns = store miTemp puntero
 								  (*Tambien necesitamos reemplazar en la instruccion el temporario por el temporario nuevo *)
-									val (preAssem,I,postAssem) = (List.take(assemL, i),List.nth(assemL,i),List.drop(assem, i+1)) 
+									val (preAssem,I,postAssem) = (List.take(assemL, i),List.nth(assemL,i),List.drop(assemL, i+1)) 
 								  val newI = case	I of		
 									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
-											app (fn dst_u => replace(item,miTemp,dst_u)) dst (* dst es conjunto de conjuntos o algo asi*)		
+											List.app (fn dst_u => replace(item,miTemp,dst_u)) d (* dst es conjunto de conjuntos o algo asi*)		
   								| (MOVE{assem = a, dst = d, src = s}) => 
-											replace(item,miTemp,dst)
-							 in preAssem @ [storeIns] @ I @ postAssem end
+											replace(item,miTemp,d)
+							 in preAssem @ [storeIns] @ [I] @ postAssem end
 							else assemL 
 			val assemTemp = if member(item, miuse)
 							then
 								let
-									val miTemp = newtemp()
+									val miTemp = tigertemp.newtemp()
 								  val fetchIns = fetch miTemp puntero
-								  val (preAssem,postAssem) = (List.take(assemL, i-1), List.drop(assem, i-1))
-								in preAssem @ [fetchIns] @ postAssem end
+								  val (preAssem,I,postAssem) = (List.take(assemL, i-1), List.nth(assemL,i), List.drop(assemL, i))
+								  val newI = case	I of		
+									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
+											List.app (fn src_u => replace(item,miTemp,src_u)) s (* src es conjunto de conjuntos o algo asi*)		
+  								| (MOVE{assem = a, dst = d, src = s}) => 
+											replace(item,miTemp,s)
+
+								in preAssem @ [I] @ [fetchIns] @ postAssem end
 							else assemL
   		in funAux item assemTemp puntero (i+1)  end
 			
-		in funAux item assem puntero 0 end
+		in funAux item_c assems access 0 end  (*fin let de funAuxPrev *)
 	
-	in app funAuxPrev (!spillNodes) end
+	in app funAuxPrev (!spilledNodes) 
+end
+
 *)
+
 fun main fgraph nodes assems =
 let	
 	val _ = precoloredInit()
