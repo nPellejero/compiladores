@@ -658,3 +658,4 @@ let
 	val _ = printTab2 (!color) "color"
 in (insarray, outsarray, adjSet) end
 
+

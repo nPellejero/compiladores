@@ -470,6 +470,8 @@ fun transExp(venv, tenv) =
 			val _ = tabAAplica (print, (fn set => (print "{"; Splayset.app (fn x => (print x;print ", ")) set ;print "}\n")), (!tigercolor.adjList))
 			val _ = print ("esto es adjSet: \n")
 			val _ = Splayset.app (fn (x,y) => print ("("^x^","^y^")"^ ", ")) (!adjSet)
+			val assems2 = List.map (format tigerregalloc.saytemp) instrs
+			val _ = List.map print assems2
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveins at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) insarray*)
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveouts at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) outsarray*) 
 			(*val _ = (print ("Nodes:\n"); (List.map (fn x=> print (tigergraph.nodename x^", ")) nodes))*)
