@@ -472,6 +472,7 @@ fun transExp(venv, tenv) =
 			val _ = tabAAplica (print, (fn set => (print "{"; Splayset.app (fn x => (print x;print ", ")) set ;print "}\n")), (!tigercolor.adjList))
 			val _ = print ("esto es adjSet: \n")
 			val _ = Splayset.app (fn (x,y) => print ("("^x^","^y^")"^ ", ")) (!adjSet)
+			val _ = print ("\n fin adjSet \n")
 			val (instrs,tabreg) = tigerregalloc.alloc(instrs,frame)
 			val assems2 = List.map (format (tigerregalloc.saytemp tabreg) ) instrs
 			val _ = List.map print assems2

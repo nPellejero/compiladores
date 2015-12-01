@@ -27,11 +27,11 @@ in (assem, !miTabla	) end
 
 fun saytemp tabreg t = 
 let
-	val _ = print ("TEMP: "^t^"\n")
+	val _ = print ("TEMP -> REG: "^t^" -> ")
 	val colorConj = tabSaca(t,!color)
 	val col = List.hd(listItems(colorConj))
 	val reg = tabSaca(col,tabreg)
-	val _ = print ("REG: "^reg^"\n")
+	val _ = print (reg^"\n")
 in reg end
 
 end 
