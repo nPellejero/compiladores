@@ -80,7 +80,7 @@ tigertrans.uo: tigertrans.ui tigertree.uo tigerpila.ui tigerframe.ui \
 tigerpila.uo: tigerpila.ui 
 tigerframe.uo: tigerframe.ui tigertree.uo tigerassem.uo tigertemp.ui 
 tigerregalloc.uo: tigerregalloc.ui tigerassem.uo 
-tigerregalloc.ui: tigerframe.ui tigerassem.uo 
+tigerregalloc.ui: tigerframe.ui tigerassem.uo tigercolor.uo
 tigergrm.uo: tigergrm.ui tigernlin.uo tigerabs.uo 
 tigerframe.ui: tigertree.uo tigerassem.uo tigertemp.ui 
 tigerpp.uo: tigerabs.uo 

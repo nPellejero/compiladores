@@ -461,8 +461,10 @@ fun transExp(venv, tenv) =
 			val _ = List.map print (List.map Ir (frags))
 			val _ = print "----------------\n"
 			val (a,b) = otroCanonizeFrag res
-			val instrs = codegen2 frags
+			val frame_instrs = codegen2 frags
+			val instrs = List.concat (List.map (fn (f,i)=>i) frame_instrs)
 			val assems = List.map (format (fn x=>x)) instrs
+			val frame = List.map (fn (f,i)=>f) frame_instrs (*ojo que es frame option*)
 			val _ = List.map print assems
 			val (fgraph,nodes) = tigermakegraph.instrs2graph instrs
 			val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes instrs 
@@ -470,7 +472,8 @@ fun transExp(venv, tenv) =
 			val _ = tabAAplica (print, (fn set => (print "{"; Splayset.app (fn x => (print x;print ", ")) set ;print "}\n")), (!tigercolor.adjList))
 			val _ = print ("esto es adjSet: \n")
 			val _ = Splayset.app (fn (x,y) => print ("("^x^","^y^")"^ ", ")) (!adjSet)
-			val assems2 = List.map (format tigerregalloc.saytemp) instrs
+			val (instrs,tabreg) = tigerregalloc.alloc(instrs,frame)
+			val assems2 = List.map (format (tigerregalloc.saytemp tabreg) ) instrs
 			val _ = List.map print assems2
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveins at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) insarray*)
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveouts at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) outsarray*) 

@@ -4,25 +4,34 @@ struct
 open tigertab 
 open tigerframe
 open tigerassem 
+open tigercolor
 
-type allocation = (tigerframe.register, int) tigertab.Tabla
+type allocation = (int, tigerframe.register) tigertab.Tabla
 
 
-val listaColors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+(*val listaColors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]*)
 
 fun alloc (assem, frame) = 
 let
+(* frame es frame option
+hay que llamar a color aca
+iterar
+y luego rewrite *)
 	val miTabla = ref(tabNueva())
 	val misValoresInt = listaColors @ [14, 15] (* 14 y 15 representan fp y sp (precolored) *)
 	val misClavesReg = ["RAX", "RBX" ,"RCX", "RDX", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15","RSI","RDI", "RBP","RSP"]
 
-	fun funAux item = miTabla := tabRInserta(List.nth(misClavesReg, item), item, !miTabla)
+	fun funAux item = miTabla := tabRInserta(item, List.nth(misClavesReg, item), !miTabla)
 	val _ =  List.map funAux misValoresInt
 in (assem, !miTabla	) end 
 
-fun saytemp instruc = 
+fun saytemp tabreg t = 
 let
-	val _ = print "hacer algo\n"
-in instruc end
+	val _ = print ("TEMP: "^t^"\n")
+	val colorConj = tabSaca(t,!color)
+	val col = List.hd(listItems(colorConj))
+	val reg = tabSaca(col,tabreg)
+	val _ = print ("REG: "^reg^"\n")
+in reg end
 
 end 
