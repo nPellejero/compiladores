@@ -567,9 +567,10 @@ fun rewrite (assems, frame) =
 let 
 	fun funAuxPrev (item_c:tigertemp.temp) =
 		let 
-			val access = tigerframe.allocLocal frame true (*no estoy seguro si es true o false*)
+			val access2 = tigerframe.allocLocal frame true (*no estoy seguro si es true o false*)
+			val access = tigerframe.exp access2 (* tigercedegen.muchStm(tigerframe.exp access) no estoy seguro como seria esto*)
 (*			val puntero = externalCall("_allocRecord", [1]) llamar a alloclocal con escape = true. se necesita pasar el frame a alloc local para saber cuanto bajar el stack en prologo y epilogo. ver en el libro procentryexit3 *)
-		  fun moveInsn (dst, src) = List.nth(assems,0) (* FALTA, List.nth(assems,0) puesto para que compile nada mas *)
+		  fun moveInsn (dst, src) = List.nth(assems,0) (* MOVE{assem = "MOV 's0, 'd0\n",dst = dst,src = src} *) (* FALTA, capaz sea algo llamando a codegen y pasandole MOVE exp exp o algo asi pq no me tipa con access*)
       fun store temp punt = moveInsn (punt, temp)
       fun fetch temp punt = moveInsn (temp,punt)
 			fun getsrc assems i = 
@@ -591,8 +592,8 @@ let
 			fun replace(item,newtmp,assem,src_dst) = (*sus arg son conjuntos de conjuntos*)
 				let
 					val _ = print "hacer algo\n" (*FALTA, creo q es trivial*)
-					val new_a = assem
-					val new_srcdst = src_dst
+					val new_a = assem (* recorrer el assembler y modificar las apariciones de item por newtmp *)
+					val new_srcdst = src_dst (* basicamente sacar item y poner newtmp*)
 				in (new_a,new_srcdst) end
 	fun funAux (item:tigertemp.temp) assemL puntero i =
 		let
