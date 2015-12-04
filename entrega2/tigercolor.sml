@@ -4,7 +4,7 @@ open tigertab
 open tigerframe
 open tigerliveness
 open tigergraph
-				open tigerassem
+open tigerassem
 
 fun miTabNueva() = let 
 						val table = tabNueva()
@@ -565,95 +565,75 @@ fun assignColors() =
 
 fun rewrite (assems, frame) = 
 let 
-	fun funAuxPrev (item_c:tigertemp.temp) =
+	fun funAuxPrev (item_c:tigertemp.temp, assems) =
 		let 
 			val access2 = tigerframe.allocLocal frame true (*no estoy seguro si es true o false*)
 			val access = tigerframe.exp access2 (* tigercedegen.muchStm(tigerframe.exp access) no estoy seguro como seria esto*)
 (*			val puntero = externalCall("_allocRecord", [1]) llamar a alloclocal con escape = true. se necesita pasar el frame a alloc local para saber cuanto bajar el stack en prologo y epilogo. ver en el libro procentryexit3 *)
-		  fun moveInsn (dst, src) = List.nth(assems,0) (* MOVE{assem = "MOV 's0, 'd0\n",dst = dst,src = src} *) (* FALTA, capaz sea algo llamando a codegen y pasandole MOVE exp exp o algo asi pq no me tipa con access*)
-      fun store temp punt = moveInsn (punt, temp)
-      fun fetch temp punt = moveInsn (temp,punt)
-			fun getsrc assems i = 
+      fun store temp punt = MOVE{assem = "MOV 's0, 'd0 \n", dst = temp,  src = tigercodegen.munchExp(punt)}
+      fun fetch temp punt = MOVE{assem = "MOV 's0, 'd0 \n", dst = tigercodegen.munchExp(punt), src = temp}
+			fun getsrc ins = 
 				let 
-					val ins = List.nth(assems,i)
  					val src = case ins of		
 									  (OPER{assem = a, dst = d, src = s, jump = j}) => addList (empty String.compare,s)	
   								| (MOVE{assem = a, dst = d, src = s}) => singleton String.compare s
 									| _ => let val _ = print "error rewrite\n" in (empty String.compare) end
 				in src end
-			fun getdst assems i = 
+			fun getdst ins = 
 				let 
-					val ins = List.nth(assems,i)
  					val dst = case ins of		
 									  (OPER{assem = a, dst = d, src = s, jump = j}) => addList (empty String.compare, d)	
   								| (MOVE{assem = a, dst = d, src = s}) => singleton String.compare d
 									| _ => let val _ = print "error rewrite\n" in (empty String.compare) end
 				in dst end
-			fun replace(item,newtmp,assem,src_dst) = (*sus arg son conjuntos de conjuntos*)
-				let
-					val _ = print "hacer algo\n" (*FALTA, creo q es trivial*)
-					val new_a = assem (* recorrer el assembler y modificar las apariciones de item por newtmp *)
-					val new_srcdst = src_dst (* basicamente sacar item y poner newtmp*)
-				in (new_a,new_srcdst) end
-	fun funAux (item:tigertemp.temp) assemL puntero i =
+			fun replace(item,newtmp,src_dst) = 
+					 if src_dst=item then newtmp else src_dst (* basicamente sacar item y poner newtmp*)
+
+	fun funAux (item:tigertemp.temp) preAssem (instr::postAssem) puntero =
 		let
-			val midef = getsrc assemL i (* getdef(i) extraer de src *)
-			val miuse = getdst assemL i (* getuse(i) extraer de dst *)	 
-			val assemTemp = if member(midef,item)
+			val postAssem = List.tl(postAssem)
+			val midef = getdst instr (* getdef(i) extraer de src *)
+			val miuse = getsrc instr (* getuse(i) extraer de dst *)	 
+			val preAssem = if member(midef,item)
 							then
 								let
 									val miTemp = tigertemp.newtemp()
 								  val storeIns = store miTemp puntero
 								  (*Tambien necesitamos reemplazar en la instruccion el temporario por el temporario nuevo *)
-									val (preAssem,I,postAssem) = (List.take(assemL, i),List.nth(assemL,i),List.drop(assemL, i+1)) 
-								  val newI = case	I of		
+								  val newI = case	instr of		
 									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
 											let 
-												val (new_a,new_d) = replace(item,miTemp,a,d)
-											in  (OPER{assem = new_a, dst = new_d, src = s, jump = j}) end 
-										(*	List.app (fn dst_u => replace(item,miTemp,dst_u)) d // dst es conjunto de conjuntos o algo asi*)		
-  								| (MOVE{assem = a, dst = d, src = s}) => 
-											let
-											  val a2 = singleton String.compare a
-											  val d2 = singleton String.compare d
-												val (new_a2,new_d2) = replace(item,miTemp,a2,d2)
-												val (new_a,new_d) = (List.hd(listItems(new_a2)),List.hd(listItems(new_d2)))
-											in	(MOVE{assem = new_a, dst = new_d, src = s}) end			
-									| _ => I
-							 in preAssem @ [storeIns] @ [I] @ postAssem end
-							else assemL 
+												val new_d = List.map (fn dst_u => replace(item,miTemp,dst_u)) d 
+											in  (OPER{assem = a, dst = new_d, src = s, jump = j}) end 
+  								| (MOVE{assem = a, dst = d, src = s}) => (MOVE{assem = a, dst = miTemp, src = s}) 		
+									| _ => instr
+							 in preAssem @ [newI] @ [storeIns] end
+							else preAssem @ [instr]
 			val assemTemp = if member(miuse,item)
 							then
 								let
 									val miTemp = tigertemp.newtemp()
 								  val fetchIns = fetch miTemp puntero
-								  val (preAssem,I,postAssem) = (List.take(assemTemp, i-1), List.nth(assemTemp,i), List.drop(assemTemp, i))
-								  val newI = case	I of		
+								  val newI = case	instr of		
 									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
 											let 
-												val (new_a,new_s) = replace(item,miTemp,a,s)
-											in  (OPER{assem = new_a, dst = d, src = new_s, jump = j}) end 
-										(*	List.app (fn src_u => replace(item,miTemp,src_u)) s // dst es conjunto de conjuntos o algo asi*)		
-  								| (MOVE{assem = a, dst = d, src = s}) => 
-											let
-											  val a2 = singleton String.compare a
-											  val s2 = singleton String.compare s
-												val (new_a2,new_s2) = replace(item,miTemp,a2,s2)
-												val (new_a,new_s) = (List.hd(listItems(new_a2)),List.hd(listItems(new_s2)))
-											in	(MOVE{assem = new_a, dst = d, src = new_s}) end			
-									| _ => I
-								in preAssem @ [I] @ [fetchIns] @ postAssem end
-							else assemTemp
-  		in funAux item assemTemp puntero (i+1)  end
-			
-		in funAux item_c assems access 0 end  (*fin let de funAuxPrev *)
-	
-	in app funAuxPrev (!spilledNodes) 
+												val new_s = List.map (fn src_u => replace(item,miTemp,src_u)) s 
+											in  (OPER{assem = a, dst = d, src = new_s, jump = j}) end 
+  								| (MOVE{assem = a, dst = d, src = s}) => (MOVE{assem = a, dst = d, src = miTemp}) 		
+									| _ => instr
+								in preAssem @ [fetchIns] @ [newI] end
+							else preAssem @ [instr]
+  		in funAux item preAssem postAssem puntero  end
+			| funAux item preAssem [] _ = preAssem   
+
+		in funAux item_c [] assems access end  (*fin let de funAuxPrev *)
+
+	in foldl funAuxPrev assems (!spilledNodes) 
 end
 
 
 
-fun main fgraph nodes assems =
+fun main fgraph nodes assems frame =
 let	
 	val _ = precoloredInit()
 	val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
@@ -692,6 +672,11 @@ let
 		in () end 
 	val _ = while not(!condicion) do ( preAssign();condicion:=boolcond();i:=(!i)+1;print ("i:::"^Int.toString(!i)^"\n"); lengthList())
 	val _ = assignColors()
+	val _ = if not(isEmpty(!spillWorklist)) 
+		then
+			let val assemsNew = rewrite(assems, frame)
+			in (main fgraph nodes assemsNew frame) end
+		else ()	
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!freezeWorklist) "freezeWorklist"
@@ -703,6 +688,6 @@ let
 	val _ = printConj (!spilledNodes) "spilledNodes"
 	val _ = printConj (!coloredNodes) "coloredNodes"
 	val _ = printTab2 (!color) "color"
-in (insarray, outsarray, adjSet) end
+in () end
 
 

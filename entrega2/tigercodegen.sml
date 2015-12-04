@@ -2,16 +2,82 @@
 open tigertree
 open tigerassem
 open tigerframe
-
-fun codegen2 fragss =
-
-let fun codegen (stm: tigertree.stm) : tigerassem.instr list =  (*Saque el argumento frame porque tenemos FP. Referirse a pagina 206 del Appel para mas detalles. Gracias, vuelva prontos.*)
-
-let val ilist = ref (nil: tigerassem.instr list)
+ 
+  val ilist = ref (nil: tigerassem.instr list)
 	fun emit x = ilist := x :: !ilist
 	fun result(gen) = let val t = tigertemp.newtemp() in gen t; t end
-	(* munchStm::Tree.stm -> unit *)
-	fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
+	
+	(* munchExp::Tree.exp -> tigertemp.temp *)
+fun munchExp(CONST i) = (*no estoy seguro de esta. 'd0 deberia tener 0*)
+		result(fn r => emit(OPER{assem = "MOV $"^(Int.toString i)^", 'd0 \n",
+			src = [],
+			dst = [r],
+			jump = NONE})) 
+	|    munchExp(BINOP(MINUS,e1,e2)) =
+		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
+			src = munchExp(e1),
+			dst = r
+			});
+			emit(OPER{assem = "SUB 's0, 'd0\n",
+				src = [munchExp(e2),r],
+				dst = [r],
+				jump= NONE})))
+	|    munchExp(BINOP(DIV,e1,e2)) =
+		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
+			src = munchExp(e1),
+			dst = r
+			});
+			emit(OPER{assem = "DIV 's0, 'd0\n",
+				src = [munchExp(e2),r],
+				dst = [r],
+				jump= NONE})))
+	|    munchExp(BINOP(MUL,e1,e2)) =
+		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
+			src = munchExp(e1),
+			dst = r
+			});
+			emit(OPER{assem = "MUL 's0, 'd0\n",
+				src = [munchExp(e2),r],
+				dst = [r],
+				jump= NONE})))
+	|    munchExp(BINOP(PLUS,e1,e2)) =
+		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
+			src = munchExp(e1),
+			dst = r
+			});
+			emit(OPER{assem = "ADD 's0, 'd0\n",
+				src = [munchExp(e2),r],
+				dst = [r],
+				jump= NONE})))
+	|    munchExp(TEMP t) = t
+	|	munchExp (MEM e) = result (fn r=> emit(OPER{assem="MOV ('s0), 'd0\n",
+													dst = [r],
+													src = [munchExp e],
+													jump = NONE}))
+	|	munchExp (NAME l) = result (fn r=> emit(OPER{assem="MOV $"^l^", 'd0\n",
+														dst=[r],
+														src=[],
+														jump=NONE}))
+	|	munchExp exp = result (fn r=>emit(OPER{assem="NADA: "^(ppEXP exp)^"\n",src=[], dst=[], jump=NONE}))
+
+fun munchArgs [] = []
+		|munchArgs(arg::args) = let val temp = munchExp(arg)
+										in (case (getArgForPos (List.length args)) of
+														InReg reg => (emit(MOVE {assem = "MOV 's0, 'd0\n",
+																				dst = reg,
+																				src = temp})														
+																	;(reg :: munchArgs args))
+														|InFrame _ => (emit(OPER {assem = "PUSHQ 's0\n", (*medio hack*)
+																						dst = [],
+																						src = [temp],
+																						jump = NONE})
+																			;munchArgs args)
+	     											)
+									end
+
+
+(* munchStm::Tree.stm -> unit *)
+fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 	(*comenzamos por el final, para ir de los arboles mas simples a los mas complejos. Feli dice: no es al reves? Ir de los mas complejos a los mas simples?*)
 	|	munchStm (EXP(CALL (NAME n,args))) = (*Procedure*)
 			emit(OPER{assem="CALL "^n^"\n",
@@ -118,79 +184,17 @@ let val ilist = ref (nil: tigerassem.instr list)
 	|	munchStm _ = emit (OPER{assem = "nada.\n",
 				src	 = [], dst = [], jump = NONE})
 	(* munchStm::Tree.stm -> unit *)
-	and(*comenzamos por las exp mas simples, que van "abajo" en el pattern matching*)
-	(* munchExp::Tree.exp -> tigertemp.temp *)
+(*	and *)(*comenzamos por las exp mas simples, que van "abajo" en el pattern matching*)
 
-	 munchExp(CONST i) = (*no estoy seguro de esta. 'd0 deberia tener 0*)
-		result(fn r => emit(OPER{assem = "MOV $"^(Int.toString i)^", 'd0 \n",
-			src = [],
-			dst = [r],
-			jump = NONE})) 
-	|    munchExp(BINOP(MINUS,e1,e2)) =
-		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
-			src = munchExp(e1),
-			dst = r
-			});
-			emit(OPER{assem = "SUB 's0, 'd0\n",
-				src = [munchExp(e2),r],
-				dst = [r],
-				jump= NONE})))
-	|    munchExp(BINOP(DIV,e1,e2)) =
-		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
-			src = munchExp(e1),
-			dst = r
-			});
-			emit(OPER{assem = "DIV 's0, 'd0\n",
-				src = [munchExp(e2),r],
-				dst = [r],
-				jump= NONE})))
-	|    munchExp(BINOP(MUL,e1,e2)) =
-		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
-			src = munchExp(e1),
-			dst = r
-			});
-			emit(OPER{assem = "MUL 's0, 'd0\n",
-				src = [munchExp(e2),r],
-				dst = [r],
-				jump= NONE})))
-	|    munchExp(BINOP(PLUS,e1,e2)) =
-		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
-			src = munchExp(e1),
-			dst = r
-			});
-			emit(OPER{assem = "ADD 's0, 'd0\n",
-				src = [munchExp(e2),r],
-				dst = [r],
-				jump= NONE})))
-	|    munchExp(TEMP t) = t
-	|	munchExp (MEM e) = result (fn r=> emit(OPER{assem="MOV ('s0), 'd0\n",
-													dst = [r],
-													src = [munchExp e],
-													jump = NONE}))
-	|	munchExp (NAME l) = result (fn r=> emit(OPER{assem="MOV $"^l^", 'd0\n",
-														dst=[r],
-														src=[],
-														jump=NONE}))
-	|	munchExp exp = result (fn r=>emit(OPER{assem="NADA: "^(ppEXP exp)^"\n",src=[], dst=[], jump=NONE}))
-
-	and munchArgs [] = []
-		|munchArgs(arg::args) = let val temp = munchExp(arg)
-										in (case (getArgForPos (List.length args)) of
-														InReg reg => (emit(MOVE {assem = "MOV 's0, 'd0\n",
-																				dst = reg,
-																				src = temp})														
-																	;(reg :: munchArgs args))
-														|InFrame _ => (emit(OPER {assem = "PUSHQ 's0\n", (*medio hack*)
-																						dst = [],
-																						src = [temp],
-																						jump = NONE})
-																			;munchArgs args)
-	     											)
-									end
-
-in munchStm stm;
-	rev(!ilist)
-end
+		
+fun codegen2 fragss =
+let 
+fun codegen (stm: tigertree.stm) : tigerassem.instr list =  (*Saque el argumento frame porque tenemos FP. Referirse a pagina 206 del Appel para mas detalles. Gracias, vuelva prontos.*)
+ let 
+  val resul1 = munchStm stm
+  val resul2 = rev(!ilist)
+ in resul1;resul2
+ end
 		fun aux2(PROC{body, frame}) = codegen body
 		| aux2(STRING(l, "")) = [(LABEL{assem = l ^ ": \n", lab=l })]
 		| aux2(STRING("", s)) = [(LABEL{assem = "\t"^s ^ "\n", lab="NINGUN LABEL" })]
