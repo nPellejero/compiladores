@@ -14,6 +14,14 @@ fun miTabNueva() = let
 						in table end 
 fun tupleCompare ((a,b),(c,d)) = if (String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL) then EQUAL else GREATER
 
+fun printConj conjToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n {")	
+		val _ = app (fn x => (print x;(print " ,"))) conjToPrint
+		val _ = print "}\n"
+	in () end
+
+
 fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a2, dst = d2, src = s2, jump = j2})) =
 					if a1 = a2 andalso d1 = d2 andalso s1 = s2 andalso j1 = j2 
 							then EQUAL else GREATER 
@@ -28,8 +36,8 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
 
 val precolored_init = [fp, sp, rv ] @ argregs (*[fp,sp,rv,ov]*)
-val listaColors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-val k = 14
+val listaColors = [0, 1, 2, 3, 4] (*, 5, 6, 7, 8, 9, 10, 11, 12, 13]*)
+val k = 4 (* 14 *)
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
 val adjList = ref(miTabNueva())
@@ -120,7 +128,7 @@ fun nodeMoves n = let
 				val conjInter = intersection(miMoveList,union(!activeMoves,!worklistMoves)) 
 				in conjInter end
 
-fun moveRelated n = isEmpty(nodeMoves n)
+fun moveRelated n = not(isEmpty(nodeMoves n))
 
 fun enableMoves(conjuntoNodes) =
 	let
@@ -152,13 +160,23 @@ fun decrementDegree(m) =
 		val _ = if d = k
 						then
 							let
+								(* val _ = print ("decrementDegree "^m^"\n") *)
 								val sing = singleton String.compare m
 								val uni  = union(sing, adjacent(m))
 								val _ = enableMoves(uni)	
 								val miSpill = difference(!spillWorklist, sing)
 								val _ = if (moveRelated(m))
-															then  freezeWorklist := add(!freezeWorklist,m) 
-															else simplifyWorklist := add(!simplifyWorklist,m)
+															then 
+																let										
+																	(* val _ = print ("freeze "^m^"\n") *)
+																	val newFreeze = add(!freezeWorklist,m)	
+																in freezeWorklist := newFreeze end 
+															else				
+																let										
+																	(* val _ = print ("simplifyworklist "^m^"\n") *)
+																	val simp_new =  add(!simplifyWorklist,m)
+																	(* val _ = printConj (simp_new) "simplifyWorklist"	*)
+																in  simplifyWorklist := simp_new end
 							in spillWorklist := miSpill end
 						else ()
 	in degree := tabRInserta(m, d-1, !degree) end  
@@ -169,9 +187,10 @@ fun simplify() =
 		val _ = print "Simplify\n" 
 		fun justAux(n) = 
 			let
-				val justAuxWorklist = delete(!simplifyWorklist, n)
+				(* val _ = print ("Simplificando "^n^"\n") *)
 				val _ = pushStack(n)
 				val _ = app decrementDegree	(adjacent(n))		
+				val justAuxWorklist = delete(!simplifyWorklist, n)
 			in simplifyWorklist := justAuxWorklist end  
 		val item = List.hd(listItems(!simplifyWorklist))
 	in justAux item end
@@ -179,6 +198,7 @@ fun simplify() =
 
 fun addWorklist u = 
 	let
+		val _ = print ("addWorklist "^u^"\n")
 		val cond1 = not(member(!precolored, u))
 		val cond2 = not(moveRelated(u)) 
 		val cond3 = tabSaca(u, !degree) < k
@@ -271,6 +291,7 @@ fun addEdge (nodeu,nodev) =
 
 fun combine(u, v) =
 	let
+		val _ = print ("Combine ("^u^","^v^")\n")
 		val singU =  singleton String.compare u 
 		val singV =  singleton String.compare v
 		val _	=		let 
@@ -286,7 +307,7 @@ fun combine(u, v) =
 																val _ = print "combine: noExiste"
 															in empty  compAssem end
 						val miNodeMoves = union(arg1, arg2)
-					in alias := tabRInserta(v, u, (!alias)); moveList := tabRInserta(u, miNodeMoves, (!moveList)) end
+					in coalescedNodes := miCoalesced; alias := tabRInserta(v, u, (!alias)); moveList := tabRInserta(u, miNodeMoves, (!moveList)) end
 	val _ = enableMoves(singV)
 	val _ = app (fn t => (addEdge(t, u); decrementDegree(t))) (adjacent v)
 	val degU = tabSaca(u, (!degree)) 
@@ -427,20 +448,14 @@ fun freezeMoves(u) =
 fun freeze() =
  let
 	val u = List.hd(listItems(!freezeWorklist))
+	val _ = printConj (!freezeWorklist) "freezeWorklist"
 	val _ = print ("freeze: "^u^"\n")
 	val singU = singleton String.compare u
+	val _ = freezeMoves(u)
 	val tempFreeze = difference(!freezeWorklist,singU)
 	val tempSimplify = union(!simplifyWorklist,singU)
-	val _ = freezeMoves(u)
  in freezeWorklist := tempFreeze; simplifyWorklist := tempSimplify end
 	handle Empty => print "freeze: Empty"		
-
-fun printConj conjToPrint nombre = 
-	let
-		val _ = print("\n esto es: "^nombre^"\n {")	
-		val _ = app (fn x => (print x;(print " ,"))) conjToPrint
-		val _ = print "}\n"
-	in () end
 
 fun printTab tabToPrint nombre = 
 	let
@@ -489,7 +504,7 @@ fun printTab3 tabToPrint nombre =
 
 fun selectSpill(assem ) = 
 let
-	
+  val _ = print "SelectSpill\n" 	
 	fun funAux1 ((OPER{assem = a, dst = d, src = s, jump = j}), accum) = (s @ d @ accum)
 	| funAux1 ((MOVE{assem = a, dst = d, src = s}), accum) = (s::d::accum)
 	| funAux1 ((LABEL{assem = a, lab=l}), accum) = accum
@@ -523,8 +538,8 @@ in spillWorklist := tempSpill; simplifyWorklist := tempSimplify end
 fun assignColors() =
 	case !selectStack of (x::xs) =>
 		let 
-			val _ = print "AssignColors \n" 
 			val n = popStack()
+			val _ = print ("AssignColors"^n^"\n") 
 			val singN = singleton String.compare n
 			val okColors =ref(addList(empty Int.compare, listaColors )) 
 			val miAdjList = tabSacaConj(n, !adjList)
@@ -544,7 +559,10 @@ fun assignColors() =
 			handle noExiste =>  print "assignColors1: noExiste"
 			val _ = if isEmpty(!okColors) 
 							then
-								spilledNodes := union(!spilledNodes, singN)
+								let 
+									val _ = print ("----- NO color: "^n^"\n")
+								  val spillNew = union(!spilledNodes, singN)
+								in spilledNodes := spillNew end 
 							else 
 								let
 									val miColored = union(!coloredNodes, singN)
@@ -565,6 +583,8 @@ fun assignColors() =
 
 fun rewrite (assems, frame) = 
 let 
+	val _ = print "Rewrite \n"
+	val setNewTemps = empty String.compare
 	fun funAuxPrev (item_c:tigertemp.temp, assems) =
 		let 
 			val access2 = tigerframe.allocLocal frame true (*no estoy seguro si es true o false*)
@@ -598,7 +618,9 @@ let
 							then
 								let
 									val miTemp = tigertemp.newtemp()
-								  val storeIns = store miTemp puntero
+								  val _ = print ("New Store Temp: "^miTemp^"\n")
+									val setNewTemps = add(setNewTemps,miTemp)  
+									val storeIns = store miTemp puntero
 								  (*Tambien necesitamos reemplazar en la instruccion el temporario por el temporario nuevo *)
 								  val newI = case	instr of		
 									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
@@ -613,6 +635,8 @@ let
 							then
 								let
 									val miTemp = tigertemp.newtemp()
+								  val _ = print ("New Fetch Temp: "^miTemp^"\n")
+								  val setNewTemps = add(setNewTemps,miTemp)  
 								  val fetchIns = fetch miTemp puntero
 								  val newI = case	instr of		
 									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
@@ -627,8 +651,12 @@ let
 			| funAux item preAssem [] _ = preAssem   
 
 		in funAux item_c [] assems access end  (*fin let de funAuxPrev *)
-
-	in foldl funAuxPrev assems (!spilledNodes) 
+  val newAssems = foldl funAuxPrev assems (!spilledNodes)
+  val _ = spilledNodes := (empty String.compare)
+  val _ = initial := union(union(!coloredNodes,!coalescedNodes), setNewTemps)
+	val _ = coloredNodes := (empty String.compare)
+  val _ = coalescedNodes := (empty String.compare)
+	in newAssems 
 end
 
 
@@ -642,25 +670,31 @@ let
 	val _ = makeWorklist() 
 	val _ = printTab2 (!color) "color"
 	val _ = printTab3 (!degree) "degree"
-	val _ = printConj (!spillWorklist) "spillWorklist"
+(*	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printTab (!moveList) "moveList"
 	val _ = printConj (!freezeWorklist) "freezeWorklist" 
 	(*val _ = printTab4 (!adjList) "adjList"*)
 	val _ = printConjMoves (!worklistMoves) "worklistMoves"  
-  val _ = printConjMoves (!activeMoves) "activeMoves"
+  val _ = printConjMoves (!activeMoves) "activeMoves" *) 
 	fun boolcond() =  isEmpty(!simplifyWorklist) andalso isEmpty(!freezeWorklist) andalso isEmpty(!worklistMoves) andalso isEmpty(!spillWorklist)  
-	fun preAssign() = if not(isEmpty(!simplifyWorklist)) then simplify() else 
-						 if not(isEmpty(!worklistMoves)) then coalesce() else  
-						 if not(isEmpty(!freezeWorklist)) then freeze() else 
-						if not(isEmpty(!spillWorklist)) then selectSpill(assems) else ()
+	fun preAssign() = if not(isEmpty(!simplifyWorklist)) then simplify() 
+                      (* let
+												val _ = simplify() 
+												val _ = printConj (!simplifyWorklist) "simplifyWorklist"
+											in () end *)
+										else (if not(isEmpty(!worklistMoves)) then coalesce() 
+													else (if not(isEmpty(!freezeWorklist)) then freeze()
+															 else	(if not(isEmpty(!spillWorklist)) then selectSpill(assems) else () )))
 	val _ = preAssign()
   val condicion = ref(boolcond())
-	val _ = print ("CONDICION: "^Bool.toString(!condicion)^"\n") 
+	(* val _ = print ("CONDICION: "^Bool.toString(!condicion)^"\n") *)
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printConj (!freezeWorklist) "freezeWorklist"
 	val _ = printConjMoves (!worklistMoves) "worklistMoves" 
+	val _ = printConj (!spilledNodes) "spilledNodes"
+	val _ = printConj (!coalescedNodes) "coalescedNodes"
 	val i = ref(0) 
 	fun lengthList() =
 		let 
@@ -672,12 +706,14 @@ let
 		in () end 
 	val _ = while not(!condicion) do ( preAssign();condicion:=boolcond();i:=(!i)+1;print ("i:::"^Int.toString(!i)^"\n"); lengthList())
 	val _ = assignColors()
-	val _ = if not(isEmpty(!spillWorklist)) 
+	val _ = printConj (!spilledNodes) "spilledNodes"
+	val _ = if not(isEmpty(!spilledNodes)) 
 		then
 			let val assemsNew = rewrite(assems, frame)
 			in (main fgraph nodes assemsNew frame) end
 		else ()	
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
+	val _ = printConj (!coalescedNodes) "coalescedNodes"
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!freezeWorklist) "freezeWorklist"
 	val _ = printConjMoves (!worklistMoves) "worklistMoves"
