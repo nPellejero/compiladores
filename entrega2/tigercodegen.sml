@@ -187,15 +187,21 @@ fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 (*	and *)(*comenzamos por las exp mas simples, que van "abajo" en el pattern matching*)
 
 		
-fun codegen2 fragss =
-let 
+
 fun codegen (stm: tigertree.stm) : tigerassem.instr list =  (*Saque el argumento frame porque tenemos FP. Referirse a pagina 206 del Appel para mas detalles. Gracias, vuelva prontos.*)
  let 
+	val ilist2 = ref (nil: tigerassem.instr list) (*Estas dos lineas las agrego Barufa, creo q estan bien...pero*)
+	val _ = ilist := !ilist2 (*esta es la 2da, comentario de arriba*)
   val resul1 = munchStm stm
   val resul2 = rev(!ilist)
  in resul1;resul2
  end
-		fun aux2(PROC{body, frame}) = codegen body
+
+fun codegen2 fragss =
+let
+(*  	val ilist2 = ref (nil: tigerassem.instr list)
+	  val _ = ilist := !ilist2 *) 
+  	fun aux2(PROC{body, frame}) = codegen body
 		| aux2(STRING(l, "")) = [(LABEL{assem = l ^ ": \n", lab=l })]
 		| aux2(STRING("", s)) = [(LABEL{assem = "\t"^s ^ "\n", lab="NINGUN LABEL" })]
 		| aux2(STRING(l, s)) = [(LABEL{assem = l^":\n\t"^s^"\n", lab=l })]

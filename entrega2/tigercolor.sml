@@ -36,8 +36,8 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
 
 val precolored_init = [fp, sp, rv ] @ argregs (*[fp,sp,rv,ov]*)
-val listaColors = [0, 1, 2, 3, 4] (*, 5, 6, 7, 8, 9, 10, 11, 12, 13]*)
-val k = 4 (* 14 *)
+val listaColors = [0, 1] (* , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]*)
+val k = 2 (* 14 *)
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
 val adjList = ref(miTabNueva())
@@ -590,10 +590,17 @@ let
 			val _ = print ("TempSpilleado: "^item_c^"\n") 
 			val access2 = tigerframe.allocLocal frame true (*no estoy seguro si es true o false*)
 			val access = tigerframe.exp access2 (* tigercedegen.muchStm(tigerframe.exp access) no estoy seguro como seria esto*)
-(*			val puntero = externalCall("_allocRecord", [1]) llamar a alloclocal con escape = true. se necesita pasar el frame a alloc local para saber cuanto bajar el stack en prologo y epilogo. ver en el libro procentryexit3 *)
-      val _ = print ("Access: "^tigercodegen.munchExp(access)^"\n") 
-			fun store temp punt = MOVE{assem = "MOV 's0, 'd0 \n", dst = temp,  src = tigercodegen.munchExp(punt)}
-      fun fetch temp punt = MOVE{assem = "MOV 's0, 'd0 \n", dst = tigercodegen.munchExp(punt), src = temp}
+(*			val puntero = externalCall("_allocRecord", [1]) llamar a alloclocal con escape = true. se necesita pasar el frame a alloc local para saber cuanto bajar el stack en prologo  tigercodegen.codegen y epilogo. ver en el libro procentryexit3 *)
+   (*   val _ = case access2 of
+							(InFrame k) => print (Int.toString(k))
+							| (InReg r) => print r
+i*)
+			val puntero = access
+		(*	val puntero2 = MEM(BINOP(PLUS, TEMP FP, CONST 0) *)
+		  fun moveIns (dst, src) = tigercodegen.codegen (tigertree.MOVE (dst, src)) 
+(*			val _ = print ("Access: "^puntero^"\n")  *)
+			fun store temp punt = moveIns (tigertree.TEMP temp,punt) (* MOVE{assem = "MOV 's0, ('d0) \n", dst = punt,  src = temp} *)
+      fun fetch temp punt = moveIns (punt,tigertree.TEMP temp) (* MOVE{assem = "MOV ('s0), 'd0 \n", dst = temp, src = punt} *)
 			fun getsrc ins = 
 				let 
  					val src = case ins of		
@@ -616,11 +623,12 @@ let
 					val ret = if String.compare(src_dst,item)=EQUAL then newtmp else src_dst (* basicamente sacar item y poner newtmp*)
 					val _ = print ("reemplazamos: "^ret^"\n")
 				in ret end
-	fun funAux (item:tigertemp.temp) preAssem (instr::postAssem) puntero =
+	fun funAux (item:tigertemp.temp) preAssem (instr::postAssem) =
 		let
-			val postAssem = List.tl(postAssem)
+		(*	val postAssem = List.tl(postAssem) *)
 			val midef = getdst instr (* getdef(i) extraer de src *)
 			val miuse = getsrc instr (* getuse(i) extraer de dst *)	 
+		  val miuse = if equal(intersection(miuse,midef),empty String.compare) then miuse else difference(miuse,midef)(* esto lo hice pq extrañamente el dst se repite dentro del src en algunos casos... no entiendo pq.*)
 			val preAssem = if member(midef,item)
 							then
 								let
@@ -637,9 +645,9 @@ let
 											in  (OPER{assem = a, dst = new_d, src = s, jump = j}) end 
   								| (MOVE{assem = a, dst = d, src = s}) => (MOVE{assem = a, dst = miTemp, src = s}) 		
 									| _ => instr
-									val assemsP = List.map (format (fn x=>x)) [instr,newI,storeIns]
+									val assemsP = List.map (format (fn x=>x)) ([instr,newI] @ storeIns)
 									val _ = List.map print assemsP
-							 in preAssem @ [newI] @ [storeIns] end
+							 in preAssem @ [newI] @ storeIns end
 							else preAssem @ [instr]
 			val assemTemp = if member(miuse,item)
 							then
@@ -657,14 +665,14 @@ let
 											in  (OPER{assem = a, dst = d, src = new_s, jump = j}) end 
   								| (MOVE{assem = a, dst = d, src = s}) => (MOVE{assem = a, dst = d, src = miTemp}) 		
 									| _ => instr
-									val assemsP = List.map (format (fn x=>x)) [instr,fetchIns,newI]
+									val assemsP = List.map (format (fn x=>x)) ([instr] @ fetchIns @ [newI])
 									val _ = List.map print assemsP
-								in preAssem @ [fetchIns] @ [newI] end
-							else preAssem @ [instr]
-  		in funAux item preAssem postAssem puntero  end
-			| funAux item preAssem [] _ = preAssem   
+								in preAssem @ fetchIns @ [newI] end
+							else preAssem @ [instr] (* ¿Puede pasar que tengamos una instruccion que tenga a nuestro temporario spilleado en src y dst a la vez? eso debe estar mal. Aparte veo como que repite instrucciones.. es raro *)
+  		in funAux item preAssem postAssem end
+			| funAux item preAssem [] = preAssem   
 
-		in funAux item_c [] assems access end  (*fin let de funAuxPrev *)
+		in funAux item_c [] assems end  (*fin let de funAuxPrev *)
   val newAssems = foldl funAuxPrev assems (!spilledNodes)
   val _ = spilledNodes := (empty String.compare)
   val _ = initial := union(union(!coloredNodes,!coalescedNodes), setNewTemps)
