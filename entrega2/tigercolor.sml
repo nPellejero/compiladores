@@ -14,6 +14,14 @@ fun miTabNueva() = let
 						in table end 
 fun tupleCompare ((a,b),(c,d)) = if (String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL) then EQUAL else GREATER
 
+fun miEnesimo(lista, index) = let
+									val item = List.nth(lista, index)
+									handle Subscript => let
+														val item = List.hd(lista)
+														val _ = print "excepcion: subscript"
+														in item end   
+									in item end
+
 fun printConj conjToPrint nombre = 
 	let
 		val _ = print("\n esto es: "^nombre^"\n {")	
@@ -104,6 +112,7 @@ let
   fun funAux n = color := tabRInserta(n,empty Int.compare,!color)
 	val _ = app funAux init
 in initial := init end
+handle Subscript => print "initialInit: Subscript"
 
 fun miMember2(conj, elem) =
 		let 
@@ -288,7 +297,7 @@ fun addEdge (nodeu,nodev) =
 
 				in adjSet := add(!adjSet, (nodeu,nodev)); adjSet := add(!adjSet, (nodev,nodeu)) end
 					else () (*print (nodeu ^ " equals?? " ^ nodev ^ "\n")*) 
-
+handle Subscript => print "addEdge:Subscript"
 fun combine(u, v) =
 	let
 		val _ = print ("Combine ("^u^","^v^")\n")
@@ -321,6 +330,7 @@ fun combine(u, v) =
 							val auxSpill  = union(!spillWorklist, singU)
 						in freezeWorklist := auxFreeze; spillWorklist := auxSpill end else ()
 	in () end
+	handle noExiste => print "combine: noExiste"(*este se dispara*)
 
  fun coalesce() = 
 let
@@ -367,10 +377,10 @@ in () end
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
 let
-	fun getuse index = let val mynode = List.nth (nodes, index)
+	fun getuse index = let val mynode = miEnesimo(nodes, index)
 										val uses = (case tabBusca (mynode, use) of SOME x=> x | NONE => [])
 									in addList (empty String.compare, uses) end
-	fun getdef index = let val mynode = List.nth (nodes, index)
+	fun getdef index = let val mynode = miEnesimo(nodes, index)
 										val defs = (case tabBusca (mynode, def) of SOME x=> x | NONE => [])
 									in addList (empty String.compare, defs) end
 
@@ -380,7 +390,7 @@ let
 	val _ = case instr of MOVE {assem,dst,src} =>
 			let
 				val live = difference(live,getuse i)
-				val mynode = List.nth (nodes,i)
+				val mynode = miEnesimo(nodes,i)
 				fun myFunAux item =
 						let 
 							val myMoveList = tabSaca(item, (!moveList))
@@ -406,6 +416,7 @@ let
 	val _ = app (fn x => print (x ^ "\n")) (getdef i)*)
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
+handle Subscript => print "build:Subscript"
 
 fun printConjMoves conjToPrint nombre = 
 	let
@@ -688,6 +699,7 @@ let
 	val _ = precoloredInit()
 	val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = build outsarray assems 0 (fgraph,nodes)
+	handle Subscript => print "main: Subscript" (*este es el que se dispara*)
 	val _ = initialInit()	
 	val _ = makeWorklist() 
 	val _ = printTab2 (!color) "color"
@@ -737,6 +749,7 @@ let
 					(*val assemsP = List.map (format (fn x=>x)) assemsNew
 					val _ = List.map print assemsP*)
 			in (main fgraph nodes assemsNew frame) end
+	handle Subscript => print "main: Subscript"
 		else ()	
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printConj (!coalescedNodes) "coalescedNodes"
@@ -750,6 +763,7 @@ let
 	val _ = printConj (!spilledNodes) "spilledNodes"
 	val _ = printConj (!coloredNodes) "coloredNodes"
 	val _ = printTab2 (!color) "color"
+	handle Subscript => print "main: Subscript"
 in () end
 
 
