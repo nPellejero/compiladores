@@ -29,6 +29,50 @@ fun printConj conjToPrint nombre =
 		val _ = print "}\n"
 	in () end
 
+fun printTab tabToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n {")	
+		fun printMoves m = 
+			case m of MOVE{assem, dst, src} => print ("MOVE: "^dst^","^src^"\n")				
+			| _ => print "estamo al horno"
+	  fun printSetMoves s =	let val _ = app printMoves s in () end	
+		val _ = tabAplica (printSetMoves,tabToPrint)  
+		val _ = print "}\n"
+	in () end
+
+fun printTab2 tabToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n {")	
+		(*val claves = tabClaves(tabToPrint) *)
+		fun printColor m = print ("Color: "^Int.toString(m)) 
+	  fun printSet s =	let val _ = app printColor s
+													val _ = print "\n" in () end	
+		fun printClave k = print("Nodo: "^k^" -> ")
+		val _ = tabAAplica (printClave,printSet,tabToPrint)  
+		val _ = print "}\n"
+	in () end
+
+fun printTab4 tabToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n {")	
+		(*val claves = tabClaves(tabToPrint) *)
+		fun printColor m = print ("vecinos: "^m) 
+	  fun printSet s =	let val _ = app printColor s
+													val _ = print "\n" in () end	
+		fun printClave k = print("Nodo: "^k^" -> ")
+		val _ = tabAAplica (printClave,printSet,tabToPrint)  
+		val _ = print "}\n"
+	in () end
+
+fun printTab3 tabToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n {")	
+		fun printValor v = print ("Valor: "^Int.toString(v)^"\n") 
+		fun printClave k = print("Nodo: "^k^" -> ")
+		val _ = tabAAplica (printClave,printValor,tabToPrint)  
+		val _ = print "}\n"
+	in () end
+
 
 fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a2, dst = d2, src = s2, jump = j2})) =
 					if a1 = a2 andalso d1 = d2 andalso s1 = s2 andalso j1 = j2 
@@ -44,7 +88,7 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
 
 val precolored_init = [fp, sp, rv ] @ argregs (*[fp,sp,rv,ov]*)
-val listaColors = [0, 1] (* , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]*)
+val listaColors = [0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 val k = 2 (* 14 *)
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
@@ -102,6 +146,7 @@ let
 	val init = difference(conjTmpReg,(!precolored))
   (*fun funAuxD n = degree := tabRInserta(n,0,!degree)
   val _ = app funAuxD conjTmpReg*)
+  val _ = color := miTabNueva() 
 	fun funPreC i = color := tabRInserta(List.nth(precolored_init,i-14),singleton Int.compare i,!color)
   val _ = app funPreC (addList(empty Int.compare, [14, 15])) 
 	val _ = color := tabRInserta(rv, singleton Int.compare 0,  !color)
@@ -110,6 +155,7 @@ let
 	val _ = color := tabRInserta(List.nth(argregs, 2), singleton Int.compare 4,  !color)
 	val _ = color := tabRInserta(List.nth(argregs, 3), singleton Int.compare 5,  !color)
   fun funAux n = color := tabRInserta(n,empty Int.compare,!color)
+	val init =  if isEmpty(!initial) then init else (!initial)
 	val _ = app funAux init
 in initial := init end
 handle Subscript => print "initialInit: Subscript"
@@ -232,7 +278,7 @@ fun ok(t, r) =
 												val _ = print "ok: noExiste"
 											in true end 
 
-fun conservative(nodes) = 
+fun conservative(nodes) = (* Que onda? esta distinto al libro y no me doy cuenta, pero parece estar mal *) 
 	let
 		fun funAux (x, y) = if y >= k then 1 else 0 
 		val mapped = map funAux (tabAList(!degree))
@@ -468,50 +514,6 @@ fun freeze() =
  in freezeWorklist := tempFreeze; simplifyWorklist := tempSimplify end
 	handle Empty => print "freeze: Empty"		
 
-fun printTab tabToPrint nombre = 
-	let
-		val _ = print("\n esto es: "^nombre^"\n {")	
-		fun printMoves m = 
-			case m of MOVE{assem, dst, src} => print ("MOVE: "^dst^","^src^"\n")				
-			| _ => print "estamo al horno"
-	  fun printSetMoves s =	let val _ = app printMoves s in () end	
-		val _ = tabAplica (printSetMoves,tabToPrint)  
-		val _ = print "}\n"
-	in () end
-
-fun printTab2 tabToPrint nombre = 
-	let
-		val _ = print("\n esto es: "^nombre^"\n {")	
-		(*val claves = tabClaves(tabToPrint) *)
-		fun printColor m = print ("Color: "^Int.toString(m)) 
-	  fun printSet s =	let val _ = app printColor s
-													val _ = print "\n" in () end	
-		fun printClave k = print("Nodo: "^k^" -> ")
-		val _ = tabAAplica (printClave,printSet,tabToPrint)  
-		val _ = print "}\n"
-	in () end
-
-fun printTab4 tabToPrint nombre = 
-	let
-		val _ = print("\n esto es: "^nombre^"\n {")	
-		(*val claves = tabClaves(tabToPrint) *)
-		fun printColor m = print ("vecinos: "^m) 
-	  fun printSet s =	let val _ = app printColor s
-													val _ = print "\n" in () end	
-		fun printClave k = print("Nodo: "^k^" -> ")
-		val _ = tabAAplica (printClave,printSet,tabToPrint)  
-		val _ = print "}\n"
-	in () end
-
-fun printTab3 tabToPrint nombre = 
-	let
-		val _ = print("\n esto es: "^nombre^"\n {")	
-		fun printValor v = print ("Valor: "^Int.toString(v)^"\n") 
-		fun printClave k = print("Nodo: "^k^" -> ")
-		val _ = tabAAplica (printClave,printValor,tabToPrint)  
-		val _ = print "}\n"
-	in () end
-
 
 fun selectSpill(assem ) = 
 let
@@ -595,7 +597,7 @@ fun assignColors() =
 fun rewrite (assems, frame) = 
 let 
 	val _ = print "Rewrite \n"
-	val setNewTemps = empty String.compare
+	val setNewTemps = ref (empty String.compare)
 	fun funAuxPrev (item_c:tigertemp.temp, assems) =
 		let
 			val _ = print ("TempSpilleado: "^item_c^"\n") 
@@ -646,7 +648,7 @@ i*)
 									val _ = printConj (midef) "midef"
 									val miTemp = tigertemp.newtemp()
 								  val _ = print ("New Store Temp: "^miTemp^"\n")
-									val setNewTemps = add(setNewTemps,miTemp)  
+									val _ = setNewTemps := add(!setNewTemps,miTemp)  
 									val storeIns = store miTemp puntero
 								  (*Tambien necesitamos reemplazar en la instruccion el temporario por el temporario nuevo *)
 								  val newI = case	instr of		
@@ -666,7 +668,7 @@ i*)
 									val _ = printConj (miuse) "miuse"
 									val miTemp = tigertemp.newtemp()
 								  val _ = print ("New Fetch Temp: "^miTemp^"\n")
-								  val setNewTemps = add(setNewTemps,miTemp)  
+								  val _ = setNewTemps := add(!setNewTemps,miTemp)  
 								  val fetchIns = fetch miTemp puntero
 								  val newI = case	instr of		
 									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
@@ -686,7 +688,7 @@ i*)
 		in funAux item_c [] assems end  (*fin let de funAuxPrev *)
   val newAssems = foldl funAuxPrev assems (!spilledNodes)
   val _ = spilledNodes := (empty String.compare)
-  val _ = initial := union(union(!coloredNodes,!coalescedNodes), setNewTemps)
+  val _ = initial := union(union(!coloredNodes,!coalescedNodes), !setNewTemps)
 	val _ = coloredNodes := (empty String.compare)
   val _ = coalescedNodes := (empty String.compare)
 	in newAssems 
@@ -741,16 +743,17 @@ let
 	val _ = while not(!condicion) do ( preAssign();condicion:=boolcond();i:=(!i)+1;print ("i:::"^Int.toString(!i)^"\n"); lengthList())
 	val _ = assignColors()
 	val _ = printConj (!spilledNodes) "spilledNodes"
-	val _ = if not(isEmpty(!spilledNodes)) 
+	val assemsF = if not(isEmpty(!spilledNodes)) 
 		then
 			let (*val assemsP = List.map (format (fn x=>x)) assems
 					val _ = List.map print assemsP*)
 					val assemsNew = rewrite(assems, frame)
 					(*val assemsP = List.map (format (fn x=>x)) assemsNew
-					val _ = List.map print assemsP*)
-			in (main fgraph nodes assemsNew frame) end
-	handle Subscript => print "main: Subscript"
-		else ()	
+					val _ = List.map print assemsP*) 
+					val (fgraphNew,nodesNew) = tigermakegraph.instrs2graph assemsNew
+					val assemsNew2 = (main fgraphNew nodesNew assemsNew frame) 
+			in assemsNew2 end
+		else assems	
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printConj (!coalescedNodes) "coalescedNodes"
 	val _ = printConj (!spillWorklist) "spillWorklist"
@@ -763,7 +766,6 @@ let
 	val _ = printConj (!spilledNodes) "spilledNodes"
 	val _ = printConj (!coloredNodes) "coloredNodes"
 	val _ = printTab2 (!color) "color"
-	handle Subscript => print "main: Subscript"
-in () end
+in assemsF end
 
 

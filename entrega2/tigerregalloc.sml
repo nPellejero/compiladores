@@ -29,8 +29,12 @@ fun saytemp tabreg t =
 let
 	val _ = print ("TEMP -> REG: "^t^" -> ")
 	val colorConj = tabSaca(t,!color)
+			handle noExiste => let val _ = print (t^" No tiene color\n")
+														in (empty Int.compare) end
 	val col = List.hd(listItems(colorConj))
 	val reg = tabSaca(col,tabreg)
+			handle noExiste => let val _ = print (Int.toString(col)^" No tiene registro ese color\n")
+														in "ERR" end
 	val _ = print (reg^"\n")
 in reg end
 
