@@ -88,8 +88,8 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
 
 val precolored_init = [fp, sp, rv ] @ argregs (*[fp,sp,rv,ov]*)
-val listaColors = [0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-val k = 2 (* 14 *)
+val listaColors = [0, 1, 2, 3] (*[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
+val k = 4 (* 14 *)
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
 val adjList = ref(miTabNueva())
@@ -136,9 +136,12 @@ fun tabSacaInt (item, table) =
 
 fun precoloredInit() =
 let
+	val _ = degree := miTabNueva()
+	val _ = adjList := miTabNueva()
+	val _ = adjSet := empty tupleCompare
 	val prec = addList (empty String.compare, precolored_init)
 in precolored := prec 
-end
+end	
 
 fun initialInit() =
 let
@@ -278,7 +281,7 @@ fun ok(t, r) =
 												val _ = print "ok: noExiste"
 											in true end 
 
-fun conservative(nodes) = (* Que onda? esta distinto al libro y no me doy cuenta, pero parece estar mal *) 
+fun conservative(nodes) =  
 	let
 		fun funAux (x, y) = if y >= k then 1 else 0 
 		val mapped = map funAux (tabAList(!degree))
@@ -318,9 +321,9 @@ fun addEdge (nodeu,nodev) =
 	 if (not(miMember2 (!adjSet,(nodeu,nodev))) orelse not(miMember2 (!adjSet,(nodev,nodeu)))) andalso not(String.compare(nodeu,nodev) = EQUAL)
 		then 
 			let
-				(*val _ =  print ("poniendo noddes: " ^ nodeu ^ nodev ^ "\n" ) 
-				val _ = app (fn (x,y) => print ("("^x^","^y^")")) (!adjSet)
-				val _ = print "\n"*) 
+				val _ =  print ("poniendo noddes: " ^ nodeu ^ nodev ^ "\n" ) 
+			(*	val _ = app (fn (x,y) => print ("("^x^","^y^")")) (!adjSet)
+				val _ = print "\n" *)
 				val _ = if not(member(!precolored, nodeu))
 									then 
 										let 
@@ -437,13 +440,13 @@ let
 			let
 				val live = difference(live,getuse i)
 				val mynode = miEnesimo(nodes,i)
+				val _ = print ("Build moveList:"^dst^","^src^"\n")
 				fun myFunAux item =
 						let 
 							val myMoveList = tabSaca(item, (!moveList))
 							handle noExiste => empty compAssem (*let
 														 		val _ =print "build: noExiste\n"
 																in empty compAssem end*)
-							val _ = print ("Build moveList:"^dst^","^src^"\n")
 							val myConj = union(myMoveList, singleton compAssem instr)
 				  	in moveList := tabRInserta(item, myConj, (!moveList)) end
 				val _ = app myFunAux (union(getdef(i), getuse(i)))
@@ -612,8 +615,8 @@ i*)
 		(*	val puntero2 = MEM(BINOP(PLUS, TEMP FP, CONST 0) *)
 		  fun moveIns (dst, src) = tigercodegen.codegen (tigertree.MOVE (dst, src)) 
 (*			val _ = print ("Access: "^puntero^"\n")  *)
-			fun store temp punt = moveIns (tigertree.TEMP temp,punt) (* MOVE{assem = "MOV 's0, ('d0) \n", dst = punt,  src = temp} *)
-      fun fetch temp punt = moveIns (punt,tigertree.TEMP temp) (* MOVE{assem = "MOV ('s0), 'd0 \n", dst = temp, src = punt} *)
+			fun fetch temp punt = moveIns (tigertree.TEMP temp,punt) (* MOVE{assem = "MOV 's0, ('d0) \n", dst = punt,  src = temp} *)
+      fun store temp punt = moveIns (punt,tigertree.TEMP temp) (* MOVE{assem = "MOV ('s0), 'd0 \n", dst = temp, src = punt} *)
 			fun getsrc ins = 
 				let 
  					val src = case ins of		
@@ -641,12 +644,32 @@ i*)
 		(*	val postAssem = List.tl(postAssem) *)
 			val midef = getdst instr (* getdef(i) extraer de src *)
 			val miuse = getsrc instr (* getuse(i) extraer de dst *)	 
-		  val miuse = if equal(intersection(miuse,midef),empty String.compare) then miuse else difference(miuse,midef)(* esto lo hice pq extrañamente el dst se repite dentro del src en algunos casos... no entiendo pq.*)
+			val (preAssem,miTemp) = if (member(miuse,item) orelse member(midef,item)) then (preAssem,tigertemp.newtemp()) else (preAssem @ [instr],"TERR") 
+		(*  val miuse = if equal(intersection(miuse,midef),empty String.compare) then miuse else difference(miuse,midef) esto lo hice pq extrañamente el dst se repite dentro del src en algunos casos... no entiendo pq.*)		
+			val preAssem = if member(miuse,item)
+							then
+								let
+									val _ = printConj (miuse) "misrc"
+								  val _ = print ("New Fetch Temp: "^miTemp^"\n")
+								  val _ = setNewTemps := add(!setNewTemps,miTemp)  
+								  val fetchIns = fetch miTemp puntero
+								  val newI = case	instr of		
+									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
+											let 
+												val new_s = List.map (fn src_u => let val _ = print ("src: "^src_u^" ")
+ in replace(item,miTemp,src_u) end ) s 
+											in  (OPER{assem = a, dst = d, src = new_s, jump = j}) end 
+  								| (MOVE{assem = a, dst = d, src = s}) => (MOVE{assem = a, dst = d, src = miTemp}) 		
+									| _ => instr
+									val assemsP = List.map (format (fn x=>x)) ([instr] @ fetchIns )
+									val _ = List.map print assemsP
+								in if member(midef, item) then preAssem @ fetchIns  else preAssem @ fetchIns @ [newI] end
+							else preAssem (* ¿Puede pasar que tengamos una instruccion que tenga a nuestro temporario spilleado en src y dst a la vez? eso debe estar mal. Aparte veo como que repite instrucciones.. es raro *)
+  
 			val preAssem = if member(midef,item)
 							then
 								let
-									val _ = printConj (midef) "midef"
-									val miTemp = tigertemp.newtemp()
+									val _ = printConj (midef) "midst"
 								  val _ = print ("New Store Temp: "^miTemp^"\n")
 									val _ = setNewTemps := add(!setNewTemps,miTemp)  
 									val storeIns = store miTemp puntero
@@ -661,28 +684,8 @@ i*)
 									val assemsP = List.map (format (fn x=>x)) ([instr,newI] @ storeIns)
 									val _ = List.map print assemsP
 							 in preAssem @ [newI] @ storeIns end
-							else preAssem @ [instr]
-			val assemTemp = if member(miuse,item)
-							then
-								let
-									val _ = printConj (miuse) "miuse"
-									val miTemp = tigertemp.newtemp()
-								  val _ = print ("New Fetch Temp: "^miTemp^"\n")
-								  val _ = setNewTemps := add(!setNewTemps,miTemp)  
-								  val fetchIns = fetch miTemp puntero
-								  val newI = case	instr of		
-									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
-											let 
-												val new_s = List.map (fn src_u => let val _ = print ("src: "^src_u^" ")
- in replace(item,miTemp,src_u) end ) s 
-											in  (OPER{assem = a, dst = d, src = new_s, jump = j}) end 
-  								| (MOVE{assem = a, dst = d, src = s}) => (MOVE{assem = a, dst = d, src = miTemp}) 		
-									| _ => instr
-									val assemsP = List.map (format (fn x=>x)) ([instr] @ fetchIns @ [newI])
-									val _ = List.map print assemsP
-								in preAssem @ fetchIns @ [newI] end
-							else preAssem @ [instr] (* ¿Puede pasar que tengamos una instruccion que tenga a nuestro temporario spilleado en src y dst a la vez? eso debe estar mal. Aparte veo como que repite instrucciones.. es raro *)
-  		in funAux item preAssem postAssem end
+							else preAssem
+		in funAux item preAssem postAssem end
 			| funAux item preAssem [] = preAssem   
 
 		in funAux item_c [] assems end  (*fin let de funAuxPrev *)
@@ -748,13 +751,13 @@ let
 			let (*val assemsP = List.map (format (fn x=>x)) assems
 					val _ = List.map print assemsP*)
 					val assemsNew = rewrite(assems, frame)
-					(*val assemsP = List.map (format (fn x=>x)) assemsNew
-					val _ = List.map print assemsP*) 
+					val assemsP = List.map (format (fn x=>x)) assemsNew
+					val _ = List.map print assemsP
 					val (fgraphNew,nodesNew) = tigermakegraph.instrs2graph assemsNew
 					val assemsNew2 = (main fgraphNew nodesNew assemsNew frame) 
 			in assemsNew2 end
 		else assems	
-	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
+(*	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printConj (!coalescedNodes) "coalescedNodes"
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!freezeWorklist) "freezeWorklist"
@@ -764,7 +767,7 @@ let
 	val _ = printConjMoves (!constrainedMoves) "constrainedMoves"
 	val _ = printConjMoves (!frozenMoves) "frozenMoves"
 	val _ = printConj (!spilledNodes) "spilledNodes"
-	val _ = printConj (!coloredNodes) "coloredNodes"
+	val _ = printConj (!coloredNodes) "coloredNodes"*)
 	val _ = printTab2 (!color) "color"
 in assemsF end
 
