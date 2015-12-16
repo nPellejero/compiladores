@@ -30,7 +30,6 @@ fun livenessAnalisis (FGRAPH {control, def, use, ismove}, nodeList) : (tigertemp
 
 		fun updateArrays n = let val insn' = sub(insarray,n)
 								val outsn' = sub(outsarray,n)
-								val _ = app (fn x => print ("|"^x^"\n") ) (getuse n)
 								val _ = update(insarray, n, union(getuse n, difference(outsn', getdef n)))
 								val _ = update(outsarray, n, List.foldl (fn (index,set) => union (set, sub(insarray,index))) (empty String.compare) (getSuccsIndexes n))
 							(*	val _ = app ( fn x => print ("Liveness: "^x^"\n")) outsn' *)

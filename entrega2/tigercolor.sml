@@ -321,8 +321,8 @@ fun addEdge (nodeu,nodev) =
 	 if (not(miMember2 (!adjSet,(nodeu,nodev))) orelse not(miMember2 (!adjSet,(nodev,nodeu)))) andalso not(String.compare(nodeu,nodev) = EQUAL)
 		then 
 			let
-				val _ =  print ("poniendo noddes: " ^ nodeu ^ nodev ^ "\n" ) 
-			(*	val _ = app (fn (x,y) => print ("("^x^","^y^")")) (!adjSet)
+			(*	val _ =  print ("poniendo noddes: " ^ nodeu ^ nodev ^ "\n" ) 
+				val _ = app (fn (x,y) => print ("("^x^","^y^")")) (!adjSet)
 				val _ = print "\n" *)
 				val _ = if not(member(!precolored, nodeu))
 									then 
@@ -436,13 +436,10 @@ let
   fun arrayToList arr = Array.foldr (op ::) [] arr
 
 	val live = sub(outsarray, i)
-	val _ = print ("esto es live: ["^Int.toString(i)^"] \n")
-	val _ = app (fn x => print (x ^ "\n")) live
 	val _ = case instr of MOVE {assem,dst,src} =>
 			let
 				val live = difference(live,getuse i)
 				val mynode = miEnesimo(nodes,i)
-				val _ = print ("Build moveList:"^dst^","^src^"\n")
 				fun myFunAux item =
 						let 
 							val myMoveList = tabSaca(item, (!moveList))
