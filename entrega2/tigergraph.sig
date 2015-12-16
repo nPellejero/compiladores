@@ -9,7 +9,8 @@ sig
 	val adj : node -> node list
 	val eq : node*node -> bool
 	val compare : node*node -> order
-
+	val resetNodei : unit -> unit 
+ 
 	val newGraph : unit -> graph
 	val newNode : graph -> node
 	exception GraphEdge

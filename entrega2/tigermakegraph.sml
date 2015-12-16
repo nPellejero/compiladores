@@ -9,7 +9,7 @@ fun instrs2graph inss =
 											|NONE => let val mynode = newNode graph
 														val labs = tabInserta(lab,mynode,labs)
 														in (mynode,labs) end)
-
+		val _ = resetNodei()
 		fun aux graph nodelist [] _ _ = (graph, List.rev nodelist)
 			|aux (FGRAPH {control, def, use, ismove}) nodelist (OPER {assem, dst, src, jump = SOME js} :: rest) tablaLabels maybelastnode =
 					let val mynode = newNode control
@@ -27,6 +27,8 @@ fun instrs2graph inss =
 														| [] => raise Fail ("SOME 0 jumps. Assem: "^assem)
 														| _ => raise Fail "More than 2 jumps? Not on MY watch.")
 						val nodelist = (mynode :: nodelist)
+						val _ = print ("OPER: "^assem^"\n")
+						val _ = List.map (fn x => print ("temps: "^x^"\n")) (dst @ src) 
 						val def = tabRInserta (mynode, dst, def)
 						val use = tabRInserta (mynode, src, use)
 						val ismove = tabRInserta (mynode, false, ismove)
@@ -37,7 +39,9 @@ fun instrs2graph inss =
 						val _ = (case maybelastnode of SOME lastnode => mk_edge {from = lastnode, to = mynode}
 														|NONE => ())
 						val nodelist = (mynode :: nodelist)
-						val def = tabRInserta (mynode, dst, def)
+						val _ = print ("OPER2: "^assem^"\n")
+						val _ = List.map (fn x => print ("temps: "^x^"\n")) (dst @ src) 
+					val def = tabRInserta (mynode, dst, def)
 						val use = tabRInserta (mynode, src, use)
 						val ismove = tabRInserta (mynode, false, ismove)
 					in aux (FGRAPH {control=control, def=def, use=use, ismove=ismove}) nodelist rest tablaLabels (SOME mynode)
@@ -47,7 +51,8 @@ fun instrs2graph inss =
 						val _ = (case maybelastnode of SOME lastnode => mk_edge {from = lastnode, to = mynode}
 														|NONE => ())
 						val nodelist = (mynode :: nodelist)
-						val def = tabRInserta (mynode, [], def)
+						val _ = print ("Lab: "^lab^"\n")
+			val def = tabRInserta (mynode, [], def)
 						val use = tabRInserta (mynode, [], use)
 						val ismove = tabRInserta (mynode, false, ismove)
 					in aux (FGRAPH {control=control, def=def, use=use, ismove=ismove}) nodelist rest tablaLabels (SOME mynode)
@@ -57,6 +62,8 @@ fun instrs2graph inss =
 						val _ = (case maybelastnode of SOME lastnode => mk_edge {from = lastnode, to = mynode}
 														|NONE => ())
 						val nodelist = (mynode :: nodelist)
+						val _ = print ("MOV: "^assem^":"^src^":"^dst^"\n")
+						val _ = print ("temps: "^dst^":"^src^"\n") 
 						val def = tabRInserta (mynode, [dst], def)
 						val use = tabRInserta (mynode, [src], use)
 						val ismove = tabRInserta (mynode, true, ismove)

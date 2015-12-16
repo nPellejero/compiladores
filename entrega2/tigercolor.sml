@@ -436,6 +436,8 @@ let
   fun arrayToList arr = Array.foldr (op ::) [] arr
 
 	val live = sub(outsarray, i)
+	val _ = print ("esto es live: ["^Int.toString(i)^"] \n")
+	val _ = app (fn x => print (x ^ "\n")) live
 	val _ = case instr of MOVE {assem,dst,src} =>
 			let
 				val live = difference(live,getuse i)
@@ -462,7 +464,7 @@ let
 (*	val _ = print "esto es live:\n"
 	val _ = app (fn x => print (x ^ "\n")) live
 	val _ = print "esto es getdefi:\n"
-	val _ = app (fn x => print (x ^ "\n")) (getdef i)*)
+	val _ = app (fn x => print (x ^ "\n")) (getdef i) *)
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 handle Subscript => print "build:Subscript"
@@ -702,7 +704,18 @@ end
 fun main fgraph nodes assems frame =
 let	
 	val _ = precoloredInit()
-	val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
+(*	val _ = List.map (fn nod => print ("Nodes: "^nodename(nod)^"\n")) nodes *)
+(*
+	fun getuse index use = let val mynode = miEnesimo(nodes, index)
+										  val _ = print ("que onda: "^nodename(mynode)^"\n")
+											val uses = (case tabBusca (mynode, use) of SOME x=> x | NONE => [])
+									in addList (empty String.compare, uses) end
+
+(*	val _ = List.map (fn (FGRAPH {control, def, use, ismove}) => app (fn x => print ("Nodes: "^x^"\n")) (getuse 0 use) ) fgraph *)
+	val _ = case fgraph of
+		 (FGRAPH {control, def, use, ismove}) => if isEmpty( (getuse 0 use) ) then print "mpty\n"  else app (fn x => print ("Nodes: "^x^"\n")) (getuse 0 use) 
+		| _ => print "nada\n" *)
+val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = build outsarray assems 0 (fgraph,nodes)
 	handle Subscript => print "main: Subscript" (*este es el que se dispara*)
 	val _ = initialInit()	

@@ -6,7 +6,12 @@ type node = noderep * graph
 val emptystringset = empty String.compare
 
 val nxtnode = ref #"a"
+
+
 val nodei = ref 0
+
+fun resetNodei() = let val _ = nodei := 0 in () end
+
 fun nextnode () = let val ret = Char.toString(!nxtnode)^Int.toString(!nodei)
 						val _ = if !nxtnode = #"z" then nxtnode := Char.succ (!nxtnode) else (nxtnode := #"a";nodei:= !nodei+1)
 						in ret end
