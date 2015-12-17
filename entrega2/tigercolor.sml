@@ -645,7 +645,7 @@ i*)
 			val miuse = getsrc instr (* getuse(i) extraer de dst *)	 
 			val (preAssem,miTemp) = if (member(miuse,item) orelse member(midef,item)) then (preAssem,tigertemp.newtemp()) else (preAssem @ [instr],"TERR") 
 		(*  val miuse = if equal(intersection(miuse,midef),empty String.compare) then miuse else difference(miuse,midef) esto lo hice pq extrañamente el dst se repite dentro del src en algunos casos... no entiendo pq.*)		
-			val preAssem = if member(miuse,item)
+			val (preAssem,instr) = if member(miuse,item)
 							then
 								let
 									val _ = printConj (miuse) "misrc"
@@ -656,15 +656,14 @@ i*)
 									  (OPER{assem = a, dst = d, src = s, jump = j}) =>
 											let 
 												val new_s = List.map (fn src_u => let val _ = print ("src: "^src_u^" ")
- in replace(item,miTemp,src_u) end ) s 
+																													 in replace(item,miTemp,src_u) end ) s 
 											in  (OPER{assem = a, dst = d, src = new_s, jump = j}) end 
   								| (MOVE{assem = a, dst = d, src = s}) => (MOVE{assem = a, dst = d, src = miTemp}) 		
 									| _ => instr
 									val assemsP = List.map (format (fn x=>x)) ([instr] @ fetchIns )
 									val _ = List.map print assemsP
-								in if member(midef, item) then preAssem @ fetchIns  else preAssem @ fetchIns @ [newI] end
-							else preAssem (* ¿Puede pasar que tengamos una instruccion que tenga a nuestro temporario spilleado en src y dst a la vez? eso debe estar mal. Aparte veo como que repite instrucciones.. es raro *)
-  
+								in if member(midef, item) then (preAssem @ fetchIns,newI)  else (preAssem @ fetchIns @ [newI],instr) end
+							else (preAssem,instr)   
 			val preAssem = if member(midef,item)
 							then
 								let
