@@ -149,6 +149,7 @@ fun tabSacaInt (item, table) =
 
 fun precoloredInit() =
 let
+	val _ = masterLives := []
 	val _ = degree := miTabNueva()
 	val _ = adjList := miTabNueva()
 	val _ = adjSet := empty tupleCompare
