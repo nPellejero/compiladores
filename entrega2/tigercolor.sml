@@ -29,6 +29,18 @@ fun printConj conjToPrint nombre =
 		val _ = print "}\n"
 	in () end
 
+fun printAssem m = 
+			case m of MOVE{assem, dst, src} => print ("MOVE: "^dst^","^src^"\n")				
+			| (OPER{assem = a, dst = d, src = s, jump = j}) => let
+																													val _ = print "OPER:\n {"
+																													val _ = print "\nsrc:"
+																													val _ = List.app (fn x => print (x^" ")) s	
+																													val _ = print "\ndst:"
+																													val _ = List.app (fn x => print (x^" ")) d	
+																													val _ = print "}\n"
+																												 in () end
+			| (LABEL{assem = a, lab=l}) =>  print ("LABEL: "^a^":"^l^"\n") 
+
 fun printTab tabToPrint nombre = 
 	let
 		val _ = print("\n esto es: "^nombre^"\n {")	
@@ -110,6 +122,7 @@ val frozenMoves = ref(empty compAssem)
 val color = ref(miTabNueva())
 val coloredNodes = ref(empty String.compare)
 val spilledNodes = ref(empty String.compare)
+val masterLives = ref([])
 
 fun pushStack( item ) = selectStack := item::(!selectStack)
 fun popStack() = let
@@ -303,6 +316,7 @@ fun makeWorklist() =
 let 
   fun makeAux x = let
 										val init_n = delete((!initial),x)
+										val _ = print ("MakeWork "^x^"\n")
 										val g = tabSaca(x,(!degree))
 										handle noExiste => let
 														 val _ =  print ("makeAux: no existe el nodo:"^x ^" \n") in 0 end
@@ -321,7 +335,7 @@ fun addEdge (nodeu,nodev) =
 	 if (not(miMember2 (!adjSet,(nodeu,nodev))) orelse not(miMember2 (!adjSet,(nodev,nodeu)))) andalso not(String.compare(nodeu,nodev) = EQUAL)
 		then 
 			let
-			(*	val _ =  print ("poniendo noddes: " ^ nodeu ^ nodev ^ "\n" ) 
+				(*val _ =  print ("poniendo noddes: " ^ nodeu ^", "^ nodev ^ "\n" ) 
 				val _ = app (fn (x,y) => print ("("^x^","^y^")")) (!adjSet)
 				val _ = print "\n" *)
 				val _ = if not(member(!precolored, nodeu))
@@ -347,6 +361,7 @@ fun addEdge (nodeu,nodev) =
 				in adjSet := add(!adjSet, (nodeu,nodev)); adjSet := add(!adjSet, (nodev,nodeu)) end
 					else () (*print (nodeu ^ " equals?? " ^ nodev ^ "\n")*) 
 handle Subscript => print "addEdge:Subscript"
+
 fun combine(u, v) =
 	let
 		val _ = print ("Combine ("^u^","^v^")\n")
@@ -423,6 +438,16 @@ let
 in () end
 	handle Empty => print "coalesce: Empty"		
 
+fun isMoveInstruction(ins) =
+case ins of MOVE {assem,dst,src} => let 
+				val _ = print ("build: "^dst^", "^src^"\n")
+				in true end
+(*| OPER {assem=a,dst=d,src=s,jump=j} => let (*val _ = print ("PRUEBA!"^String.substring(a,0,3)^"\n") *)
+																					val b = (String.compare(String.substring(a,0,3),"MOV")=EQUAL)
+																				(*	val _ = print ("PRUEBA: "^Bool.toString(b)^"\n")*)
+																				 val _ = printAssem ins
+																				in b end  *)
+| _ => false
 
 fun build outsarray (instr::assems) i (FGRAPH{control, def, use, ismove},nodes) = 
 let
@@ -434,10 +459,15 @@ let
 									in addList (empty String.compare, defs) end
 
   fun arrayToList arr = Array.foldr (op ::) [] arr
-
+  val isMOVE = tabSaca(miEnesimo(nodes, i),ismove)
+(*  val _ = print ("isMOve: "^Bool.toString(isMOVE)^"\n")
+	val _ = print ("ismoveInstr: "^Bool.toString(isMoveInstruction(instr))^"\n") *)
 	val live = sub(outsarray, i)
-	val _ = case instr of MOVE {assem,dst,src} =>
+	val _ = masterLives := ((!masterLives) @ listItems(live))
+	val _ = (*case instr of MOVE {assem,dst,src} => *)
+					if (isMoveInstruction(instr)) then
 			let
+		(*		val _ = print ("build: "^dst^", "^src^"\n")  *)
 				val live = difference(live,getuse i)
 				val mynode = miEnesimo(nodes,i)
 				fun myFunAux item =
@@ -445,14 +475,15 @@ let
 							val myMoveList = tabSaca(item, (!moveList))
 							handle noExiste => empty compAssem (*let
 														 		val _ =print "build: noExiste\n"
-																in empty compAssem end*)
+																in empty compAssem end *)
 							val myConj = union(myMoveList, singleton compAssem instr)
 				  	in moveList := tabRInserta(item, myConj, (!moveList)) end
 				val _ = app myFunAux (union(getdef(i), getuse(i)))
-				handle noExiste => () (* print "build22: noExiste \n" *)
+				handle noExiste => print "build22: noExiste \n"
 				val worklistTemp = union(!worklistMoves, singleton compAssem instr)
 			  in worklistMoves := worklistTemp end
-		| _ => () (* let
+	(*	| _ => printAssem instr*) else ()
+ (* let
 							val mynode = List.nth (nodes,i) 
 							in moveList := tabRInserta (nodename mynode, (empty compAssem), !moveList) 
 						end *)
@@ -524,12 +555,14 @@ let
 	| funAux1 ((MOVE{assem = a, dst = d, src = s}), accum) = (s::d::accum)
 	| funAux1 ((LABEL{assem = a, lab=l}), accum) = accum
 	val masterList = List.foldl funAux1 [] assem
+(*	val _ = List.app (fn x => print ("masterlist: "^x^"\n")) masterList 
+	val _ = List.app (fn x => print ("masterlives: "^x^"\n")) (!masterLives)*) 
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = print "SelectSpill \n" 
 	val max = ref(("string",0))
  
 	fun nuevaFun (item, (temp,apar)) = let
-		val num = (List.length(List.filter(fn x => String.compare(x, item) = EQUAL) masterList ))	
+		val num = (List.length(List.filter(fn x => String.compare(x, item) = EQUAL) (!masterLives) ))	
 	  val _ = print ("("^item^","^Int.toString(num)^")\n")	
 		val ret = if (num > apar) then (item, num) else (temp,apar)
 		in ret end
@@ -558,6 +591,7 @@ fun assignColors() =
 			val singN = singleton String.compare n
 			val okColors =ref(addList(empty Int.compare, listaColors )) 
 			val miAdjList = tabSacaConj(n, !adjList)
+	(*		val _ = printConj (miAdjList) "lista adj"*)
 			fun funAux(w) =
 				let 
 					val miAlias = getAlias(w)
@@ -715,16 +749,20 @@ val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = build outsarray assems 0 (fgraph,nodes)
 	handle Subscript => print "main: Subscript" (*este es el que se dispara*)
 	val _ = initialInit()	
+	val _ = printConj (!initial) "initial"
 	val _ = makeWorklist() 
 	val _ = printTab2 (!color) "color"
 	val _ = printTab3 (!degree) "degree"
-(*	val _ = printConj (!spillWorklist) "spillWorklist"
-	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printTab (!moveList) "moveList"
+	val uni = union(!spillWorklist, union(!simplifyWorklist,union(!freezeWorklist,!precolored)))
+	val _ = printConj uni "UNION"
+	val _ = printConj (!spillWorklist) "spillWorklist"
+	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printConj (!freezeWorklist) "freezeWorklist" 
-	(*val _ = printTab4 (!adjList) "adjList"*)
+	val _ = printTab4 (!adjList) "adjList"
 	val _ = printConjMoves (!worklistMoves) "worklistMoves"  
-  val _ = printConjMoves (!activeMoves) "activeMoves" *) 
+  val _ = printConjMoves (!activeMoves) "activeMoves" 
+	val _ = printConj (addList (empty String.compare,!selectStack)) "Stack" 
 	fun boolcond() =  isEmpty(!simplifyWorklist) andalso isEmpty(!freezeWorklist) andalso isEmpty(!worklistMoves) andalso isEmpty(!spillWorklist)  
 	fun preAssign() = if not(isEmpty(!simplifyWorklist)) then simplify() 
                       (* let
@@ -777,7 +815,7 @@ val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = printConjMoves (!frozenMoves) "frozenMoves"
 	val _ = printConj (!spilledNodes) "spilledNodes"
 	val _ = printConj (!coloredNodes) "coloredNodes"*)
-	val _ = printTab2 (!color) "color"
+	val _ = printTab2 (!color) "Color"
 in assemsF end
 
 

@@ -104,7 +104,7 @@ tigertrans.ui: tigertree.uo tigerframe.ui tigertemp.ui tigerabs.uo
 tigermakegraph.uo: tigermakegraph.ui tigertab.ui tigergraph.ui \
     tigerassem.uo tigertemp.ui tigerflow.ui 
 tigercanon.uo: tigercanon.ui tigertree.uo tigertab.ui tigertemp.ui 
-tigercolor.uo: tigertab.ui tigertemp.ui tigerliveness.uo tigermakegraph.ui tigermakegraph.uo
+tigercolor.uo: tigertab.ui tigertemp.ui tigerliveness.uo tigermakegraph.ui tigermakegraph.uo tigerframe.uo
 tigerit.uo: tigertree.uo tigertab.ui 
 tigerflow.ui: tigergraph.ui tigertemp.ui 
 tigersres.uo: tigertab.ui tigertips.uo tigertemp.ui tigerabs.uo \
