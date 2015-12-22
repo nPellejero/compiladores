@@ -32,6 +32,8 @@ let
 			handle noExiste => let val _ = print (t^" No tiene color\n")
 														in (empty Int.compare) end
 	val col = List.hd(listItems(colorConj))
+			handle Empty => let val _ = print "(no debe pasar) saytemp: Empty\n" 
+													in 0 end
 	val reg = tabSaca(col,tabreg)
 			handle noExiste => let val _ = print (Int.toString(col)^" No tiene registro ese color\n")
 														in "ERR" end

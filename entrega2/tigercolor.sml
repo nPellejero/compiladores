@@ -100,8 +100,8 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
 
 val precolored_init = [fp, sp, rv ] @ argregs (*[fp,sp,rv,ov]*)
-val listaColors = [0, 1, 2, 3] (*[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
-val k = 4 (* 14 *)
+val listaColors =[0,1,2,3] (*[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
+val k = 4 (*14*) 
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
 val adjList = ref(miTabNueva())
@@ -259,7 +259,7 @@ fun simplify() =
 		val _ = print "Simplify\n" 
 		fun justAux(n) = 
 			let
-				(* val _ = print ("Simplificando "^n^"\n") *)
+				 val _ = print ("Simplificando "^n^"\n") 
 				val _ = pushStack(n)
 				val _ = app decrementDegree	(adjacent(n))		
 				val justAuxWorklist = delete(!simplifyWorklist, n)
@@ -378,7 +378,7 @@ fun combine(u, v) =
 						val arg1 = tabSaca(u, (!moveList))
 						val arg2 = tabSaca(v, (!moveList))
 						handle noExiste => let 
-																val _ = print "combine: noExiste"
+																val _ = print ("combine: noExiste("^u^","^v^")"^"\n")
 															in empty  compAssem end
 						val miNodeMoves = union(arg1, arg2)
 					in coalescedNodes := miCoalesced; alias := tabRInserta(v, u, (!alias)); moveList := tabRInserta(u, miNodeMoves, (!moveList)) end
@@ -386,7 +386,8 @@ fun combine(u, v) =
 	val _ = app (fn t => (addEdge(t, u); decrementDegree(t))) (adjacent v)
 	val degU = tabSaca(u, (!degree)) 
 	handle noExiste => let 
-												val _ = print "combine: noExiste"
+												val _ = print ("combine: noExiste("^u^","^v^")"^"\n")
+
 											in 0 end
 	val _ = if degU >= k andalso member(!freezeWorklist, u)
 					then 
@@ -395,7 +396,7 @@ fun combine(u, v) =
 							val auxSpill  = union(!spillWorklist, singU)
 						in freezeWorklist := auxFreeze; spillWorklist := auxSpill end else ()
 	in () end
-	handle noExiste => print "combine: noExiste"(*este se dispara*)
+	handle noExiste => print ("combine: noExiste("^u^","^v^")"^"\n")
 
  fun coalesce() = 
 let
@@ -595,6 +596,7 @@ fun assignColors() =
 	(*		val _ = printConj (miAdjList) "lista adj"*)
 			fun funAux(w) =
 				let 
+					val _ = print("getAlias de: "^w^"\n")
 					val miAlias = getAlias(w)
 					val nodosColoreados = union(!coloredNodes, !precolored)
 					val _ = if member(nodosColoreados, miAlias)
@@ -603,7 +605,7 @@ fun assignColors() =
 											val col = tabSaca(miAlias, !color)
 											val okColorsAux = difference(!okColors, col)
 										in okColors := okColorsAux end   
-									else ()
+									else print ("miAlias no coloreado:"^w^"\n")
 				in () end
 			val _ = app funAux miAdjList
 			handle noExiste =>  print "assignColors1: noExiste"
@@ -618,6 +620,7 @@ fun assignColors() =
 									val miColored = union(!coloredNodes, singN)
 									val miItem = List.hd(listItems(!okColors))
 									val singM = singleton Int.compare miItem
+									val _ = print ("inserto en color: "^n^"\n") 
 								in color := tabRInserta(n, singM, !color); coloredNodes := miColored end
 		handle Empty => print "okColors: Empty"		
 		in assignColors() end	
@@ -748,7 +751,7 @@ let
 		| _ => print "nada\n" *)
 val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = build outsarray assems 0 (fgraph,nodes)
-	handle Subscript => print "main: Subscript" (*este es el que se dispara*)
+	handle Subscript => print "main: Subscript" 
 	val _ = initialInit()	
 	val _ = printConj (!initial) "initial"
 	val _ = makeWorklist() 
