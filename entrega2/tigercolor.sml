@@ -22,6 +22,17 @@ fun miEnesimo(lista, index) = let
 														in item end   
 									in item end
 
+fun printConjMoves conjToPrint nombre = 
+	let
+		val _ = print("\n esto es: "^nombre^"\n { ")	
+		fun printMoves m = 
+			case m of MOVE{assem, dst, src} => print ("MOVE: "^dst^","^src^"\n")				
+			| _ => print "estamo al horno"
+		val _ = app printMoves conjToPrint
+		val _ = print "}\n"
+	in () end
+
+
 fun printConj conjToPrint nombre = 
 	let
 		val _ = print("\n esto es: "^nombre^"\n {")	
@@ -191,12 +202,14 @@ fun adjacent(n) =
 	 handle noExiste =>  empty String.compare (*no esta mal.pasa cuando n es precol.*) 
 
 fun nodeMoves n = let
-		(*	val _ = print ("node: "^n^"\n") *)
+		 	val _ = print ("node: "^n^"\n") 
 				val miMoveList = tabSaca(n, !moveList) 
 			  handle noExiste => let
 														val vacio = empty compAssem 
 														val _ =  print ("nodeMoves: "^n^" -> noExiste\n")
 													 in vacio end	
+				val _ = printConjMoves (!activeMoves) "activeMoves"
+				val _ = printConjMoves (!worklistMoves) "worklistMoves"
 				val conjInter = intersection(miMoveList,union(!activeMoves,!worklistMoves)) 
 				in conjInter end
 
@@ -432,7 +445,10 @@ let
 																						val _ = combine(u, v)
 																						val _ = addWorklist(u)
 																					in coalescedMoves := tempCoalesced2 end
-																			else activeMoves := union(!activeMoves, singM)
+																			else 
+																let
+																		val _ = print "if 2 \n"
+																		in activeMoves := union(!activeMoves, singM) end
 															in () end
 		
 						in worklistMoves := tempWork end
@@ -499,35 +515,41 @@ in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismov
 | build _ [] _ _ = () 
 handle Subscript => print "build:Subscript"
 
-fun printConjMoves conjToPrint nombre = 
-	let
-		val _ = print("\n esto es: "^nombre^"\n { ")	
-		fun printMoves m = 
-			case m of MOVE{assem, dst, src} => print ("MOVE: "^dst^","^src^"\n")				
-			| _ => print "estamo al horno"
-		val _ = app printMoves conjToPrint
-		val _ = print "}\n"
-	in () end
-
 fun freezeMoves(u) = 
 	let
 		val _ = print ("freezeMoves: "^u^"\n")
 		val conjNodeMoves = nodeMoves(u)
 		val _ = printConjMoves conjNodeMoves ("nodeMoves("^u^")")
 		fun auxFun m = 
-			case m of MOVE{assem , dst, src} =>
+			case m of MOVE {assem,dst,src} =>
 				let
 					val _ = print ("NodeMoves(u) -> MOVE: "^dst^","^src^"\n")	
-					val v =  if String.compare(getAlias(src), getAlias(dst)) = EQUAL 
+					val v =  if String.compare(getAlias(dst), getAlias(u)) = EQUAL 
 										then getAlias(src) else getAlias(dst) (*src = x ; dst = y*) 
+				 val _ = print ("Alias: "^v^"\n")
+					val miMoveList = tabSaca(v, !moveList) 
 					val singM = singleton compAssem m
+					val _ = printConjMoves miMoveList "mimovelist"
+  			val _ = printConjMoves (!activeMoves) "active" 
+					val _ = printConjMoves singM "singM"
+					val temp2 = intersection(!activeMoves, singM)
+  			val _ = printConjMoves (temp2) "TEMP2" 
 					val tempActiveMoves = difference(!activeMoves, singM)
+  			val _ = printConjMoves (tempActiveMoves) "TEMPACTIVEMOVES" 
 					val tempFrozenMoves = union(!frozenMoves, singM)
+					val _ = activeMoves := tempActiveMoves
+					val _ = frozenMoves := tempFrozenMoves
 					val degreeV = tabSacaInt(v, !degree)
 					val singV = singleton String.compare v
-					val _ = if isEmpty(nodeMoves(v)) andalso degreeV < k 
+  			val _ = printConjMoves (nodeMoves(v)) "NODEMOVES DE V" 
+					val cond1 = isEmpty(nodeMoves(v))
+					val cond2 = degreeV < k
+					val _ = print ("cond1: "^Bool.toString(cond1)^"\n")
+					val _ = print ("cond2: "^Bool.toString(cond2)^"\n")
+					val _ = if cond1 andalso cond2 
 										then 
 											let
+											 val _ = print "alias v entro\n"
 												val tempFreeze = difference(!freezeWorklist, singV) 
 												val	tempSimplify = union(!simplifyWorklist, singV) 
 											in freezeWorklist := tempFreeze; simplifyWorklist := tempSimplify end
@@ -588,6 +610,8 @@ in spillWorklist := tempSpill; simplifyWorklist := tempSimplify end
 fun assignColors() =
 	case !selectStack of (x::xs) =>
 		let 
+			(*val selectConj = addList(empty String.compare, !selectStack)
+			val _ = printConj selectConj "selectConj" *)
 			val n = popStack()
 			val _ = print ("AssignColors"^n^"\n") 
 			val singN = singleton String.compare n
