@@ -26,7 +26,7 @@ fun printConjMoves conjToPrint nombre =
 	let
 		val _ = print("\n esto es: "^nombre^"\n { ")	
 		fun printMoves m = 
-			case m of MOVE{assem, dst, src} => print ("MOVE: "^dst^","^src^"\n")				
+			case m of MOVE{assem, dst, src} => print ("asssem: "^assem^"MOVE: "^dst^","^src^"\n")				
 			| _ => print "estamo al horno"
 		val _ = app printMoves conjToPrint
 		val _ = print "}\n"
@@ -106,8 +106,8 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 					if a1 = a2 andalso l1 = l2 
 							then EQUAL else GREATER
 |	 compAssem ((LABEL{assem = a1, lab = l1}), _) =  GREATER
-|	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (MOVE{assem = a2, dst = d2, src = s2}))= 
-					if  a1 = a2 andalso d1 = d2 andalso s1 = s2 then EQUAL else GREATER
+|	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (MOVE{assem = a2, dst = d2, src = s2}))=
+			if  a1 = a2 andalso d1 = d2 andalso s1 = s2 then EQUAL else GREATER
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
 
 val precolored_init = [fp, sp, rv ] @ argregs (*[fp,sp,rv,ov]*)
@@ -193,6 +193,23 @@ fun miMember2(conj, elem) =
 			val conjBool = foldr (fn (x,accum) => tupleCompare(x, elem)=EQUAL orelse accum) false conj 
 			in conjBool end
 
+fun miMemberAssem(conj, elem) =
+		let 
+			val conjBool = foldr (fn (x,accum) => compAssem(x, elem)=EQUAL orelse accum) false conj 
+			in conjBool end
+
+fun miDelete(conj, elem) = 
+let
+	val conjRes = ref(empty compAssem)
+	fun funAux x = if not(compAssem(x,elem)=EQUAL) 
+									then let
+										val _ = conjRes := add(!conjRes,x)
+								 		in () end
+								  else ()
+	val _ = app funAux conj
+in (!conjRes) end
+
+
 fun adjacent(n) = 
 	let 
 		val miadjList = tabSaca(n, !adjList)
@@ -202,14 +219,14 @@ fun adjacent(n) =
 	 handle noExiste =>  empty String.compare (*no esta mal.pasa cuando n es precol.*) 
 
 fun nodeMoves n = let
-		 	val _ = print ("node: "^n^"\n") 
+		(* 	val _ = print ("node: "^n^"\n") *)
 				val miMoveList = tabSaca(n, !moveList) 
 			  handle noExiste => let
 														val vacio = empty compAssem 
 														val _ =  print ("nodeMoves: "^n^" -> noExiste\n")
 													 in vacio end	
-				val _ = printConjMoves (!activeMoves) "activeMoves"
-				val _ = printConjMoves (!worklistMoves) "worklistMoves"
+(*				val _ = printConjMoves (!activeMoves) "activeMoves"
+				val _ = printConjMoves (!worklistMoves) "worklistMoves"*)
 				val conjInter = intersection(miMoveList,union(!activeMoves,!worklistMoves)) 
 				in conjInter end
 
@@ -523,25 +540,28 @@ fun freezeMoves(u) =
 		fun auxFun m = 
 			case m of MOVE {assem,dst,src} =>
 				let
-					val _ = print ("NodeMoves(u) -> MOVE: "^dst^","^src^"\n")	
+					val _ = print ("NodeMoves(u) ->assem: "^assem ^"MOVE: "^dst^","^src^"\n")	
 					val v =  if String.compare(getAlias(dst), getAlias(u)) = EQUAL 
 										then getAlias(src) else getAlias(dst) (*src = x ; dst = y*) 
 				 val _ = print ("Alias: "^v^"\n")
 					val miMoveList = tabSaca(v, !moveList) 
 					val singM = singleton compAssem m
+					(*val ismember = miMemberAssem(!activeMoves,m)
+					val _ = print ("Ismember: "^Bool.toString(ismember)^"\n")
 					val _ = printConjMoves miMoveList "mimovelist"
-  			val _ = printConjMoves (!activeMoves) "active" 
+  			  val _ = printConjMoves (!activeMoves) "active" 
 					val _ = printConjMoves singM "singM"
-					val temp2 = intersection(!activeMoves, singM)
-  			val _ = printConjMoves (temp2) "TEMP2" 
+					val temp2 = miDelete(!activeMoves, m)
+  			  val _ = printConjMoves (temp2) "TEMP2" 
 					val tempActiveMoves = difference(!activeMoves, singM)
-  			val _ = printConjMoves (tempActiveMoves) "TEMPACTIVEMOVES" 
+  			val _ = printConjMoves (tempActiveMoves) "TEMPACTIVEMOVES" *)
+					val tempActiveMoves = miDelete(!activeMoves, m)
 					val tempFrozenMoves = union(!frozenMoves, singM)
 					val _ = activeMoves := tempActiveMoves
 					val _ = frozenMoves := tempFrozenMoves
 					val degreeV = tabSacaInt(v, !degree)
 					val singV = singleton String.compare v
-  			val _ = printConjMoves (nodeMoves(v)) "NODEMOVES DE V" 
+  			  val _ = printConjMoves (nodeMoves(v)) "NODEMOVES DE V" 
 					val cond1 = isEmpty(nodeMoves(v))
 					val cond2 = degreeV < k
 					val _ = print ("cond1: "^Bool.toString(cond1)^"\n")
