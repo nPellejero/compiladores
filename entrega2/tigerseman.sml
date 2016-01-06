@@ -486,6 +486,11 @@ fun transExp(venv, tenv) =
 			val assems2 = List.map (format (tigerregalloc.saytemp tabreg) ) instrs
 	(*		val _ = print "Salio de saytem\n"*)
 			val _ = List.map print assems2
+			val outs = TextIO.openOut "file.s"
+(*			val writeOut = String.concat assems2
+			val _ =	TextIO.output (outs, writeOut) *)
+			val _ = List.map (fn s => 	TextIO.output (outs,s)) assems2
+			val _ = TextIO.closeOut outs
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveins at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) insarray*)
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveouts at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) outsarray*) 
 			(*val _ = (print ("Nodes:\n"); (List.map (fn x=> print (tigergraph.nodename x^", ")) nodes))*)
