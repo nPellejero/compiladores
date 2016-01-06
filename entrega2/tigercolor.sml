@@ -26,7 +26,7 @@ fun printConjMoves conjToPrint nombre =
 	let
 		val _ = print("\n esto es: "^nombre^"\n { ")	
 		fun printMoves m = 
-			case m of MOVE{assem, dst, src} => print ("asssem: "^assem^"MOVE: "^dst^","^src^"\n")				
+			case m of MOVE{assem, dst, src} => print ("MOVE: "^dst^","^src^"\n")				
 			| _ => print "estamo al horno"
 		val _ = app printMoves conjToPrint
 		val _ = print "}\n"
@@ -111,7 +111,7 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
 
 val precolored_init = [fp, sp, rv ] @ argregs (*[fp,sp,rv,ov]*)
-val listaColors =[0,1,2,3] (*[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
+val listaColors =[0,1,2,3,4] (*[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
 val k = 4 (*14*) 
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
@@ -223,7 +223,7 @@ fun nodeMoves n = let
 				val miMoveList = tabSaca(n, !moveList) 
 			  handle noExiste => let
 														val vacio = empty compAssem 
-														val _ =  print ("nodeMoves: "^n^" -> noExiste\n")
+														val _ =  print ("nodeMoves: "^n^" -> Move que no esta realacionado con otro temporario\n")
 													 in vacio end	
 (*				val _ = printConjMoves (!activeMoves) "activeMoves"
 				val _ = printConjMoves (!worklistMoves) "worklistMoves"*)
@@ -347,7 +347,7 @@ fun makeWorklist() =
 let 
   fun makeAux x = let
 										val init_n = delete((!initial),x)
-										val _ = print ("MakeWork "^x^"\n")
+										(*val _ = print ("MakeWork "^x^"\n") *)
 										val g = tabSaca(x,(!degree))
 										handle noExiste => let
 														 val _ =  print ("makeAux: no existe el nodo:"^x ^" \n") in 0 end
@@ -474,9 +474,9 @@ in () end
 	handle Empty => print "coalesce: Empty"		
 
 fun isMoveInstruction(ins) =
-case ins of MOVE {assem,dst,src} => let 
+case ins of MOVE {assem,dst,src} => true (*let 
 				val _ = print ("build: "^dst^", "^src^"\n")
-				in true end
+				in true end*)
 (*| OPER {assem=a,dst=d,src=s,jump=j} => let (*val _ = print ("PRUEBA!"^String.substring(a,0,3)^"\n") *)
 																					val b = (String.compare(String.substring(a,0,3),"MOV")=EQUAL)
 																				(*	val _ = print ("PRUEBA: "^Bool.toString(b)^"\n")*)
@@ -540,7 +540,7 @@ fun freezeMoves(u) =
 		fun auxFun m = 
 			case m of MOVE {assem,dst,src} =>
 				let
-					val _ = print ("NodeMoves(u) ->assem: "^assem ^"MOVE: "^dst^","^src^"\n")	
+					val _ = print ("NodeMoves(u) -> MOVE: "^dst^","^src^"\n")	
 					val v =  if String.compare(getAlias(dst), getAlias(u)) = EQUAL 
 										then getAlias(src) else getAlias(dst) (*src = x ; dst = y*) 
 				 val _ = print ("Alias: "^v^"\n")
@@ -640,7 +640,7 @@ fun assignColors() =
 	(*		val _ = printConj (miAdjList) "lista adj"*)
 			fun funAux(w) =
 				let 
-					val _ = print("getAlias de: "^w^"\n")
+					(*val _ = print("getAlias de: "^w^"\n")*)
 					val miAlias = getAlias(w)
 					val nodosColoreados = union(!coloredNodes, !precolored)
 					val _ = if member(nodosColoreados, miAlias)
@@ -649,7 +649,7 @@ fun assignColors() =
 											val col = tabSaca(miAlias, !color)
 											val okColorsAux = difference(!okColors, col)
 										in okColors := okColorsAux end   
-									else print ("miAlias no coloreado:"^w^"\n")
+									else () (*print ("miAlias no coloreado:"^w^"\n")*)
 				in () end
 			val _ = app funAux miAdjList
 			handle noExiste =>  print "assignColors1: noExiste"
@@ -664,7 +664,7 @@ fun assignColors() =
 									val miColored = union(!coloredNodes, singN)
 									val miItem = List.hd(listItems(!okColors))
 									val singM = singleton Int.compare miItem
-									val _ = print ("inserto en color: "^n^"\n") 
+(*									val _ = print ("inserto en color: "^n^"\n") *) 
 								in color := tabRInserta(n, singM, !color); coloredNodes := miColored end
 		handle Empty => print "okColors: Empty"		
 		in assignColors() end	
@@ -716,9 +716,9 @@ i*)
 				in dst end
 			fun replace(item,newtmp,src_dst) =
 				let
-					val _ = print ("Replace: "^src_dst^" por "^newtmp^" si es igual a "^item^"\n") 
+			(*		val _ = print ("Replace: "^src_dst^" por "^newtmp^" si es igual a "^item^"\n") *)
 					val ret = if String.compare(src_dst,item)=EQUAL then newtmp else src_dst (* basicamente sacar item y poner newtmp*)
-					val _ = print ("reemplazamos: "^ret^"\n")
+			(*	val _ = print ("reemplazamos: "^ret^"\n") *)
 				in ret end
 	fun funAux (item:tigertemp.temp) preAssem (instr::postAssem) =
 		let
@@ -726,12 +726,11 @@ i*)
 			val midef = getdst instr (* getdef(i) extraer de src *)
 			val miuse = getsrc instr (* getuse(i) extraer de dst *)	 
 			val (preAssem,miTemp) = if (member(miuse,item) orelse member(midef,item)) then (preAssem,tigertemp.newtemp()) else (preAssem @ [instr],"TERR") 
-		(*  val miuse = if equal(intersection(miuse,midef),empty String.compare) then miuse else difference(miuse,midef) esto lo hice pq extrañamente el dst se repite dentro del src en algunos casos... no entiendo pq.*)		
 			val (preAssem,instr) = if member(miuse,item)
 							then
 								let
-									val _ = printConj (miuse) "misrc"
-								  val _ = print ("New Fetch Temp: "^miTemp^"\n")
+(*									val _ = printConj (miuse) "misrc"
+								  val _ = print ("New Fetch Temp: "^miTemp^"\n") *)
 								  val _ = setNewTemps := add(!setNewTemps,miTemp)  
 								  val fetchIns = fetch miTemp puntero
 								  val newI = case	instr of		
@@ -749,8 +748,8 @@ i*)
 			val preAssem = if member(midef,item)
 							then
 								let
-									val _ = printConj (midef) "midst"
-								  val _ = print ("New Store Temp: "^miTemp^"\n")
+			(*						val _ = printConj (midef) "midst"
+								  val _ = print ("New Store Temp: "^miTemp^"\n")*)
 									val _ = setNewTemps := add(!setNewTemps,miTemp)  
 									val storeIns = store miTemp puntero
 								  (*Tambien necesitamos reemplazar en la instruccion el temporario por el temporario nuevo *)
@@ -802,7 +801,7 @@ val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = printTab2 (!color) "color"
 	val _ = printTab3 (!degree) "degree"
 	val _ = printTab (!moveList) "moveList"
-	val uni = union(!spillWorklist, union(!simplifyWorklist,union(!freezeWorklist,!precolored)))
+	val uni = union(!spillWorklist, union(!simplifyWorklist,union(!freezeWorklist,!precolored))) (*Deberia ser igual a todas las entradas en degree y en color*)
 	val _ = printConj uni "UNION"
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
