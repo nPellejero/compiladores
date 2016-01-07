@@ -12,7 +12,9 @@ fun miTabNueva() = let
 												val _ = print "miTabNueva: noExiste"
 											in tabNueva() end					
 						in table end 
-fun tupleCompare ((a,b),(c,d)) = if (String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL) then EQUAL else GREATER
+
+
+fun tupleCompare ((a,b),(c,d)) = if (String.compare(a,c)=EQUAL andalso String.compare(b,d)=EQUAL) then EQUAL else if String.compare(a,c)=GREATER then GREATER else LESS 
 
 fun miEnesimo(lista, index) = let
 									val item = List.nth(lista, index)
@@ -105,10 +107,11 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((LABEL{assem = a1, lab = l1}), (LABEL{assem = a2, lab = l2})) =
 					if a1 = a2 andalso l1 = l2 
 							then EQUAL else GREATER
-|	 compAssem ((LABEL{assem = a1, lab = l1}), _) =  GREATER
+|	 compAssem ((LABEL{assem = a1, lab = l1}), _) = LESS 
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (MOVE{assem = a2, dst = d2, src = s2}))=
 			if  a1 = a2 andalso d1 = d2 andalso s1 = s2 then EQUAL else GREATER
-|	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), _) = GREATER 
+|	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (LABEL{assem = _, lab = _})) = GREATER 
+|	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (OPER{assem = _, dst = _,src = _, jump = _})) = LESS 
 
 val precolored_init = [fp, sp, rv ] @ argregs (*[fp,sp,rv,ov]*)
 val listaColors =[0,1,2,3,4] (*[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
