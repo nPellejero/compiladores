@@ -307,9 +307,13 @@ fun addWorklist u =
 		val cond1 = not(member(!precolored, u))
 		val cond2 = not(moveRelated(u)) 
 		val cond3 = tabSaca(u, !degree) < k
+		val _ = print ("cond: "^Bool.toString(cond1)^"\n")
+		val _ = print ("cond: "^Bool.toString(cond2)^"\n")
+		val _ = print ("cond: "^Bool.toString(cond3)^"\n")
 		val _ = if (cond1 andalso cond2 andalso cond3)
 							then
 								let
+									val _ = print "addworlist adentro\n"
 									val sing = singleton String.compare u
 								in 	freezeWorklist := difference(!freezeWorklist, sing);
 										simplifyWorklist := union(!simplifyWorklist, sing)
@@ -366,11 +370,11 @@ in app makeAux (!initial)
 end
 
 fun addEdge (nodeu,nodev) =
-	 if (not(miMember2 (!adjSet,(nodeu,nodev))) orelse not(miMember2 (!adjSet,(nodev,nodeu)))) andalso not(String.compare(nodeu,nodev) = EQUAL)
+ if (not(miMember2 (!adjSet,(nodeu,nodev))) orelse not(miMember2 (!adjSet,(nodev,nodeu)))) andalso not(String.compare(nodeu,nodev) = EQUAL)
 		then 
 			let
-				(*val _ =  print ("poniendo noddes: " ^ nodeu ^", "^ nodev ^ "\n" ) 
-				val _ = app (fn (x,y) => print ("("^x^","^y^")")) (!adjSet)
+				val _ =  print ("poniendo noddes: " ^ nodeu ^", "^ nodev ^ "\n" ) 
+				(*val _ = app (fn (x,y) => print ("("^x^","^y^")")) (!adjSet)
 				val _ = print "\n" *)
 				val _ = if not(member(!precolored, nodeu))
 									then 
@@ -393,7 +397,17 @@ fun addEdge (nodeu,nodev) =
 									else degree := (tabRInserta(nodev, 1000, !degree))
 
 				in adjSet := add(!adjSet, (nodeu,nodev)); adjSet := add(!adjSet, (nodev,nodeu)) end
-					else () (*print (nodeu ^ " equals?? " ^ nodev ^ "\n")*) 
+					else 
+						if (tabBusca (nodeu, !degree) = NONE) (* )  ((tabBusca (nodeu, !adjList) = NONE) andalso *)
+						then
+						let 
+							val _ = print "adentro\n"
+							val _ = adjList := (tabRInserta(nodeu, empty String.compare, !adjList)) 
+							val _ = degree := (tabRInserta(nodeu, 0, !degree)) 
+						  val _ = initial := add(!initial,nodeu)
+						in () end
+						else () 
+(*print (nodeu ^ " equals?? " ^ nodev ^ "\n") *)
 handle Subscript => print "addEdge:Subscript"
 
 fun combine(u, v) =
@@ -477,9 +491,9 @@ in () end
 	handle Empty => print "coalesce: Empty"		
 
 fun isMoveInstruction(ins) =
-case ins of MOVE {assem,dst,src} => true (*let 
+case ins of MOVE {assem,dst,src} => let 
 				val _ = print ("build: "^dst^", "^src^"\n")
-				in true end*)
+				in true end
 (*| OPER {assem=a,dst=d,src=s,jump=j} => let (*val _ = print ("PRUEBA!"^String.substring(a,0,3)^"\n") *)
 																					val b = (String.compare(String.substring(a,0,3),"MOV")=EQUAL)
 																				(*	val _ = print ("PRUEBA: "^Bool.toString(b)^"\n")*)
@@ -505,7 +519,6 @@ let
 	val _ = (*case instr of MOVE {assem,dst,src} => *)
 					if (isMoveInstruction(instr)) then
 			let
-		(*		val _ = print ("build: "^dst^", "^src^"\n")  *)
 				val live = difference(live,getuse i)
 				val mynode = miEnesimo(nodes,i)
 				fun myFunAux item =
@@ -527,10 +540,10 @@ let
 						end *)
 	val live = union(live, getdef i)
 	val _ = app (fn x =>( app (fn y => addEdge(x,y)) (getdef i))) live  
-(*	val _ = print "esto es live:\n"
+	val _ = print "esto es live:\n"
 	val _ = app (fn x => print (x ^ "\n")) live
 	val _ = print "esto es getdefi:\n"
-	val _ = app (fn x => print (x ^ "\n")) (getdef i) *)
+	val _ = app (fn x => print (x ^ "\n")) (getdef i) 
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 handle Subscript => print "build:Subscript"
