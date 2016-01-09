@@ -186,7 +186,7 @@ let
 	val _ = color := tabRInserta(List.nth(argregs, 2), singleton Int.compare 4,  !color)
 	val _ = color := tabRInserta(List.nth(argregs, 3), singleton Int.compare 5,  !color)
   fun funAux n = color := tabRInserta(n,empty Int.compare,!color)
-	val init =  if isEmpty(!initial) then init else (!initial)
+(*	val init =  if isEmpty(!initial) then init else (!initial) *) (*Esto se comento para hacer un intial con adjLis que parece completo, y no como dice el libro desde rewrite *)
 	val _ = app funAux init
 in initial := init end
 handle Subscript => print "initialInit: Subscript"
@@ -818,7 +818,7 @@ val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = printTab3 (!degree) "degree"
 	val _ = printTab (!moveList) "moveList"
 	val uni = union(!spillWorklist, union(!simplifyWorklist,union(!freezeWorklist,!precolored))) (*Deberia ser igual a todas las entradas en degree y en color*)
-	val _ = printConj uni "UNION"
+	(* val _ = printConj uni "UNION" *)
 	val _ = printConj (!spillWorklist) "spillWorklist"
 	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
 	val _ = printConj (!freezeWorklist) "freezeWorklist" 
