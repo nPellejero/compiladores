@@ -102,9 +102,17 @@ fun procEntryExit2 (frame,body) = body @ [tigerassem.OPER {assem = "heres a node
 															dst = [],
 															jump = NONE }]
 
-fun procEntryExit3 ({name, ...}:frame, body) = (*No se donde ni cuando se usa esto*)
-	{prolog = "PROCEDURE "^name^" \n",
-	body = body,
-	epilog = "END "^name^"\n"}
+fun makeProlog({name, formals, locals, actualArg, actualLocal, actualReg}:frame) = 
+	let
+		val lab = tigerassem.LABEL{assem=name, lab= tigertemp.newlabel() }
+	in "PROCEDURE: "^name end
+fun makeEpilog({name, formals, locals, actualArg, actualLocal, actualReg}:frame) = let
+		val lab = tigerassem.LABEL{assem=name, lab= tigertemp.newlabel() }
+	in "END:"^name end
 
+fun procEntryExit3 (frame, body) = let
+	val	prolog = makeProlog(frame)
+	val body = body
+	val epilog = makeEpilog(frame)
+in {prolog=prolog,body=body,epilog=epilog}end
 end

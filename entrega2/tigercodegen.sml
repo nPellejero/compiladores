@@ -207,9 +207,10 @@ let
 		| aux2(STRING(l, s)) = [(LABEL{assem = l^":\n\t"^s^"\n", lab=l })]
 		fun aux [] = []
 			|aux (x::xs) = aux2 x @ aux xs
+
 		fun aux3 [] = []
 		| aux3(h::t) = (case h of
 								(PROC {body,frame} :: instrs) => (SOME frame , procEntryExit2 (frame,aux h)) :: aux3 t
-								|_ => (NONE ,aux h) :: aux3 t
-							)
+		|_ => (NONE ,aux h) :: aux3 t
+		)
 	in	aux3 fragss end
