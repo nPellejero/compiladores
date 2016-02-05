@@ -464,12 +464,23 @@ fun transExp(venv, tenv) =
 			val frame_instrs = codegen2 frags
 			val instrs = List.concat (List.map (fn (f,i)=>i) frame_instrs)
 			val assems = List.map (format (fn x=>x)) instrs
-			val _ = print ("Leng frame: "^Int.toString(List.length(List.map (fn (f,i)=>f) frame_instrs))^"\n")
 			val frame = List.hd(List.map (fn (f,i)=>f) frame_instrs) (*ojo que es frame option*)
+			val _ = print ("Leng frame: "^Int.toString(List.length(List.map (fn (f,i)=>f) frame_instrs))^"\n")
+
+		  val _ = List.map (fn (f,i) =>
+                                   case f of
+																		SOME f1 => let 
+																			val _ = print ("Frame: "^(tigerframe.name(f1))^"\n")
+																			val _ = List.map (tigercolor.printAssem) i
+																							in () end
+                                    | NONE => ()
+) frame_instrs
+
+
 			val frame_aux = ref(tigerframe.newFrame{name="_tigermain", formals=[]})
 			val _ = case frame of
 									SOME f => frame_aux := f
-									| NONE => ()					
+									| NONE => ()							
 			val frame = !frame_aux				 
 			val _ = List.map print assems
 			val (fgraph,nodes) = tigermakegraph.instrs2graph instrs
@@ -481,7 +492,7 @@ fun transExp(venv, tenv) =
 			val _ = Splayset.app (fn (x,y) => print ("("^x^","^y^")"^ ", ")) (!adjSet)
 			val _ = print ("\n fin adjSet \n") *)
 		(*	val _ = print "Salio de color\n"*)
-			val (instrs,tabreg) = tigerregalloc.alloc(assemsFinal,frame)
+			val (instrs,tabreg) = tigerregalloc.alloc(assemsFinal)
 (*			val _ = print "Salio de alloc\n"*)
 			val assems2 = List.map (format (tigerregalloc.saytemp tabreg) ) instrs
 	(*		val _ = print "Salio de saytem\n"*)
@@ -489,13 +500,13 @@ fun transExp(venv, tenv) =
 			val outs = TextIO.openOut "file.s"
 (*			val writeOut = String.concat assems2
 			val _ =	TextIO.output (outs, writeOut) *)	
-		  val {prolog, body=assems2, epilog} = tigerframe.procEntryExit3 (frame, assems2)
-			val _ = TextIO.output (outs,prolog) 
+		(*  val {prolog, body=assems2, epilog} = tigerframe.procEntryExit3 (frame, assems2) *)
+			(*val _ = TextIO.output (outs,prolog) *)
 			val _ = List.map (fn s => 	TextIO.output (outs,s)) assems2
 			val _ = TextIO.output (outs,".size main, .-main\n") 
 			val _ = TextIO.output (outs,".ident \"GCC: (DEBIAN 4.9.2-10) 4.9.2\"\n" ) 
 			val _ = TextIO.output (outs,".section .note.GNU-stack,\"\",@progbits\n") 
-			val _ = TextIO.output (outs,epilog) 
+		(*	val _ = TextIO.output (outs,epilog) *)
 			val _ = TextIO.closeOut outs
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveins at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) insarray*)
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveouts at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) outsarray*) 

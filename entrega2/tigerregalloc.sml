@@ -11,7 +11,7 @@ type allocation = (int, tigerframe.register) tigertab.Tabla
 
 (*val listaColors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]*)
 
-fun alloc (assem, frame) = 
+fun alloc (assem) = 
 let
 (* frame es frame option
 hay que llamar a color aca
