@@ -97,7 +97,7 @@ fun externalCall(s, l) = CALL(NAME s, l)
 
 fun procEntryExit1 (frame,body) = body
 
-fun procEntryExit2 (frame,body) = body @ [tigerassem.OPER {assem = "heres a node too\n",
+fun procEntryExit2 (frame,body) = body @ [tigerassem.OPER {assem = "",
 															src = [rv]@calleesaves,
 															dst = [],
 															jump = NONE }]
@@ -111,7 +111,7 @@ fun makeEpilog({name, formals, locals, actualArg, actualLocal, actualReg}:frame)
 	in "END:"^name end
 
 fun procEntryExit3 (frame, body) = let
-	val	prolog = makeProlog(frame)
+	val prolog = makeProlog(frame)
 	val body = body
 	val epilog = makeEpilog(frame)
 in {prolog=prolog,body=body,epilog=epilog}end

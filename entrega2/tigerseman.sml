@@ -488,11 +488,14 @@ fun transExp(venv, tenv) =
 			val _ = List.map print assems2
 			val outs = TextIO.openOut "file.s"
 (*			val writeOut = String.concat assems2
-			val _ =	TextIO.output (outs, writeOut) *)
+			val _ =	TextIO.output (outs, writeOut) *)	
+		  val {prolog, body=assems2, epilog} = tigerframe.procEntryExit3 (frame, assems2)
+			val _ = TextIO.output (outs,prolog) 
 			val _ = List.map (fn s => 	TextIO.output (outs,s)) assems2
 			val _ = TextIO.output (outs,".size main, .-main\n") 
 			val _ = TextIO.output (outs,".ident \"GCC: (DEBIAN 4.9.2-10) 4.9.2\"\n" ) 
 			val _ = TextIO.output (outs,".section .note.GNU-stack,\"\",@progbits\n") 
+			val _ = TextIO.output (outs,epilog) 
 			val _ = TextIO.closeOut outs
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveins at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) insarray*)
 			(*val _ = Array.appi (fn (i, temps) => (print ("\nLiveouts at node "^Int.toString(i)^": "); Splayset.app(fn t=>print (t^", ")) temps)) outsarray*) 
