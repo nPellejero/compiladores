@@ -794,7 +794,7 @@ end
 
 
 
-fun main fgraph nodes assems frame =
+fun main fgraph nodes assems frames =
 let	
 	val _ = precoloredInit()
 (*	val _ = List.map (fn nod => print ("Nodes: "^nodename(nod)^"\n")) nodes *)
@@ -860,11 +860,16 @@ val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 		then
 			let (*val assemsP = List.map (format (fn x=>x)) assems
 					val _ = List.map print assemsP*)
-					val assemsNew = rewrite(assems, frame)
+					val frameRef = ref(newFrame {name ="algo", formals=[]})
+					val _ = case List.hd(frames) of
+											SOME f => frameRef := f
+											| NONE => ()
+					val miF = (!frameRef) (*Todo esto es provisorio, para que compile hasta terminar con el cambio de datos *)
+					val assemsNew = rewrite(assems, miF)
 					val assemsP = List.map (format (fn x=>x)) assemsNew
 					val _ = List.map print assemsP
 					val (fgraphNew,nodesNew) = tigermakegraph.instrs2graph assemsNew
-					val assemsNew2 = (main fgraphNew nodesNew assemsNew frame) 
+					val assemsNew2 = (main fgraphNew nodesNew assemsNew frames) 
 			in assemsNew2 end
 		else assems	
 (*	val _ = printConj (!simplifyWorklist) "simplifyWorklist"

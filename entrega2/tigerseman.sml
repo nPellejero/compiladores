@@ -462,9 +462,12 @@ fun transExp(venv, tenv) =
 			val _ = print "----------------\n"
 			val (a,b) = otroCanonizeFrag res
 			val frame_instrs = codegen2 frags
-			val instrs = List.concat (List.map (fn (f,i)=>i) frame_instrs)
-			val assems = List.map (format (fn x=>x)) instrs
-			val frame = List.hd(List.map (fn (f,i)=>f) frame_instrs) (*ojo que es frame option*)
+			fun labelIns (f,i) = case f of
+														SOME ff => List.map (fn ins => (tigerframe.name(ff),ins)) i
+														| NONE => List.map (fn ins => ("NADA",ins)) i
+			val instrs = List.concat (List.map (fn (f,i) => i) frame_instrs) 
+			val newInstrs =  List.concat (List.map (labelIns) frame_instrs)
+			val frames = List.map (fn (f,i)=>f) frame_instrs (*ojo que es frame option*)
 			val _ = print ("Leng frame: "^Int.toString(List.length(List.map (fn (f,i)=>f) frame_instrs))^"\n")
 
 		  val _ = List.map (fn (f,i) =>
@@ -476,15 +479,8 @@ fun transExp(venv, tenv) =
                                     | NONE => ()
 ) frame_instrs
 
-
-			val frame_aux = ref(tigerframe.newFrame{name="_tigermain", formals=[]})
-			val _ = case frame of
-									SOME f => frame_aux := f
-									| NONE => ()							
-			val frame = !frame_aux				 
-			val _ = List.map print assems
 			val (fgraph,nodes) = tigermakegraph.instrs2graph instrs
-			val assemsFinal = tigercolor.main fgraph nodes instrs frame 
+			val assemsFinal = tigercolor.main fgraph nodes instrs frames 
 		(*	val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes instrs 
 			val _ = print  (".-.-.-"^ Int.toString(List.length (tabClaves (!tigercolor.adjList)))) 
 			val _ = tabAAplica (print, (fn set => (print "{"; Splayset.app (fn x => (print x;print ", ")) set ;print "}\n")), (!tigercolor.adjList))
