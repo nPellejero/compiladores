@@ -210,7 +210,7 @@ let
 
 		fun aux3 [] = []
 		| aux3(h::t) = (case h of
-								(PROC {body,frame} :: instrs) => (SOME frame , procEntryExit2 (frame,aux h)) :: aux3 t
+								(PROC {body,frame} :: instrs) => (SOME frame , procEntryExit3 (frame, procEntryExit2 (frame,aux h) ) ) :: aux3 t
 		|_ => (NONE ,aux h) :: aux3 t
 		)
 	in	aux3 fragss end

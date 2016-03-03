@@ -462,12 +462,8 @@ fun transExp(venv, tenv) =
 			val _ = print "----------------\n"
 			val (a,b) = otroCanonizeFrag res
 			val frame_instrs = codegen2 frags
-			fun labelIns (f,i) = case f of
-														SOME ff => List.map (fn ins => (tigerframe.name(ff),ins)) i
-														| NONE => List.map (fn ins => ("NADA",ins)) i
 			val instrs = List.concat (List.map (fn (f,i) => i) frame_instrs) 
-			val newInstrs =  List.concat (List.map (labelIns) frame_instrs)
-			val frames = List.map (fn (f,i)=>f) frame_instrs (*ojo que es frame option*)
+			val frames = List.map (fn (f,i)=>f) frame_instrs  (*ojo que es frame option*)
 			val _ = print ("Leng frame: "^Int.toString(List.length(List.map (fn (f,i)=>f) frame_instrs))^"\n")
 
 		  val _ = List.map (fn (f,i) =>
@@ -479,9 +475,17 @@ fun transExp(venv, tenv) =
                                     | NONE => ()
 ) frame_instrs
 
-			val (fgraph,nodes) = tigermakegraph.instrs2graph instrs
-			val assemsFinal = tigercolor.main fgraph nodes newInstrs frames 
-		(*	val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes instrs 
+		(*	val (fgraph,nodes) = tigermakegraph.instrs2graph instrs *)
+		
+			fun miFun ((f,i) ,accum)  = 
+				let 
+					val primeravez = if (accum = []) then true else false
+					val (fgraph,nodes) = tigermakegraph.instrs2graph i
+					val auxAssemsFinal = tigercolor.main fgraph nodes i f primeravez
+					val _ = print ("Acumm ("^Bool.toString(primeravez)^"): "^Int.toString(List.length(accum))^"\n") 
+				in accum @ auxAssemsFinal end
+			val assemsFinal = List.foldr miFun [] frame_instrs
+			(*	val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes instrs 
 			val _ = print  (".-.-.-"^ Int.toString(List.length (tabClaves (!tigercolor.adjList)))) 
 			val _ = tabAAplica (print, (fn set => (print "{"; Splayset.app (fn x => (print x;print ", ")) set ;print "}\n")), (!tigercolor.adjList))
 			val _ = print ("esto es adjSet: \n")

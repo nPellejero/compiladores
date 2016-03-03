@@ -171,21 +171,28 @@ let
 in precolored := prec 
 end	
 
-fun initialInit() =
+fun initialInit(primeravez) =
 let
 	val conjTmpReg = addList((empty String.compare), (tabClaves(!adjList)))
 	val init = difference(conjTmpReg,(!precolored))
   (*fun funAuxD n = degree := tabRInserta(n,0,!degree)
   val _ = app funAuxD conjTmpReg*)
-  val _ = color := miTabNueva() 
-	fun funPreC i = color := tabRInserta(List.nth(precolored_init,i-14),singleton Int.compare i,!color)
-  val _ = app funPreC (addList(empty Int.compare, [14, 15])) 
-	val _ = color := tabRInserta(rv, singleton Int.compare 0,  !color)
-	val _ = color := tabRInserta(List.nth(argregs, 0), singleton Int.compare 2,  !color)
-	val _ = color := tabRInserta(List.nth(argregs, 1), singleton Int.compare 3,  !color)
-	val _ = color := tabRInserta(List.nth(argregs, 2), singleton Int.compare 4,  !color)
-	val _ = color := tabRInserta(List.nth(argregs, 3), singleton Int.compare 5,  !color)
-  fun funAux n = color := tabRInserta(n,empty Int.compare,!color)
+	val _ = if primeravez 
+	then
+	let	
+  	val _ = color := miTabNueva() 
+		fun funPreC i = color := tabRInserta(List.nth(precolored_init,i-14),singleton Int.compare i,!color)
+  	val _ = app funPreC (addList(empty Int.compare, [14, 15])) 
+		val _ = color := tabRInserta(rv, singleton Int.compare 0,  !color)
+		val _ = color := tabRInserta(List.nth(argregs, 0), singleton Int.compare 2,  !color)
+		val _ = color := tabRInserta(List.nth(argregs, 1), singleton Int.compare 3,  !color)
+		val _ = color := tabRInserta(List.nth(argregs, 2), singleton Int.compare 4,  !color)
+		val _ = color := tabRInserta(List.nth(argregs, 3), singleton Int.compare 5,  !color)
+  in () end
+	else
+		()
+	
+	fun funAux n = color := tabRInserta(n,empty Int.compare,!color)
 (*	val init =  if isEmpty(!initial) then init else (!initial) *) (*Esto se comento para hacer un intial con adjLis que parece completo, y no como dice el libro desde rewrite *)
 	val _ = app funAux init
 in initial := init end
@@ -794,9 +801,13 @@ end
 
 
 
-fun main fgraph nodes newAssems frames =
+fun main fgraph nodes assems frameOpt primeravez =
 let	
-	val assems = List.map (fn (f,i) => i) newAssems 
+	val frame = ref(newFrame({name="vacio", formals=[]} ))
+	val _ = case frameOpt of 
+						SOME f => frame := f
+						| NONE => ()	
+
 	val _ = precoloredInit()
 (*	val _ = List.map (fn nod => print ("Nodes: "^nodename(nod)^"\n")) nodes *)
 (*
@@ -812,7 +823,7 @@ let
 val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = build outsarray assems 0 (fgraph,nodes)
 	handle Subscript => print "main: Subscript" 
-	val _ = initialInit()	
+	val _ = initialInit(primeravez)	
 	val _ = printConj (!initial) "initial"
 	val _ = makeWorklist() 
 	val _ = printTab2 (!color) "color"
@@ -861,16 +872,11 @@ val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 		then
 			let (*val assemsP = List.map (format (fn x=>x)) assems
 					val _ = List.map print assemsP*)
-					val frameRef = ref(newFrame {name ="algo", formals=[]})
-					val _ = case List.hd(frames) of
-											SOME f => frameRef := f
-											| NONE => ()
-					val miF = (!frameRef) (*Todo esto es provisorio, para que compile hasta terminar con el cambio de datos *)
-					val assemsNew = rewrite(assems, miF)
+					val assemsNew = rewrite(assems, !(frame))
 					val assemsP = List.map (format (fn x=>x)) assemsNew
 					val _ = List.map print assemsP
 					val (fgraphNew,nodesNew) = tigermakegraph.instrs2graph assemsNew
-					val assemsNew2 = (main fgraphNew nodesNew assemsNew frames) 
+					val assemsNew2 = (main fgraphNew nodesNew assemsNew frameOpt false) 
 			in assemsNew2 end
 		else assems	
 (*	val _ = printConj (!simplifyWorklist) "simplifyWorklist"
