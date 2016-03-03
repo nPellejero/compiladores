@@ -794,8 +794,9 @@ end
 
 
 
-fun main fgraph nodes assems frames =
+fun main fgraph nodes newAssems frames =
 let	
+	val assems = List.map (fn (f,i) => i) newAssems 
 	val _ = precoloredInit()
 (*	val _ = List.map (fn nod => print ("Nodes: "^nodename(nod)^"\n")) nodes *)
 (*

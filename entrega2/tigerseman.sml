@@ -480,7 +480,7 @@ fun transExp(venv, tenv) =
 ) frame_instrs
 
 			val (fgraph,nodes) = tigermakegraph.instrs2graph instrs
-			val assemsFinal = tigercolor.main fgraph nodes instrs frames 
+			val assemsFinal = tigercolor.main fgraph nodes newInstrs frames 
 		(*	val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes instrs 
 			val _ = print  (".-.-.-"^ Int.toString(List.length (tabClaves (!tigercolor.adjList)))) 
 			val _ = tabAAplica (print, (fn set => (print "{"; Splayset.app (fn x => (print x;print ", ")) set ;print "}\n")), (!tigercolor.adjList))
