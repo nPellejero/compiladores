@@ -37,7 +37,7 @@ val localsInicial = 0		(* words *)
 val localsGap = 0 			(* bytes *)
 val calldefs = [rv]
 val specialregs = [rv, fp, sp]
-val argregs = ["ARG1","ARG2", "ARG3", "ARG4" ] (*Feli was here*)
+val argregs = ["ARG1","ARG2", "ARG3", "ARG4", "ARG5", "ARG6" ] (*Feli was here*)
 val callersaves = []
 val calleesaves = []
 
@@ -110,12 +110,14 @@ fun makeProlog({name, formals, locals, actualArg, actualLocal, actualReg}:frame)
 fun makeEpilog({name, formals, locals, actualArg, actualLocal, actualReg}:frame) = let
 		val lab = tigerassem.LABEL{assem=name, lab= tigertemp.newlabel() }
 	in "END:"^name end
-
 fun procEntryExit3 (frame, body) = let
 	val prolog = [](* makeProlog(frame)*)
 	val body = body
-	val epilog = [] (*makeEpilog(frame)*)
-in body  end
+	val epilog = [tigerassem.OPER {assem = "leave\nret\n",
+															src = [],
+															dst = [],
+															jump = NONE }] (*makeEpilog(frame)*)
+in prolog @ body @ epilog  end
 (*
 fun procEntryExit3_libro (frame, body) = let
 	val prolog = makeProlog(frame)

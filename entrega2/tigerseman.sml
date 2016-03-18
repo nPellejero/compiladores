@@ -465,22 +465,24 @@ fun transExp(venv, tenv) =
 			val instrs = List.concat (List.map (fn (f,i) => i) frame_instrs) 
 			val frames = List.map (fn (f,i)=>f) frame_instrs  (*ojo que es frame option*)
 			val _ = print ("Leng frame: "^Int.toString(List.length(List.map (fn (f,i)=>f) frame_instrs))^"\n")
+			val assemsP = List.map (format (fn x=>x)) instrs
+			val _ = List.map print assemsP
 
-		  val _ = List.map (fn (f,i) =>
+		(*  val _ = List.map (fn (f,i) =>
                                    case f of
 																		SOME f1 => let 
 																			val _ = print ("Frame: "^(tigerframe.name(f1))^"\n")
 																			val _ = List.map (tigercolor.printAssem) i
 																							in () end
                                     | NONE => ()
-) frame_instrs
+) frame_instrs *)
 
-		(*	val (fgraph,nodes) = tigermakegraph.instrs2graph instrs *)
+(*			val (fgraph,nodes) = tigermakegraph.instrs2graph instrs *) 
 		
 			fun miFun ((f,i) ,accum)  = 
 				let 
 					val primeravez = if (accum = []) then true else false
-					val (fgraph,nodes) = tigermakegraph.instrs2graph i
+					val (fgraph,nodes) = tigermakegraph.instrs2graph i 
 					val auxAssemsFinal = tigercolor.main fgraph nodes i f primeravez
 					val _ = print ("Acumm ("^Bool.toString(primeravez)^"): "^Int.toString(List.length(accum))^"\n") 
 				in accum @ auxAssemsFinal end

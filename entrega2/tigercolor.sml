@@ -114,8 +114,8 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (OPER{assem = _, dst = _,src = _, jump = _})) = LESS 
 
 val precolored_init = [fp, sp, rv ] @ argregs (*[fp,sp,rv,ov]*)
-val listaColors =[0,1,2,3,4] (*[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
-val k = 4 (*14*) 
+val listaColors =[0,1,2,3,4,5,6,7] (*[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
+val k = 8 (*14*) 
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
 val adjList = ref(miTabNueva())
@@ -164,6 +164,7 @@ fun tabSacaInt (item, table) =
 fun precoloredInit() =
 let
 	val _ = masterLives := []
+	val _ = moveList := miTabNueva()
 	val _ = degree := miTabNueva()
 	val _ = adjList := miTabNueva()
 	val _ = adjSet := empty tupleCompare
@@ -184,10 +185,12 @@ let
 		fun funPreC i = color := tabRInserta(List.nth(precolored_init,i-14),singleton Int.compare i,!color)
   	val _ = app funPreC (addList(empty Int.compare, [14, 15])) 
 		val _ = color := tabRInserta(rv, singleton Int.compare 0,  !color)
-		val _ = color := tabRInserta(List.nth(argregs, 0), singleton Int.compare 2,  !color)
-		val _ = color := tabRInserta(List.nth(argregs, 1), singleton Int.compare 3,  !color)
-		val _ = color := tabRInserta(List.nth(argregs, 2), singleton Int.compare 4,  !color)
-		val _ = color := tabRInserta(List.nth(argregs, 3), singleton Int.compare 5,  !color)
+		val _ = color := tabRInserta(List.nth(argregs, 0), singleton Int.compare 8,  !color)
+		val _ = color := tabRInserta(List.nth(argregs, 1), singleton Int.compare 9,  !color)
+		val _ = color := tabRInserta(List.nth(argregs, 2), singleton Int.compare 10,  !color)
+		val _ = color := tabRInserta(List.nth(argregs, 3), singleton Int.compare 11,  !color)
+		val _ = color := tabRInserta(List.nth(argregs, 4), singleton Int.compare 12,  !color)
+		val _ = color := tabRInserta(List.nth(argregs, 5), singleton Int.compare 13,  !color)
   in () end
 	else
 		()
@@ -519,8 +522,9 @@ let
 
   fun arrayToList arr = Array.foldr (op ::) [] arr
   val isMOVE = tabSaca(miEnesimo(nodes, i),ismove)
-(*  val _ = print ("isMOve: "^Bool.toString(isMOVE)^"\n")
-	val _ = print ("ismoveInstr: "^Bool.toString(isMoveInstruction(instr))^"\n") *)
+ (* val _ = print ("isMOve: "^Bool.toString(isMOVE)^"\n")
+	val _ = print ("ismoveInstr: "^Bool.toString(isMoveInstruction(instr))^"\n") 
+	val _ = printAssem instr *)
 	val live = sub(outsarray, i)
 	val _ = masterLives := ((!masterLives) @ listItems(live))
 	val _ = (*case instr of MOVE {assem,dst,src} => *)
@@ -550,7 +554,7 @@ let
 (*	val _ = print "esto es live:\n"
 	val _ = app (fn x => print (x ^ "\n")) live
 	val _ = print "esto es getdefi:\n"
-	val _ = app (fn x => print (x ^ "\n")) (getdef i) *)
+	val _ = app (fn x => print (x ^ "\n")) (getdef i) *) 
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 handle Subscript => print "build:Subscript"
@@ -820,7 +824,7 @@ let
 	val _ = case fgraph of
 		 (FGRAPH {control, def, use, ismove}) => if isEmpty( (getuse 0 use) ) then print "mpty\n"  else app (fn x => print ("Nodes: "^x^"\n")) (getuse 0 use) 
 		| _ => print "nada\n" *)
-val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
+  val (insarray,outsarray) = livenessAnalisis(fgraph,nodes)
 	val _ = build outsarray assems 0 (fgraph,nodes)
 	handle Subscript => print "main: Subscript" 
 	val _ = initialInit(primeravez)	
