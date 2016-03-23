@@ -23,24 +23,46 @@ fun munchExp(CONST i) = (*no estoy seguro de esta. 'd0 deberia tener 0*)
 				dst = [r],
 				jump= NONE})))
 	|    munchExp(BINOP(DIV,e1,e2)) =
-		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
+		result(fn r =>	
+					(emit(MOVE{assem =  "MOVQ 's0, 'd0\n",
+      				src = munchExp(e1),
+      				dst = rax
+      		});
+					emit(OPER{assem =  "MOV $0, 'd0\n",
+      				src = [],
+      				dst = [rdx],
+							jump = NONE
+      		});
+      emit(OPER{assem = "DIV 's0 \n",
+        src = [munchExp(e2) ,rax],
+        dst = [rax],
+        jump= NONE});
+      emit(MOVE{assem =  "MOVQ 's0, 'd0\n",
+        src = rax,
+        dst = r
+      })))
+ (*(emit(MOVE{assem =  "MOV 's0, 'd0\n",
 			src = munchExp(e1),
 			dst = r
 			});
 			emit(OPER{assem = "DIV 's0, 'd0\n",
 				src = [munchExp(e2),r],
 				dst = [r],
-				jump= NONE})))
-	|    munchExp(BINOP(MUL,e1,e2)) =
-		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
-			src = munchExp(e1),
-			dst = r
-			});
-			emit(OPER{assem = "MUL 's0, 'd0\n",
-				src = [munchExp(e2),r],
-				dst = [r],
-				jump= NONE})))
-	|    munchExp(BINOP(PLUS,e1,e2)) =
+				jump= NONE})))*)
+ |    munchExp(BINOP(MUL,e1,e2)) =
+    result(fn r => (emit(MOVE{assem =  "MOVQ 's0, 'd0\n",
+      src = munchExp(e1),
+      dst = rax
+      });
+      emit(OPER{assem = "MUL 's0 \n",
+        src = [munchExp(e2) ,rax],
+        dst = [rax],
+        jump= NONE});
+      emit(MOVE{assem =  "MOVQ 's0, 'd0\n",
+        src = rax,
+        dst = r
+      })))
+		|    munchExp(BINOP(PLUS,e1,e2)) =
 		result(fn r => (emit(MOVE{assem =  "MOV 's0, 'd0\n",
 			src = munchExp(e1),
 			dst = r

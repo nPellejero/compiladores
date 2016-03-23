@@ -22,6 +22,8 @@ open tigertree
 type level = int
 
 val fp = "FP"				(* frame pointer *)
+val rax = "RAX"				(* para DIV y MUL *)
+val rdx = "RDX"				(* para DIV y MUL *)
 val sp = "SP"				(* stack pointer *)
 val rv = "RV"				(* return value  *)
 val ov = "OV"				(* overflow value (edx en el 386) *)
