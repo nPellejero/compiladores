@@ -13,10 +13,6 @@ type allocation = (int, tigerframe.register) tigertab.Tabla
 
 fun alloc (assem) = 
 let
-(* frame es frame option
-hay que llamar a color aca
-iterar
-y luego rewrite *)
 	val miTabla = ref(tabNueva())
 	val misValoresInt = listaColors @ [14, 15] (* 14 y 15 representan fp y sp (precolored) *)
 (*	val misClavesReg = ["RAX", "RBX" ,"RCX", "RDX", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15","RSI","RDI", "RBP","RSP"] *)

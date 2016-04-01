@@ -485,6 +485,9 @@ fun transExp(venv, tenv) =
 					val (fgraph,nodes) = tigermakegraph.instrs2graph i 
 					val auxAssemsFinal = tigercolor.main fgraph nodes i f primeravez
 					val _ = print ("Acumm ("^Bool.toString(primeravez)^"): "^Int.toString(List.length(accum))^"\n") 
+					val auxAssemsFinal = case f of 
+									SOME frame =>	 tigerframe.procEntryExit3 (frame,auxAssemsFinal)
+ 									| NONE => auxAssemsFinal	
 				in accum @ auxAssemsFinal end
 			val assemsFinal = List.foldr miFun [] frame_instrs
 			(*	val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes instrs 
@@ -495,16 +498,36 @@ fun transExp(venv, tenv) =
 			val _ = print ("\n fin adjSet \n") *)
 		(*	val _ = print "Salio de color\n"*)
 			val (instrs,tabreg) = tigerregalloc.alloc(assemsFinal)
-(*			val _ = print "Salio de alloc\n"*)
-			val assems2 = List.map (format (tigerregalloc.saytemp tabreg) ) instrs
-	(*		val _ = print "Salio de saytem\n"*)
-			val _ = List.map print assems2
+(*			val _ = print "Salio de alloc\n" *)
+			fun miFun2 ins = case ins of
+ 					OPER{assem,dst,src,jump} => false 
+	 				| LABEL{assem,...} => false
+	  			| MOVE{assem,dst,src} => let
+					  val s = tigerregalloc.saytemp tabreg src
+					  val d = tigerregalloc.saytemp tabreg dst
+					(*	val _ = print (s^"\n")
+						val _ = print (d^"\n") *)
+					in if (String.compare(s,d) = EQUAL) then true else false end
+			
+			fun optimizar (i,accum) = 
+				let
+					val ac = if miFun2 i 
+										then accum
+										else i::accum
+				in ac end
+			val instrs2 = List.foldr optimizar [] instrs 
+			val _ = print "Limpiados MOV con igual src y dst\n"
+			val assems3 = List.map (format (tigerregalloc.saytemp tabreg) ) instrs2
+			val _ = List.map print assems3
+		(*	val assems2 = List.map (format (tigerregalloc.saytemp tabreg) ) instrs
+			val _ = print "Salio de saytem\n"
+			val _ = List.map print assems2*)
 			val outs = TextIO.openOut "file.s"
 (*			val writeOut = String.concat assems2
 			val _ =	TextIO.output (outs, writeOut) *)	
 		(*  val {prolog, body=assems2, epilog} = tigerframe.procEntryExit3 (frame, assems2) *)
 			(*val _ = TextIO.output (outs,prolog) *)
-			val _ = List.map (fn s => 	TextIO.output (outs,s)) assems2
+			val _ = List.map (fn s => 	TextIO.output (outs,s)) assems3
 			val _ = TextIO.output (outs,".size main, .-main\n") 
 			val _ = TextIO.output (outs,".ident \"GCC: (DEBIAN 4.9.2-10) 4.9.2\"\n" ) 
 			val _ = TextIO.output (outs,".section .note.GNU-stack,\"\",@progbits\n") 
