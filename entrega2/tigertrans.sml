@@ -116,11 +116,12 @@ end
 
 val datosGlobs = ref ([]: frag list)
 fun procEntryExit{level: level, body} =
-	let	val label = STRING(name(#frame level), "")
+	let
+   	val label = STRING(name(#frame level), "")
 		val body' = PROC{frame= #frame level, body=unNx body}
-		val final = STRING(";;-------", "")
+		(*	val final = STRING(";;-------","")  Saco esto porque molesta	in	datosGlobs:=(!datosGlobs@[label, body', final]) end   *)
 		val _ = print ("ADDED "^ (name (#frame level))^"\n")
-	in	datosGlobs:=(!datosGlobs@[label, body', final]) end
+	in	datosGlobs:=(!datosGlobs@[label, body']) end
 fun getResult() = !datosGlobs
 
 fun stringLen s =

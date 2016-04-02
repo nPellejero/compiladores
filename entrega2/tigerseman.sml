@@ -488,7 +488,7 @@ fun transExp(venv, tenv) =
 					val auxAssemsFinal = case f of 
 									SOME frame =>	 tigerframe.procEntryExit3 (frame,auxAssemsFinal)
  									| NONE => auxAssemsFinal	
-				in accum @ auxAssemsFinal end
+				in auxAssemsFinal @ accum end
 			val assemsFinal = List.foldr miFun [] frame_instrs
 			(*	val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes instrs 
 			val _ = print  (".-.-.-"^ Int.toString(List.length (tabClaves (!tigercolor.adjList)))) 

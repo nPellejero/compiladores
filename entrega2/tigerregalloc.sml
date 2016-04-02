@@ -15,8 +15,9 @@ fun alloc (assem) =
 let
 	val miTabla = ref(tabNueva())
 	val misValoresInt = listaColors @ [14, 15] (* 14 y 15 representan fp y sp (precolored) *)
-(*	val misClavesReg = ["RAX", "RBX" ,"RCX", "RDX", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15","RSI","RDI", "RBP","RSP"] *)
-	val misClavesReg = ["RAX", "RBX" , "R10", "R11", "R12", "R13", "R14", "R15","RSI","RDI","RCX","RDX","R8","R9","RBP","RSP"]
+(*	val misClavesReg = ["RAX", "RBX" ,"RCX", "RDX", "R8", "R9", "R10", "R11", "R12", "R13", "R14", "R15","RSI","RDI", "RBP","RSP"] 
+	val misClavesReg = ["RAX", "RBX" , "R10", "R11", "R12", "R13", "R14", "R15","RSI","RDI","RCX","RDX","R8","R9","RBP","RSP"] *)
+	val misClavesReg = ["rax", "rbx" , "r10", "r11", "r12", "r13", "r14", "r15","rsi","rdi","rcx","rdx","r8","r9","rbp","rsp"] 
 (* del 0 al 7 son de uso general, del 8 al 13 son argumentos y 14 a 15 calle saves *)
 
 	fun funAux item = miTabla := tabRInserta(item, List.nth(misClavesReg, item), !miTabla)

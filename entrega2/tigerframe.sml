@@ -113,7 +113,10 @@ fun makeEpilog({name, formals, locals, actualArg, actualLocal, actualReg}:frame)
 		val lab = tigerassem.LABEL{assem=name, lab= tigertemp.newlabel() }
 	in "END:"^name end
 fun procEntryExit3 (frame, body) = let
-	val prolog = [](* makeProlog(frame)*)
+	val prolog =  [tigerassem.OPER {assem = "prologo\n",
+															src = [],
+															dst = [],
+															jump = NONE }](* makeProlog(frame)*)
 	val body = body
 	val epilog = [tigerassem.OPER {assem = "leave\nret\n",
 															src = [],

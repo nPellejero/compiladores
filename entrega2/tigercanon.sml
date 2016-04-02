@@ -94,7 +94,8 @@ type block = stm list
       every block ends with a JUMP or CJUMP *)
 
 fun basicBlocks stms = 
-	let	val done = tigertemp.newlabel()
+	let	
+		val done = tigertemp.newlabel()
 		fun blocks((head as LABEL _) :: tail, blist) =
 			let	fun next((s as (JUMP _))::rest, thisblock) =
 					endblock(rest, s::thisblock)
