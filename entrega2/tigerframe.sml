@@ -18,7 +18,6 @@
 structure tigerframe :> tigerframe = struct
 
 open tigertree
-
 type level = int
 
 val fp = "FP"				(* frame pointer *)
@@ -49,7 +48,8 @@ type frame = {
 	locals: bool list,
 	actualArg: int ref,
 	actualLocal: int ref,
-	actualReg: int ref
+	actualReg: int ref,
+	cantRewrites: int ref
 (*	listArgs: access list ref *)
 }
 type register = string
@@ -62,9 +62,14 @@ fun newFrame{name, formals} = {
 	locals=[],
 	actualArg=ref argsInicial,
 	actualLocal=ref localsInicial,
-	actualReg=ref regInicial
+	actualReg=ref regInicial,
+	cantRewrites= ref(0)
 	(*listArgs=ref([])*)
 }
+fun setCantRewrites(f: frame, i) = let
+													val _ = #cantRewrites f := i
+														in true end
+
 fun name(f: frame) = #name f
 fun string(l, s) = l^tigertemp.makeString(s)^"\n"
 val argregslength = List.length(argregs)
@@ -112,7 +117,7 @@ fun procEntryExit2 (frame,body) = body @ [tigerassem.OPER {assem = "",
 															dst = [],
 															jump = NONE }]
 
-fun makeProlog({name, formals, locals, actualArg, actualLocal, actualReg}:frame) = 
+(*fun makeProlog({name, formals, locals, actualArg, actualLocal, actualReg}:frame) = 
 	let
 		val lab = tigerassem.LABEL{assem=name, lab= tigertemp.newlabel() }
 	in "PROCEDURE: "^name end
@@ -120,8 +125,11 @@ fun makeProlog({name, formals, locals, actualArg, actualLocal, actualReg}:frame)
 fun makeEpilog({name, formals, locals, actualArg, actualLocal, actualReg}:frame) = let
 		val lab = tigerassem.LABEL{assem=name, lab= tigertemp.newlabel() }
 	in "END:"^name end
-fun procEntryExit3 (frame, body) = let
-	val prolog =  [tigerassem.OPER {assem = "prologo\n",
+*)
+fun procEntryExit3 (frame: frame, body) = let
+	val cantRewrites = #cantRewrites frame 
+	val cantString = Int.toString(!cantRewrites)
+	val prolog =  [tigerassem.OPER {assem = "prologo "^cantString^"\n",
 															src = [],
 															dst = [],
 															jump = NONE }](* makeProlog(frame)*)

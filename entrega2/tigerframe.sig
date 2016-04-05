@@ -19,6 +19,7 @@ val allocArg : frame -> bool -> access
 val allocLocal : frame -> bool -> access
 val sp : tigertemp.temp
 val maxRegFrame : frame -> int
+val setCantRewrites : frame * int -> bool
 val wSz : int
 val log2WSz : int
 val calldefs : tigertemp.temp list

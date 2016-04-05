@@ -114,8 +114,8 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (OPER{assem = _, dst = _,src = _, jump = _})) = LESS 
 
 val precolored_init = [fp, sp, rv, rax, rdx] @ argregs (*[fp,sp,rv,ov]*)
-val listaColors =[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] 
-val k = 14 
+val listaColors =[0, 1 , 2](*, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
+val k = 3 (*14*) 
 val cantRewrites = ref(0)
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
@@ -799,8 +799,9 @@ i*)
 		in funAux item_c [] assems end  (*fin let de funAuxPrev *)
   val newAssems = foldl funAuxPrev assems (!spilledNodes)
   val _ = spilledNodes := (empty String.compare)
-  val _ = cantRewrites := (!cantRewrites) + numItems(!setNewTemps)  
-	val _ = print (Int.toString(!cantRewrites)^"\n") 
+  val _ = cantRewrites := (!cantRewrites) + numItems(!setNewTemps) 
+  val _ =  tigerframe.setCantRewrites(frame, !(cantRewrites) )
+	val _ = print ("cantRewrites: "^Int.toString(!cantRewrites)^"\n") 
   val _ = initial := union(union(!coloredNodes,!coalescedNodes), !setNewTemps)
 	val _ = coloredNodes := (empty String.compare)
   val _ = coalescedNodes := (empty String.compare)
