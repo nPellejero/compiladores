@@ -50,6 +50,7 @@ type frame = {
 	actualArg: int ref,
 	actualLocal: int ref,
 	actualReg: int ref
+(*	listArgs: access list ref *)
 }
 type register = string
 datatype access = InFrame of int | InReg of tigertemp.label
@@ -62,6 +63,7 @@ fun newFrame{name, formals} = {
 	actualArg=ref argsInicial,
 	actualLocal=ref localsInicial,
 	actualReg=ref regInicial
+	(*listArgs=ref([])*)
 }
 fun name(f: frame) = #name f
 fun string(l, s) = l^tigertemp.makeString(s)^"\n"
@@ -71,7 +73,7 @@ fun getArgForPos n = if (n<argregslength) then
 						InFrame ((n-argregslength)*wSz+argsGap)
 
 fun formals({formals=f, ...}: frame) = 
-	List.tabulate (List.length(f)+1, getArgForPos) (*+1 por el FP*)
+	List.tabulate (List.length(f)+1, getArgForPos) (* +1 por el FP*)
 
 fun formals_ORI({formals=f, ...}: frame) = 
 	let	fun aux(n, []) = []
@@ -85,8 +87,14 @@ fun allocArg (f: frame) b =
 	true =>
 		let	val ret = (!(#actualArg f)+argsOffInicial)*wSz
 			val _ = #actualArg f := !(#actualArg f)-1
+(*			val _ = #listArgs f := !(#listArgs f) ++ [InFrame ret] *)
 		in	InFrame ret end
 	| false => InReg(tigertemp.newtemp())
+				(*	let
+						val miTemp = tigertemp.newtemp()
+						val _ = #listArgs f := !(#listArgs f) ++ [InReg(miTemp)]
+					in 	InReg(miTemp) end *)
+
 fun allocLocal (f: frame) b = 
 	case b of
 	true =>
