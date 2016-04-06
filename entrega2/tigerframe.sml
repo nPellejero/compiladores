@@ -116,7 +116,6 @@ fun procEntryExit2 (frame,body) = body @ [tigerassem.OPER {assem = "",
 															src = [rv]@calleesaves,
 															dst = [],
 															jump = NONE }]
-
 (*fun makeProlog({name, formals, locals, actualArg, actualLocal, actualReg}:frame) = 
 	let
 		val lab = tigerassem.LABEL{assem=name, lab= tigertemp.newlabel() }
@@ -126,13 +125,18 @@ fun makeEpilog({name, formals, locals, actualArg, actualLocal, actualReg}:frame)
 		val lab = tigerassem.LABEL{assem=name, lab= tigertemp.newlabel() }
 	in "END:"^name end
 *)
+
 fun procEntryExit3 (frame: frame, body) = let
 	val cantRewrites = #cantRewrites frame 
-	val cantString = Int.toString(!cantRewrites)
-	val prolog =  [tigerassem.OPER {assem = "prologo "^cantString^"\n",
+	val cantString = Int.toString((!cantRewrites)*wSz)
+	val miLab = List.hd(body)
+	val lab = case miLab of
+					tigerassem.LABEL{assem = a, lab = l} => l
+					|  _ => "Error Label"
+	val prolog =  [tigerassem.OPER {assem = "pushq %rbp\nmovl %rsp, %rbp\nsubl $"^cantString^", %rsp\njmp 'j0\n",
 															src = [],
 															dst = [],
-															jump = NONE }](* makeProlog(frame)*)
+															jump = SOME [lab] }](* makeProlog(frame)*)
 	val body = body
 	val epilog = [tigerassem.OPER {assem = "leave\nret\n",
 															src = [],

@@ -2,7 +2,10 @@ L0:
 	.long 4
 	.string "Hola"
 L1: 
-prologo2
+pushq %rbp
+movl %rsp, %rbp
+subl $8, %rsp
+jmp L3
 L3: 
 movq rbp, rbx
 movq $0, rax 
@@ -32,7 +35,10 @@ L2:
 leave
 ret
 _tigermain: 
-prologo0
+pushq %rbp
+movl %rsp, %rbp
+subl $0, %rsp
+jmp L5
 L5: 
 movq rbp, r10
 movq $0, rbx 
