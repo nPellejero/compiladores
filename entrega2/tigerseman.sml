@@ -360,7 +360,7 @@ fun transExp(venv, tenv) =
 				val _ = checkrep (List.map (fn (a,b)=> #name(a)) fs) "funciones"
 				
 				fun add ([],env) = env
-					|add ((({name=f, params=ps, result=r, body=b}, i)::fs),env) = let val myLabel = if f = "_tigermain" then "_tigermain" else tigertemp.newlabel ()
+					|add ((({name=f, params=ps, result=r, body=b}, i)::fs),env) = let val myLabel = if f = "main" then "main" else tigertemp.newlabel ()
 						val _ = print ("LABEL FOR "^f^": "^myLabel^"\n")
 						in add (fs, tabRInserta(f, Func {level=newLevel {parent=topLevel (), name=myLabel, formals = (List.map (fn p => !(#escape p)) ps)}, label= myLabel, formals= (List.map (fn p => transTy(#typ p)) ps), result = solvetipo(r), extern=false}, env)) end
 				
@@ -450,7 +450,7 @@ fun transExp(venv, tenv) =
 		in trexp end
 	fun transProg ex =
 		let	val main =
-					LetExp({decs=[FunctionDec[({name="_tigermain", params=[],
+					LetExp({decs=[FunctionDec[({name="main", params=[],
 									result=SOME "int", body=SeqExp([ex, IntExp(0,0)],0)}, 0)]],
 							body=UnitExp 0}, 0)
 			val {exp = e, ty = tbody} = transExp(tab_vars, tab_tipos) main
@@ -478,16 +478,49 @@ fun transExp(venv, tenv) =
 ) frame_instrs *)
 
 (*			val (fgraph,nodes) = tigermakegraph.instrs2graph instrs *) 
-		
+	    val len_f_i = List.length(frame_instrs) 
+			val contador_frameinstr = ref(len_f_i - 1)	
 			fun miFun ((f,i) ,accum)  = 
 				let 
 					val primeravez = if (accum = []) then true else false
+					val _ = print (Int.toString(List.length(i))^"::f433\n"^Int.toString(!contador_frameinstr)^"\n")
 					val (fgraph,nodes) = tigermakegraph.instrs2graph i 
 					val auxAssemsFinal = tigercolor.main fgraph nodes i f primeravez
-					val _ = print ("Acumm ("^Bool.toString(primeravez)^"): "^Int.toString(List.length(accum))^"\n") 
+									val _ = print ("Acumm ("^Bool.toString(primeravez)^"): "^Int.toString(List.length(accum))^"\n") 
 					val auxAssemsFinal = case f of 
 									SOME frame =>	 tigerframe.procEntryExit3 (frame,auxAssemsFinal)
  									| NONE => auxAssemsFinal	
+					val auxAssemsFinal  = if (List.length(i)=1) 
+									then 
+									 let
+										val miLab = List.hd(i)
+  									val lab = case miLab of
+         								 tigerassem.LABEL{assem = a, lab = l} => l
+          							 |  _ => "Error Label"
+   
+										val str = ".globl "^lab^"\n.type "^lab^", @function\n"
+										val strAssem = [tigerassem.OPER {assem = str,
+														src = [],
+														dst = [],
+														jump = NONE}]
+										in strAssem @ auxAssemsFinal end
+									else 
+										let
+											val miLab = List.nth(frame_instrs,(!contador_frameinstr)-1)
+											val miLab = case miLab of
+																(f,i) => List.hd(i)
+														
+											val lab = case miLab of
+         								 tigerassem.LABEL{assem = a, lab = l} => l
+          							 |  _ => "Error Label"
+   
+										val str = ".size "^lab^", .-"^lab^"\n"
+										val strAssem = [tigerassem.OPER {assem = str,
+														src = [],
+														dst = [],
+														jump = NONE}]
+										in auxAssemsFinal @ strAssem  end
+				  val _ = contador_frameinstr := (!contador_frameinstr)-1
 				in auxAssemsFinal @ accum end
 			val assemsFinal = List.foldr miFun [] frame_instrs
 			(*	val (insarray, outsarray, adjSet) = tigercolor.main fgraph nodes instrs 
@@ -527,8 +560,8 @@ fun transExp(venv, tenv) =
 			val _ =	TextIO.output (outs, writeOut) *)	
 		(*  val {prolog, body=assems2, epilog} = tigerframe.procEntryExit3 (frame, assems2) *)
 			(*val _ = TextIO.output (outs,prolog) *)
+			val _ = TextIO.output (outs,".file \"file.tig\"\n.text\n" ) 
 			val _ = List.map (fn s => 	TextIO.output (outs,s)) assems3
-			val _ = TextIO.output (outs,".size main, .-main\n") 
 			val _ = TextIO.output (outs,".ident \"GCC: (DEBIAN 4.9.2-10) 4.9.2\"\n" ) 
 			val _ = TextIO.output (outs,".section .note.GNU-stack,\"\",@progbits\n") 
 		(*	val _ = TextIO.output (outs,epilog) *)

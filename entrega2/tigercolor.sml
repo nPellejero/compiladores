@@ -114,8 +114,8 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (OPER{assem = _, dst = _,src = _, jump = _})) = LESS 
 
 val precolored_init = [fp, sp, rv, rax, rdx] @ argregs (*[fp,sp,rv,ov]*)
-val listaColors =[0, 1 , 2](*, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
-val k = 3 (*14*) 
+val listaColors =[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+val k = 14
 val cantRewrites = ref(0)
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)

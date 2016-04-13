@@ -1,68 +1,58 @@
-L0:
-	.long 4
-	.string "Hola"
-L1: 
+.file "file.tig"
+.text
+.globl L0
+.type L0, @function
+L0: 
 pushq %rbp
-movl %rsp, %rbp
-subl $8, %rsp
-jmp L3
-L3: 
-movq rbp, rbx
-movq $0, rax 
-add rax, rbx
-movq ERR, (rbx) 
-movq ERR, r10
-movq rbp, rbx
-movq $0, rax 
-add rax, rbx
-movq r10, (rbx) 
-movq (rbp), rax
-movq $0, rbx 
-add rbx, rax
-movq (rax), rax
-movq rax, r10
-movq $1, rax 
-movq $4, rbx 
-mul rbx 
-add rax, r10
-movq (r10), rax
-movq $0, rbx 
-add rbx, rbp
-movq (rbp), rbx
-add rbx, rax
-jmp L2 
+movq %rsp, %rbp
+subq $0, %rsp
+jmp L2
 L2: 
-leave
+movq %rbp, 0(%rsi)
+movq %rdi, %rax
+movq %rbp, %rbx
+movq $4, %r10 
+addq %r10, %rbx
+movq (%rbx), %rbx
+movq %rbp, %rbx
+movq $8, %r10 
+addq %r10, %rbx
+movq (%rbx), %rbx
+movq $12, %rbx 
+addq %rbx, %rbp
+movq (%rbp), %rbx
+movq $1, %rbx 
+addq %rbx, %rax
+jmp L1 
+L1: 
+popq %rbp
 ret
-_tigermain: 
+.size L0, .-L0
+.globl main
+.type main, @function
+main: 
 pushq %rbp
-movl %rsp, %rbp
-subl $0, %rsp
-jmp L5
-L5: 
-movq rbp, r10
-movq $0, rbx 
-add rbx, r10
-movq ERR, (r10) 
-movq rbp, r10
-movq $0, rbx 
-add rbx, r10
-movq r10, rbx 
-movq $123456, ERR 
-movq $L0, ERR
-movq $2, ERR 
-call _allocRecord
-movq rax, (rbx) 
-movq rbp, rax
-movq $0, rbx 
-add rbx, rax
-movq (rax), rax
-movq $343, ERR 
-movq rbp, ERR
-call L1
-movq $0, rax 
-jmp L4 
+movq %rsp, %rbp
+subq $0, %rsp
+jmp L4
 L4: 
+movq %rbp, 0(%rsi)
+movq $3, %rax 
+pushq %rax
+movq $2, %rax 
+pushq %rax
+movq $1, %rax 
+pushq %rax
+movq $9, %r9 
+movq $8, %r8 
+movq $7, %rdx 
+movq $6, %rcx 
+movq $5, %rdi 
+movq %rbp, %rsi
+call L0
+movq $0, %rax 
+jmp L3 
+L3: 
 leave
 ret
 .size main, .-main
