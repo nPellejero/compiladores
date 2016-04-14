@@ -12,9 +12,12 @@ movq %rdi, %rax
 movq %rcx, %r12
 movq %rdx, %r11
 movq %r8, %r10
+popq %r13
+popq %r12
+popq %r11
 movq %rbp, %rbx
 movq $4, %r13 
-addq %r13, %rbx
+subq %r13, %rbx
 movq (%rbx), %rbx
 movq %rbx, %r14 
 movq %rbp, %rbx
