@@ -133,7 +133,7 @@ fun procEntryExit3 (frame: frame, body) = let
 	val lab = case miLab of
 					tigerassem.LABEL{assem = a, lab = l} => l
 					|  _ => "Error Label"
-	val prolog =  [tigerassem.OPER {assem = "pushq %rbp\nmovl %rsp, %rbp\nsubl $"^cantString^", %rsp\njmp 'j0\n",
+	val prolog =  [tigerassem.OPER {assem = "pushq %rbp\nmovq %rsp, %rbp\nsubq $"^cantString^", %rsp\njmp 'j0\n",
 															src = [],
 															dst = [],
 															jump = SOME [lab] }](* makeProlog(frame)*)

@@ -113,9 +113,9 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (LABEL{assem = _, lab = _})) = GREATER 
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (OPER{assem = _, dst = _,src = _, jump = _})) = LESS 
 
-val precolored_init = [fp, sp, rv, rax, rdx] @ argregs (*[fp,sp,rv,ov]*)
-val listaColors =[0, 1 , 2](*, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] *)
-val k = 3 (*14*) 
+val precolored_init = [fp, sp, rv, rax, rdx] (* @ argregs*) (*[fp,sp,rv,ov]*)
+val listaColors =[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+val k = 14
 val cantRewrites = ref(0)
 val precolored = ref(empty String.compare)
 val initial = ref(empty String.compare)
@@ -493,9 +493,7 @@ let
 																						val _ = addWorklist(u)
 																					in coalescedMoves := tempCoalesced2 end
 																			else 
-																let
-																		val _ = print "if 2 \n"
-																		in activeMoves := union(!activeMoves, singM) end
+																				 activeMoves := union(!activeMoves, singM) 
 															in () end
 		
 						in worklistMoves := tempWork end
@@ -663,14 +661,14 @@ fun assignColors() =
 			(*val selectConj = addList(empty String.compare, !selectStack)
 			val _ = printConj selectConj "selectConj" *)
 			val n = popStack()
-(*			val _ = print ("AssignColors"^n^"\n") *)
+			val _ = print ("AssignColors"^n^"\n") 
 			val singN = singleton String.compare n
 			val okColors =ref(addList(empty Int.compare, listaColors )) 
 			val miAdjList = tabSacaConj(n, !adjList)
 	(*		val _ = printConj (miAdjList) "lista adj"*)
 			fun funAux(w) =
 				let 
-					(*val _ = print("getAlias de: "^w^"\n")*)
+	(*				val _ = print("getAlias de: "^w^"\n") *)
 					val miAlias = getAlias(w)
 					val nodosColoreados = union(!coloredNodes, !precolored)
 					val _ = if member(nodosColoreados, miAlias)
@@ -694,7 +692,7 @@ fun assignColors() =
 									val miColored = union(!coloredNodes, singN)
 									val miItem = List.hd(listItems(!okColors))
 									val singM = singleton Int.compare miItem
-(*									val _ = print ("inserto en color: "^n^"\n") *) 
+									val _ = print ("inserto en color: "^n^"\n")  
 								in color := tabRInserta(n, singM, !color); coloredNodes := miColored end
 		handle Empty => print "okColors: Empty"		
 		in assignColors() end	
@@ -702,6 +700,7 @@ fun assignColors() =
 						fun funAux n =
 							let
 								val miAlias = getAlias(n)
+								val _ = print("getAlias de "^n^" es "^miAlias^"\n")
 								val miColor = tabSaca(miAlias, !color)
 							in color := tabRInserta(n, miColor, !color ) end
 					in app funAux (!coalescedNodes) end
