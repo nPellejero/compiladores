@@ -9,29 +9,28 @@ subq $0, %rsp
 jmp L2
 L2: 
 movq %rdi, %rax
-movq %rcx, %r12
-movq %rdx, %r11
-movq %r8, %r10
-movq %rbp, %rbx
-movq $4, %r13 
-addq %r13, %rbx
-movq (%rbx), %rbx
-movq %rbx, %r14 
-movq %rbp, %rbx
+movq %rcx, %r11
+movq %rdx, %r10
+movq %r8, %rbx
+movq %rbp, %r12
+subq $4, %r12
+movq (%r12), %r14 
+movq %rbp, %r12
 movq $8, %r13 
-addq %r13, %rbx
-movq (%rbx), %rbx
-movq %rbx, %r13 
-movq $12, %rbx 
-addq %rbx, %rbp
-movq (%rbp), %rbx
-addq %r12, %rax
+addq %r13, %r12
+movq (%r12), %r12
+movq %r12, %r13 
+movq %rbp, %r12
+movq $12, %r15 
+addq %r15, %r12
+movq (%r12), %r12
 addq %r11, %rax
 addq %r10, %rax
+addq %rbx, %rax
 addq %r9, %rax
 addq %r14, %rax
 addq %r13, %rax
-addq %rbx, %rax
+addq %r12, %rax
 movq $1, %rbx 
 addq %rbx, %rax
 jmp L1 
@@ -44,7 +43,7 @@ ret
 main: 
 pushq %rbp
 movq %rsp, %rbp
-subq $0, %rsp
+subq $4, %rsp
 jmp L4
 L4: 
 movq %rbp, %rax

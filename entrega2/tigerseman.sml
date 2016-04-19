@@ -482,6 +482,13 @@ fun transExp(venv, tenv) =
 			val contador_frameinstr = ref(len_f_i - 1)	
 			fun miFun ((f,i) ,accum)  = 
 				let 
+					val miInstrFP = [tigerassem.MOVE {assem = "movq 's0 'd0\n",
+														src = tigerframe.fp,
+														dst = tigerframe.fp}]
+					val miInstrSP = [tigerassem.MOVE {assem = "movq 's0 'd0\n",
+														src = tigerframe.sp,
+														dst = tigerframe.sp}] 
+					val i = i @ miInstrFP @ miInstrSP 
 					val primeravez = if (accum = []) then true else false
 					val _ = print (Int.toString(List.length(i))^"::f433\n"^Int.toString(!contador_frameinstr)^"\n")
 					val (fgraph,nodes) = tigermakegraph.instrs2graph i 
@@ -490,7 +497,7 @@ fun transExp(venv, tenv) =
 					val auxAssemsFinal = case f of 
 									SOME frame =>	 tigerframe.procEntryExit3 (frame,auxAssemsFinal)
  									| NONE => auxAssemsFinal	
-					val auxAssemsFinal  = if (List.length(i)=1) 
+					val auxAssemsFinal  = if ((List.length(i)-2)=1) (* el menos 2 es pq agrega las instrucciones de fp y sp*) 
 									then 
 									 let
 										val miLab = List.hd(i)

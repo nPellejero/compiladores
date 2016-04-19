@@ -113,7 +113,7 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (LABEL{assem = _, lab = _})) = GREATER 
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (OPER{assem = _, dst = _,src = _, jump = _})) = LESS 
 
-val precolored_init = [fp, sp, rv, rax, rdx] (* @ argregs*) (*[fp,sp,rv,ov]*)
+val precolored_init = [fp, sp, rv, rax, rdx]  @ argregs (*[fp,sp,rv,ov]*)
 val listaColors =[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 val k = 14
 val cantRewrites = ref(0)
@@ -186,7 +186,7 @@ let
 		fun funPreC i = color := tabRInserta(List.nth(precolored_init,i-14),singleton Int.compare i,!color)
   	val _ = app funPreC (addList(empty Int.compare, [14, 15])) 
 		val _ = color := tabRInserta(rv, singleton Int.compare 0,  !color)
-		val _ = color := tabRInserta(rax, singleton Int.compare 0,  !color)
+		val _ = color := tabRInserta(rax, singleton Int.compare 0,  !color) 
 		val _ = color := tabRInserta(rdx, singleton Int.compare 11,  !color)
 		val _ = color := tabRInserta(List.nth(argregs, 0), singleton Int.compare 8,  !color)
 		val _ = color := tabRInserta(List.nth(argregs, 1), singleton Int.compare 9,  !color)

@@ -128,7 +128,7 @@ fun makeEpilog({name, formals, locals, actualArg, actualLocal, actualReg}:frame)
 
 fun procEntryExit3 (frame: frame, body) = let
 	val cantRewrites = #cantRewrites frame 
-	val cantString = Int.toString((!cantRewrites)*wSz)
+	val cantString = Int.toString(((!cantRewrites)+1)*wSz)
 	val miLab = List.hd(body)
 	val lab = case miLab of
 					tigerassem.LABEL{assem = a, lab = l} => l
