@@ -26,13 +26,14 @@ val rdx = "RDX"				(* para DIV y MUL *)
 val sp = "SP"				(* stack pointer *)
 val rv = "RV"				(* return value  *)
 val ov = "OV"				(* overflow value (edx en el 386) *)
-val wSz = 4					(* word size in bytes *)
-val log2WSz = 2				(* base two logarithm of word size in bytes *)
+val wSz = 8					(* word size in bytes *)
+val alignStack = 16 (* stack align on 64 bit -> convention *) 
+val log2WSz = 3			(* base two logarithm of word size in bytes *)
 val fpPrev = 0				(* offset (bytes) *)
 val fpPrevLev = 8			(* offset (bytes) *)
 val argsInicial = 0			(* words *)
 val argsOffInicial = ~1		(* words *)
-val argsGap = wSz			(* bytes *)
+val argsGap = alignStack			(* bytes *)
 val regInicial = 1			(* reg *)
 val localsInicial = 0		(* words *)
 val localsGap = 0 			(* bytes *)
@@ -106,8 +107,12 @@ fun allocLocal (f: frame) b =
 		let	val ret = InFrame(((!(#actualLocal f))+(!(#actualArg f)))*wSz)
 		in	#actualLocal f:=(!(#actualLocal f)-1); ret end
 	| false => InReg(tigertemp.newtemp())
-fun exp(InFrame k) = MEM(BINOP(PLUS, TEMP(fp), CONST k)) (*Deberia usar el e?*)
-| exp(InReg l) = TEMP l
+fun exp34(InFrame k,b) =  let 
+											val newK = case b of 
+												  true => k
+												| false => ~k
+													in MEM(BINOP(PLUS, TEMP(fp), CONST newK)) 											end
+| exp34(InReg l,_) = TEMP l
 fun externalCall(s, l) = CALL(NAME s, l)
 
 fun procEntryExit1 (frame,body) = body
@@ -128,7 +133,7 @@ fun makeEpilog({name, formals, locals, actualArg, actualLocal, actualReg}:frame)
 
 fun procEntryExit3 (frame: frame, body) = let
 	val cantRewrites = #cantRewrites frame 
-	val cantString = Int.toString(((!cantRewrites)+1)*wSz)
+	val cantString = Int.toString(((!cantRewrites)+1)*wSz+alignStack)
 	val miLab = List.hd(body)
 	val lab = case miLab of
 					tigerassem.LABEL{assem = a, lab = l} => l

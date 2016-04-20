@@ -5,16 +5,14 @@
 L0: 
 pushq %rbp
 movq %rsp, %rbp
-subq $24, %rsp
+subq $4, %rsp
 jmp L2
 L2: 
-movq %rbp, %rax
-movq $0, %rbx 
-addq %rbx, %rax
-movq %rsi, (%rax) 
-movq 16(%rbp), %r10
-movq 24(%rbp), %rbx
+movq 24(%rbp), %r10
+movq 8(%rbp), %rbx
 movq 32(%rbp), %rax
+movq 16(%rbp), %rdx
+movq 40(%rbp), %rdx
 addq %rcx, %rdi
 addq %rdx, %rdi
 addq %r8, %rdi
@@ -35,19 +33,12 @@ ret
 main: 
 pushq %rbp
 movq %rsp, %rbp
-subq $24, %rsp
+subq $16, %rsp
 jmp L4
 L4: 
-movq %rbp, %rax
-movq $0, %rbx 
-addq %rbx, %rax
-movq %rsi, (%rax) 
-movq $3, %rax 
-pushq %rax
-movq $2, %rax 
-pushq %rax
-movq $1, %rax 
-pushq %rax
+pushq $2
+pushq $4
+pushq $111
 movq $9, %r9 
 movq $8, %r8 
 movq $7, %rdx 

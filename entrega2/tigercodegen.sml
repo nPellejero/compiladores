@@ -115,15 +115,18 @@ fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 			emit(MOVE{assem = "movq 's0, 'd0 \n",
 				  dst = i,
 				  src = rv}))
-(*	|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)),TEMP i)) =   MOVE(
- MEM(
-  BINOP(PLUS,
-   TEMP FP,
-   CONST 0)),
- TEMP ARG1)  Por que esta este "MEM"? El pattern no deberia matchear mas bien con MOVE (TEMP i, BINOP(PLUS,CONST j, MEM(m))) ? 
-		emit(MOVE{assem = "movq 's0, " ^(Int.toString j) ^ "('d0)\n", (*La forma no deberia ser movq 'd0, j('s0)?*)
+	(*|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)),TEMP i)) =  emit(MOVE{assem = "movq 's0, " ^(Int.toString j) ^ "('d0)\n", 
+			  dst = munchExp(e1),
+			  src = i})  *)
+ 
+	|   munchStm(tigertree.MOVE(TEMP i, MEM(BINOP(PLUS,e1,CONST j)))) =  if j < 0 
+		then	emit(MOVE{assem = "movq -" ^(Int.toString (j*(~1)))^ "('s0), 'd0\n", 
+				dst = i,
+			  src = munchExp(e1)})
+		else	emit(MOVE{assem = "movq " ^(Int.toString j)^ "('s0), 'd0\n", 
 			  dst = i,
-			  src = munchExp(e1)}) *)
+			  src = munchExp(e1)})
+
 	|   munchStm(tigertree.MOVE(TEMP i, CONST j)) = 
 		emit(OPER{assem = "movq $" ^ (Int.toString j) ^ ", 'd0 \n", (*Hay que cambiar los OPER por MOVE cuando sea necesario. Aca, por ejemplo, no lo es. ;P*)
 			  dst = [i],

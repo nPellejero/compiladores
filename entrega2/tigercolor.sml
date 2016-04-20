@@ -715,7 +715,7 @@ let
 		let
 			val _ = print ("TempSpilleado: "^item_c^"\n") 
 			val access2 = tigerframe.allocLocal frame true (*no estoy seguro si es true o false*)
-			val access = tigerframe.exp access2 (* tigercedegen.muchStm(tigerframe.exp access) no estoy seguro como seria esto*)
+			val access = tigerframe.exp34(access2,true) (* tigercedegen.muchStm(tigerframe.exp access) no estoy seguro como seria esto*)
 (*			val puntero = externalCall("_allocRecord", [1]) llamar a alloclocal con escape = true. se necesita pasar el frame a alloc local para saber cuanto bajar el stack en prologo  tigercodegen.codegen y epilogo. ver en el libro procentryexit3 *)
    (*   val _ = case access2 of
 							(InFrame k) => print (Int.toString(k))
