@@ -118,14 +118,28 @@ fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 	(*|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)),TEMP i)) =  emit(MOVE{assem = "movq 's0, " ^(Int.toString j) ^ "('d0)\n", 
 			  dst = munchExp(e1),
 			  src = i})  *)
- 
+ 	|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)), TEMP i)) = let
+		val d0 = munchExp(e1)
+		in 	
+		if j < 0 
+		then	emit(OPER{assem = "movq 's0, -" ^(Int.toString (j*(~1)))^ "('d0)\n", 
+				dst = [d0],
+			  src = [i, d0],
+				jump = NONE })
+		else	emit(OPER{assem = "movq 's0, " ^(Int.toString j)^ "('d0)\n", 
+			  dst = [d0],
+			  src = [i, d0],
+				jump = NONE})
+		end
 	|   munchStm(tigertree.MOVE(TEMP i, MEM(BINOP(PLUS,e1,CONST j)))) =  if j < 0 
-		then	emit(MOVE{assem = "movq -" ^(Int.toString (j*(~1)))^ "('s0), 'd0\n", 
-				dst = i,
-			  src = munchExp(e1)})
-		else	emit(MOVE{assem = "movq " ^(Int.toString j)^ "('s0), 'd0\n", 
-			  dst = i,
-			  src = munchExp(e1)})
+		then	emit(OPER{assem = "movq -" ^(Int.toString (j*(~1)))^ "('s0), 'd0\n", 
+				dst = [i],
+			  src = [munchExp(e1)],
+				jump = NONE})
+		else	emit(OPER{assem = "movq " ^(Int.toString j)^ "('s0), 'd0\n", 
+			  dst = [i],
+			  src = [munchExp(e1)],
+				jump = NONE })
 
 	|   munchStm(tigertree.MOVE(TEMP i, CONST j)) = 
 		emit(OPER{assem = "movq $" ^ (Int.toString j) ^ ", 'd0 \n", (*Hay que cambiar los OPER por MOVE cuando sea necesario. Aca, por ejemplo, no lo es. ;P*)

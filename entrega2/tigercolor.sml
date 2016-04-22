@@ -316,10 +316,13 @@ fun simplify() =
 
 fun addWorklist u = 
 	let
-		(*val _ = print ("addWorklist "^u^"\n")*)
+		val _ = print ("addWorklist "^u^"\n")
 		val cond1 = not(member(!precolored, u))
 		val cond2 = not(moveRelated(u)) 
 		val cond3 = tabSaca(u, !degree) < k
+		handle noExiste => let 
+												val _ = print "addWorklist: noExiste"
+												in true end
 (*		val _ = print ("cond: "^Bool.toString(cond1)^"\n")
 		val _ = print ("cond: "^Bool.toString(cond2)^"\n")
 		val _ = print ("cond: "^Bool.toString(cond3)^"\n")*)
@@ -490,6 +493,7 @@ let
 																					let
 																						val tempCoalesced2 = union(!coalescedMoves, singM)	
 																						val _ = combine(u, v)
+																						val _ = print "app1\n"
 																						val _ = addWorklist(u)
 																					in coalescedMoves := tempCoalesced2 end
 																			else 
@@ -523,9 +527,12 @@ let
 
   fun arrayToList arr = Array.foldr (op ::) [] arr
   val isMOVE = tabSaca(miEnesimo(nodes, i),ismove)
- (* val _ = print ("isMOve: "^Bool.toString(isMOVE)^"\n")
+(*  val _ = print ("isMOve: "^Bool.toString(isMOVE)^"\n")
 	val _ = print ("ismoveInstr: "^Bool.toString(isMoveInstruction(instr))^"\n") 
 	val _ = printAssem instr *)
+	handle noExiste => let 
+											val _ = print "noExiste: arrayToList"
+											in false end
 	val live = sub(outsarray, i)
 	val _ = masterLives := ((!masterLives) @ listItems(live))
 	val _ = (*case instr of MOVE {assem,dst,src} => *)
@@ -552,10 +559,10 @@ let
 						end *)
 	val live = union(live, getdef i)
 	val _ = app (fn x =>( app (fn y => addEdge(x,y)) (getdef i))) live  
-(*	val _ = print "esto es live:\n"
+	(*val _ = print "esto es live:\n"
 	val _ = app (fn x => print (x ^ "\n")) live
 	val _ = print "esto es getdefi:\n"
-	val _ = app (fn x => print (x ^ "\n")) (getdef i) *) 
+	val _ = app (fn x => print (x ^ "\n")) (getdef i)  *)
 in build outsarray assems (i+1) (FGRAPH{control=control, def=def, use=use, ismove=ismove},nodes) end
 | build _ [] _ _ = () 
 handle Subscript => print "build:Subscript"
@@ -715,7 +722,7 @@ let
 		let
 			val _ = print ("TempSpilleado: "^item_c^"\n") 
 			val access2 = tigerframe.allocLocal frame true (*no estoy seguro si es true o false*)
-			val access = tigerframe.exp34(access2,true) (* tigercedegen.muchStm(tigerframe.exp access) no estoy seguro como seria esto*)
+			val access = tigerframe.expRW(access2) (* tigercedegen.muchStm(tigerframe.exp access) no estoy seguro como seria esto*)
 (*			val puntero = externalCall("_allocRecord", [1]) llamar a alloclocal con escape = true. se necesita pasar el frame a alloc local para saber cuanto bajar el stack en prologo  tigercodegen.codegen y epilogo. ver en el libro procentryexit3 *)
    (*   val _ = case access2 of
 							(InFrame k) => print (Int.toString(k))

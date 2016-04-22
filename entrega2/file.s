@@ -8,10 +8,7 @@ movq %rsp, %rbp
 subq $24, %rsp
 jmp L2
 L2: 
-movq %rbp, %rax
-movq $0, %rbx 
-addq %rbx, %rax
-movq %rsi, (%rax) 
+movq %rsi, -8(%rbp)
 movq 16(%rbp), %r10
 movq 24(%rbp), %rbx
 movq 32(%rbp), %rax
@@ -38,10 +35,7 @@ movq %rsp, %rbp
 subq $24, %rsp
 jmp L4
 L4: 
-movq %rbp, %rax
-movq $0, %rbx 
-addq %rbx, %rax
-movq %rsi, (%rax) 
+movq %rsi, -8(%rbp)
 movq $3, %rax 
 pushq %rax
 movq $2, %rax 

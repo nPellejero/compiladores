@@ -380,10 +380,10 @@ fun ppEXP (Ex e) = "EX (" ^ (tigertree.ppEXP e) ^ ")"
 
 fun allocArgExpression (access, argNumber) =
 	let val expVar = varDec access
-		val expSrc = Ex (tigerframe.exp34 (getArgForPos argNumber,true))
+		val expSrc = Ex (tigerframe.exp (getArgForPos argNumber))
 	in assignExp {var=expVar, exp=expSrc}
 	end
 
-val allocFirstArgExpression = allocArgExpression(InFrame 0, 0)
+val allocFirstArgExpression = allocArgExpression(InFrame (~8), 0)
 
 end

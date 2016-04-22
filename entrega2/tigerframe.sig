@@ -25,7 +25,8 @@ val log2WSz : int
 val calldefs : tigertemp.temp list
 val callersaves : tigertemp.temp list
 val calleesaves : tigertemp.temp list
-val exp34 : access * bool -> tigertree.exp
+val exp : access -> tigertree.exp
+val expRW : access -> tigertree.exp
 val externalCall : string * tigertree.exp list -> tigertree.exp
 val procEntryExit1 : frame * tigertree.stm -> tigertree.stm
 val procEntryExit2 : frame * tigerassem.instr list -> tigerassem.instr list
