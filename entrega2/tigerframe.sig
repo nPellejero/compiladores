@@ -4,6 +4,13 @@ sig
 type frame
 type register = string
 val rv : tigertemp.temp
+val r10 : tigertemp.temp
+val r11 : tigertemp.temp
+val r12 : tigertemp.temp
+val r13 : tigertemp.temp
+val rbx : tigertemp.temp
+val r14 : tigertemp.temp
+val r15 : tigertemp.temp
 val rax : tigertemp.temp
 val rdx : tigertemp.temp
 val ov : tigertemp.temp
@@ -25,6 +32,7 @@ val log2WSz : int
 val calldefs : tigertemp.temp list
 val callersaves : tigertemp.temp list
 val calleesaves : tigertemp.temp list
+val extraRegs : tigertemp.temp list
 val exp : access -> tigertree.exp
 val expRW : access -> tigertree.exp
 val externalCall : string * tigertree.exp list -> tigertree.exp

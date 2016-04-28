@@ -5,20 +5,23 @@
 L0: 
 pushq %rbp
 movq %rsp, %rbp
-subq $24, %rsp
+subq $40, %rsp
 jmp L5
 L5: 
 movq %rsi, -8(%rbp)
-movq $0, %rbx 
-cmp %rdi, %rbx 
+movq $0, %rax 
+cmp %rdi, %rax 
 je L1 
 L2: 
 movq %rdi, %rax
-movq $1, %rbx 
-sub %rbx, %rdi
+movq %rax, 0(%rbp)
+movq $1, %rax 
+sub %rax, %rdi
 movq (%rbp), %rsi
 call L0
-mul %rax 
+movq %rax, %rbx 
+movq 0(%rbp), %rax
+mul %rbx 
 L3: 
 jmp L4 
 L1: 
@@ -28,9 +31,9 @@ L4:
 leave
 ret
 .size L0, .-L0
-.globl main
-.type main, @function
-main: 
+.globl _tigermain
+.type _tigermain, @function
+_tigermain: 
 pushq %rbp
 movq %rsp, %rbp
 subq $24, %rsp
@@ -45,6 +48,6 @@ jmp L6
 L6: 
 leave
 ret
-.size main, .-main
+.size _tigermain, .-_tigermain
 .ident "GCC: (DEBIAN 4.9.2-10) 4.9.2"
 .section .note.GNU-stack,"",@progbits

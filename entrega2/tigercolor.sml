@@ -113,7 +113,7 @@ fun compAssem ((OPER{assem = a1, dst = d1,src = s1, jump = j1}), (OPER{assem = a
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (LABEL{assem = _, lab = _})) = GREATER 
 |	 compAssem ((MOVE{assem = a1, dst = d1, src = s1}), (OPER{assem = _, dst = _,src = _, jump = _})) = LESS 
 
-val precolored_init = [fp, sp, rv, rax, rdx]  @ argregs (*[fp,sp,rv,ov]*)
+val precolored_init = [fp, sp, rv]  @ argregs @ extraRegs (*[fp,sp,rv,ov]*)
 val listaColors =[0, 1 , 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 val k = 14
 val cantRewrites = ref(0)
@@ -188,6 +188,13 @@ let
 		val _ = color := tabRInserta(rv, singleton Int.compare 0,  !color)
 		val _ = color := tabRInserta(rax, singleton Int.compare 0,  !color) 
 		val _ = color := tabRInserta(rdx, singleton Int.compare 11,  !color)
+		val _ = color := tabRInserta(rbx, singleton Int.compare 1,  !color)
+		val _ = color := tabRInserta(r10, singleton Int.compare 2,  !color)
+		val _ = color := tabRInserta(r11, singleton Int.compare 3,  !color)
+		val _ = color := tabRInserta(r12, singleton Int.compare 4,  !color)
+		val _ = color := tabRInserta(r13, singleton Int.compare 5,  !color)
+		val _ = color := tabRInserta(r14, singleton Int.compare 6,  !color)
+		val _ = color := tabRInserta(r15, singleton Int.compare 7,  !color)
 		val _ = color := tabRInserta(List.nth(argregs, 0), singleton Int.compare 8,  !color)
 		val _ = color := tabRInserta(List.nth(argregs, 1), singleton Int.compare 9,  !color)
 		val _ = color := tabRInserta(List.nth(argregs, 2), singleton Int.compare 10,  !color)
@@ -672,10 +679,10 @@ fun assignColors() =
 			val singN = singleton String.compare n
 			val okColors =ref(addList(empty Int.compare, listaColors )) 
 			val miAdjList = tabSacaConj(n, !adjList)
-	(*		val _ = printConj (miAdjList) "lista adj"*)
+			val _ = printConj (miAdjList) "lista adj"
 			fun funAux(w) =
 				let 
-	(*				val _ = print("getAlias de: "^w^"\n") *)
+					val _ = print("getAlias de: "^w^"\n") 
 					val miAlias = getAlias(w)
 					val nodosColoreados = union(!coloredNodes, !precolored)
 					val _ = if member(nodosColoreados, miAlias)
