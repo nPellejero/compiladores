@@ -23,23 +23,32 @@ type level = int
 val fp = "FP"				(* frame pointer *)
 val rax = "RAX"				(* para DIV y MUL *)
 val rdx = "RDX"				(* para DIV y MUL *)
+val rbx = "RBX"				(* para DIV y MUL *)
 val sp = "SP"				(* stack pointer *)
+val r10 = "R10"
+val r11 = "R11"
+val r12 = "R12"
+val r13 = "R13"
+val r14 = "R14"
+val r15 = "R15"
 val rv = "RV"				(* return value  *)
 val ov = "OV"				(* overflow value (edx en el 386) *)
-val wSz = 4					(* word size in bytes *)
-val log2WSz = 2				(* base two logarithm of word size in bytes *)
+val wSz = 8					(* word size in bytes *)
+val alignStack = 16 (* stack align on 64 bit -> convention *) 
+val log2WSz = 3			(* base two logarithm of word size in bytes *)
 val fpPrev = 0				(* offset (bytes) *)
 val fpPrevLev = 8			(* offset (bytes) *)
 val argsInicial = 0			(* words *)
 val argsOffInicial = ~1		(* words *)
-val argsGap = wSz			(* bytes *)
+val argsGap = alignStack			(* bytes *)
 val regInicial = 1			(* reg *)
 val localsInicial = 0		(* words *)
 val localsGap = 0 			(* bytes *)
+val extraRegs = [r10, rax, rdx, r11, r12, r13, r14, r15, rbx]
 val calldefs = [rv]
 val specialregs = [rv, fp, sp]
 val argregs = ["ARG1","ARG2", "ARG3", "ARG4", "ARG5", "ARG6" ] (*Feli was here*)
-val callersaves = []
+val callersaves = specialregs @ argregs @ extraRegs
 val calleesaves = []
 
 type frame = {
@@ -106,8 +115,12 @@ fun allocLocal (f: frame) b =
 		let	val ret = InFrame(((!(#actualLocal f))+(!(#actualArg f)))*wSz)
 		in	#actualLocal f:=(!(#actualLocal f)-1); ret end
 	| false => InReg(tigertemp.newtemp())
-fun exp(InFrame k) = MEM(BINOP(PLUS, TEMP(fp), CONST k)) (*Deberia usar el e?*)
-| exp(InReg l) = TEMP l
+
+fun expRW(InFrame k) = MEM(BINOP(PLUS, TEMP(fp), CONST (~k)))
+	| expRW(InReg l) = TEMP l
+
+fun exp(InFrame k) = MEM(BINOP(PLUS, TEMP(fp), CONST k))
+	| exp(InReg l) = TEMP l
 fun externalCall(s, l) = CALL(NAME s, l)
 
 fun procEntryExit1 (frame,body) = body
@@ -128,7 +141,7 @@ fun makeEpilog({name, formals, locals, actualArg, actualLocal, actualReg}:frame)
 
 fun procEntryExit3 (frame: frame, body) = let
 	val cantRewrites = #cantRewrites frame 
-	val cantString = Int.toString((!cantRewrites)*wSz)
+	val cantString = Int.toString(((!cantRewrites)+1)*wSz+alignStack)
 	val miLab = List.hd(body)
 	val lab = case miLab of
 					tigerassem.LABEL{assem = a, lab = l} => l

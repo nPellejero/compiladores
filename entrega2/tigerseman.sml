@@ -360,7 +360,7 @@ fun transExp(venv, tenv) =
 				val _ = checkrep (List.map (fn (a,b)=> #name(a)) fs) "funciones"
 				
 				fun add ([],env) = env
-					|add ((({name=f, params=ps, result=r, body=b}, i)::fs),env) = let val myLabel = if f = "main" then "main" else tigertemp.newlabel ()
+					|add ((({name=f, params=ps, result=r, body=b}, i)::fs),env) = let val myLabel = if f = "_tigermain" then "_tigermain" else tigertemp.newlabel ()
 						val _ = print ("LABEL FOR "^f^": "^myLabel^"\n")
 						in add (fs, tabRInserta(f, Func {level=newLevel {parent=topLevel (), name=myLabel, formals = (List.map (fn p => !(#escape p)) ps)}, label= myLabel, formals= (List.map (fn p => transTy(#typ p)) ps), result = solvetipo(r), extern=false}, env)) end
 				
@@ -450,7 +450,7 @@ fun transExp(venv, tenv) =
 		in trexp end
 	fun transProg ex =
 		let	val main =
-					LetExp({decs=[FunctionDec[({name="main", params=[],
+					LetExp({decs=[FunctionDec[({name="_tigermain", params=[],
 									result=SOME "int", body=SeqExp([ex, IntExp(0,0)],0)}, 0)]],
 							body=UnitExp 0}, 0)
 			val {exp = e, ty = tbody} = transExp(tab_vars, tab_tipos) main
@@ -479,9 +479,19 @@ fun transExp(venv, tenv) =
 
 (*			val (fgraph,nodes) = tigermakegraph.instrs2graph instrs *) 
 	    val len_f_i = List.length(frame_instrs) 
-			val contador_frameinstr = ref(len_f_i - 1)	
+			val contador_frameinstr = ref(len_f_i - 1)
+	(*		fun isCall (tigerassem.OPER {assem=a,src=s,dst=d}) = 1
+					| _ => 0*)
 			fun miFun ((f,i) ,accum)  = 
-				let 
+				let
+	(*				val listIsCall = List.map(\x => isCall(x)) i *)
+					val miInstrFP = [tigerassem.MOVE {assem = "movq 's0 'd0\n",
+														src = tigerframe.fp,
+														dst = tigerframe.fp}]
+					val miInstrSP = [tigerassem.MOVE {assem = "movq 's0 'd0\n",
+														src = tigerframe.sp,
+														dst = tigerframe.sp}] 
+					val i = i @ miInstrFP @ miInstrSP 
 					val primeravez = if (accum = []) then true else false
 					val _ = print (Int.toString(List.length(i))^"::f433\n"^Int.toString(!contador_frameinstr)^"\n")
 					val (fgraph,nodes) = tigermakegraph.instrs2graph i 
@@ -490,7 +500,7 @@ fun transExp(venv, tenv) =
 					val auxAssemsFinal = case f of 
 									SOME frame =>	 tigerframe.procEntryExit3 (frame,auxAssemsFinal)
  									| NONE => auxAssemsFinal	
-					val auxAssemsFinal  = if (List.length(i)=1) 
+					val auxAssemsFinal  = if ((List.length(i)-2)=1) (* el menos 2 es pq agrega las instrucciones de fp y sp*) 
 									then 
 									 let
 										val miLab = List.hd(i)

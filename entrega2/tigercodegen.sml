@@ -26,7 +26,7 @@ fun munchExp(CONST i) = (*no estoy seguro de esta. 'd0 deberia tener 0*)
 		result(fn r =>	
 					(emit(MOVE{assem =  "movq 's0, 'd0\n",
       				src = munchExp(e1),
-      				dst = rax
+      				dst = rv
       		});
 					emit(OPER{assem =  "movq $0, 'd0\n",
       				src = [],
@@ -34,11 +34,11 @@ fun munchExp(CONST i) = (*no estoy seguro de esta. 'd0 deberia tener 0*)
 							jump = NONE
       		});
       emit(OPER{assem = "div 's0 \n",
-        src = [munchExp(e2) ,rax],
-        dst = [rax],
+        src = [munchExp(e2) ,rv],
+        dst = [rv],
         jump= NONE});
       emit(MOVE{assem =  "movq 's0, 'd0\n",
-        src = rax,
+        src = rv,
         dst = r
       })))
  (*(emit(MOVE{assem =  "movq 's0, 'd0\n",
@@ -52,14 +52,14 @@ fun munchExp(CONST i) = (*no estoy seguro de esta. 'd0 deberia tener 0*)
  |    munchExp(BINOP(MUL,e1,e2)) =
     result(fn r => (emit(MOVE{assem =  "movq 's0, 'd0\n",
       src = munchExp(e1),
-      dst = rax
+      dst = rv
       });
       emit(OPER{assem = "mul 's0 \n",
-        src = [munchExp(e2) ,rax],
-        dst = [rax],
+        src = [munchExp(e2) ,rv],
+        dst = [rv],
         jump= NONE});
       emit(MOVE{assem =  "movq 's0, 'd0\n",
-        src = rax,
+        src = rv,
         dst = r
       })))
 		|    munchExp(BINOP(PLUS,e1,e2)) =
@@ -115,15 +115,32 @@ fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 			emit(MOVE{assem = "movq 's0, 'd0 \n",
 				  dst = i,
 				  src = rv}))
-(*	|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)),TEMP i)) =   MOVE(
- MEM(
-  BINOP(PLUS,
-   TEMP FP,
-   CONST 0)),
- TEMP ARG1)  Por que esta este "MEM"? El pattern no deberia matchear mas bien con MOVE (TEMP i, BINOP(PLUS,CONST j, MEM(m))) ? 
-		emit(MOVE{assem = "movq 's0, " ^(Int.toString j) ^ "('d0)\n", (*La forma no deberia ser movq 'd0, j('s0)?*)
-			  dst = i,
-			  src = munchExp(e1)}) *)
+	(*|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)),TEMP i)) =  emit(MOVE{assem = "movq 's0, " ^(Int.toString j) ^ "('d0)\n", 
+			  dst = munchExp(e1),
+			  src = i})  *)
+ 	|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)), TEMP i)) = let
+		val d0 = munchExp(e1)
+		in 	
+		if j < 0 
+		then	emit(OPER{assem = "movq 's0, -" ^(Int.toString (j*(~1)))^ "('d0)\n", 
+				dst = [d0],
+			  src = [i, d0],
+				jump = NONE })
+		else	emit(OPER{assem = "movq 's0, " ^(Int.toString j)^ "('d0)\n", 
+			  dst = [d0],
+			  src = [i, d0],
+				jump = NONE})
+		end
+	|   munchStm(tigertree.MOVE(TEMP i, MEM(BINOP(PLUS,e1,CONST j)))) =  if j < 0 
+		then	emit(OPER{assem = "movq -" ^(Int.toString (j*(~1)))^ "('s0), 'd0\n", 
+				dst = [i],
+			  src = [munchExp(e1)],
+				jump = NONE})
+		else	emit(OPER{assem = "movq " ^(Int.toString j)^ "('s0), 'd0\n", 
+			  dst = [i],
+			  src = [munchExp(e1)],
+				jump = NONE })
+
 	|   munchStm(tigertree.MOVE(TEMP i, CONST j)) = 
 		emit(OPER{assem = "movq $" ^ (Int.toString j) ^ ", 'd0 \n", (*Hay que cambiar los OPER por MOVE cuando sea necesario. Aca, por ejemplo, no lo es. ;P*)
 			  dst = [i],
@@ -144,63 +161,63 @@ fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 			  src = [],
 			  jump = SOME [e]})
 	|   munchStm(CJUMP(EQ,e1,e2,l1,l2)) =
-		emit(OPER{assem = "cmp 's0, 's1 <CR> "
+		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "je 'j0 \n",
 			  dst = [],
 			  src = [munchExp(e1),munchExp(e2)],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(NE,e1,e2,l1,l2)) =	
-		emit(OPER{assem = "cmp 's0, 's1 <CR> "
+		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jne 'j0 \n",
 			  src = [munchExp(e1),munchExp(e2)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(LT,e1,e2,l1,l2)) =	
-		emit(OPER{assem = "cmp 's0, 's1 <CR> "
+		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jl 'j0 \n",
 			  src = [munchExp(e1),munchExp(e2)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 
 	|   munchStm(CJUMP(GT,e1,e2,l1,l2)) =	
-		emit(OPER{assem = "cmp 's0, 's1 <CR> "
+		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jg 'j0 \n",
 			  src = [munchExp(e1),munchExp(e2)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 
 	|   munchStm(CJUMP(LE,e1,e2,l1,l2)) =	
-		emit(OPER{assem = "cmp 's0, 's1 <CR> "
+		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jle 'j0 \n",
 			  src = [munchExp(e1),munchExp(e2)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(GE,e1,e2,l1,l2)) =	
-		emit(OPER{assem = "cmp 's0, 's1 <CR> "
+		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jge 'j0 \n",
 			  src = [munchExp(e1),munchExp(e2)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(ULT,e1,e2,l1,l2)) =	
-		emit(OPER{assem = "cmp 's0, 's1 <CR> "
+		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jb 'j0 \n",
 			  src = [munchExp(e1),munchExp(e2)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(ULE,e1,e2,l1,l2)) =	
-		emit(OPER{assem = "cmp 's0, 's1 <CR> "
+		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jbe 'j0 \n",
 			  src = [munchExp(e1),munchExp(e2)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(UGT,e1,e2,l1,l2)) =	
-		emit(OPER{assem = "cmp 's0, 's1 <CR> "
+		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "ja 'j0 \n",
 			  src = [munchExp(e1),munchExp(e2)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(UGE,e1,e2,l1,l2)) =	
-		emit(OPER{assem = "cmp 's0, 's1 <CR> "
+		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jae 'j0 \n",
 			  src = [munchExp(e1),munchExp(e2)],
 			  dst = [],

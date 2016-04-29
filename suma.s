@@ -6,8 +6,19 @@ f:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movl	%edi, -4(%rbp)
+	movl	%esi, -8(%rbp)
+	movl	%edx, -12(%rbp)
+	movl	%ecx, -16(%rbp)
+	movl	%r8d, -20(%rbp)
+	movl	%r9d, -24(%rbp)
 	movl	-4(%rbp), %eax
-	addl	$1, %eax
+	leal	1(%rax), %edx
+	movl	16(%rbp), %eax
+	addl	%eax, %edx
+	movl	24(%rbp), %eax
+	addl	%eax, %edx
+	movl	32(%rbp), %eax
+	addl	%edx, %eax
 	popq	%rbp
 	ret
 	.size	f, .-f
@@ -19,8 +30,17 @@ main:
 	subq	$16, %rsp
 	movl	%edi, -4(%rbp)
 	movq	%rsi, -16(%rbp)
+	pushq	$111
+	pushq	$4
+	pushq	$2
+	movl	$1, %r9d
+	movl	$9, %r8d
+	movl	$8, %ecx
+	movl	$7, %edx
+	movl	$6, %esi
 	movl	$5, %edi
 	call	f
+	addq	$24, %rsp
 	movl	$0, %eax
 	leave
 	ret
