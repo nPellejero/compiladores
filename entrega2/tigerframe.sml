@@ -37,7 +37,7 @@ val wSz = 8					(* word size in bytes *)
 val alignStack = 16 (* stack align on 64 bit -> convention *) 
 val log2WSz = 3			(* base two logarithm of word size in bytes *)
 val fpPrev = 0				(* offset (bytes) *)
-val fpPrevLev = 8			(* offset (bytes) *)
+val fpPrevLev = 16			(* offset (bytes) *)
 val argsInicial = 0			(* words *)
 val argsOffInicial = ~1		(* words *)
 val argsGap = alignStack			(* bytes *)
@@ -112,7 +112,7 @@ fun allocArg (f: frame) b =
 fun allocLocal (f: frame) b = 
 	case b of
 	true =>
-		let	val ret = InFrame(((!(#actualLocal f))+(!(#actualArg f)))*wSz)
+		let	val ret = InFrame(((!(#actualLocal f))+(!(#actualArg f)))*wSz+fpPrevLev) (* se agrega fpPrevLev para que en rw  *)
 		in	#actualLocal f:=(!(#actualLocal f)-1); ret end
 	| false => InReg(tigertemp.newtemp())
 

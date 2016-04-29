@@ -161,7 +161,7 @@ fun jumper 0 = TEMP fp
 fun simpleVar(acc, nivel) =
 	let
 		fun myexp (InReg l) _ = TEMP l
-			|myexp (InFrame k) n = MEM(BINOP(PLUS, jumper n, CONST k))
+			|myexp (InFrame k) n = MEM(BINOP(PLUS, jumper n, CONST (~k)))
 		val levDif = getActualLev () - nivel
 	in
 		Ex (myexp acc levDif) (*COMPLETAR, quiza ya este*)
@@ -384,6 +384,6 @@ fun allocArgExpression (access, argNumber) =
 	in assignExp {var=expVar, exp=expSrc}
 	end
 
-val allocFirstArgExpression = allocArgExpression(InFrame (~8), 0)
+val allocFirstArgExpression = allocArgExpression(InFrame 8, 0)
 
 end

@@ -1,0 +1,7 @@
+let function f(a:int):int =
+	let 
+		var d := 5		
+		function g(c:int):int = c + d		
+	in g(a) end
+in f(9)
+end

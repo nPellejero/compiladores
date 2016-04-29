@@ -1,32 +1,37 @@
 .file "file.tig"
 .text
+.globl L1
+.type L1, @function
+L1: 
+pushq %rbp
+movq %rsp, %rbp
+subq $24, %rsp
+jmp L3
+L3: 
+movq %rsi, -8(%rbp)
+movq %rdi, %rax
+movq (%rbp), %rbx
+movq -16(%rbx), %rbx
+addq %rbx, %rax
+jmp L2 
+L2: 
+leave
+ret
+.size L1, .-L1
 .globl L0
 .type L0, @function
 L0: 
 pushq %rbp
 movq %rsp, %rbp
-subq $40, %rsp
+subq $24, %rsp
 jmp L5
 L5: 
 movq %rsi, -8(%rbp)
-movq $0, %rax 
-cmp %rdi, %rax 
-je L1 
-L2: 
-movq %rdi, %rax
-movq %rax, 0(%rbp)
-movq $1, %rax 
-sub %rax, %rdi
-movq (%rbp), %rsi
-call L0
-movq %rax, %rbx 
-movq 0(%rbp), %rax
-mul %rbx 
-L3: 
+movq $5, %rax 
+movq %rax, -16(%rbp)
+movq %rbp, %rsi
+call L1
 jmp L4 
-L1: 
-movq $1, %rax 
-jmp L3 
 L4: 
 leave
 ret
@@ -40,7 +45,7 @@ subq $24, %rsp
 jmp L7
 L7: 
 movq %rsi, -8(%rbp)
-movq $10, %rdi 
+movq $9, %rdi 
 movq %rbp, %rsi
 call L0
 movq $0, %rax 

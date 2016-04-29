@@ -71,11 +71,25 @@ fun munchExp(CONST i) = (*no estoy seguro de esta. 'd0 deberia tener 0*)
 				src = [munchExp(e2),r],
 				dst = [r],
 				jump= NONE})))
-	|    munchExp(TEMP t) = t
+ |    munchExp(TEMP t) = t
+ | munchExp (MEM(BINOP(PLUS,e1,CONST j))) = result (fn r =>
+		if j > 0
+		then
+			 emit(OPER{assem="movq "^(Int.toString j)^"('s0), 'd0\n",
+													dst = [r],
+													src = [munchExp e1],
+													jump = NONE})
+		else		
+				emit(OPER{assem="movq -"^(Int.toString (j*(~1)))^"('s0), 'd0\n",
+													dst = [r],
+													src = [munchExp e1],
+													jump = NONE})
+			)
 	|	munchExp (MEM e) = result (fn r=> emit(OPER{assem="movq ('s0), 'd0\n",
 													dst = [r],
 													src = [munchExp e],
 													jump = NONE}))
+
 	|	munchExp (NAME l) = result (fn r=> emit(OPER{assem="movq $"^l^", 'd0\n",
 														dst=[r],
 														src=[],
@@ -118,29 +132,34 @@ fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 	(*|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)),TEMP i)) =  emit(MOVE{assem = "movq 's0, " ^(Int.toString j) ^ "('d0)\n", 
 			  dst = munchExp(e1),
 			  src = i})  *)
- 	|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)), TEMP i)) = let
+ 	|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)), e2)) = let
 		val d0 = munchExp(e1)
+		val s0 = munchExp(e2)
 		in 	
 		if j < 0 
 		then	emit(OPER{assem = "movq 's0, -" ^(Int.toString (j*(~1)))^ "('d0)\n", 
 				dst = [d0],
-			  src = [i, d0],
+			  src = [s0, d0],
 				jump = NONE })
 		else	emit(OPER{assem = "movq 's0, " ^(Int.toString j)^ "('d0)\n", 
 			  dst = [d0],
-			  src = [i, d0],
+			  src = [s0, d0],
 				jump = NONE})
 		end
-	|   munchStm(tigertree.MOVE(TEMP i, MEM(BINOP(PLUS,e1,CONST j)))) =  if j < 0 
+	|   munchStm(tigertree.MOVE(e2 , MEM(BINOP(PLUS,e1,CONST j)))) = let
+		val s0 = munchExp(e1)
+		val d0 = munchExp(e2)
+		in
+  	if j < 0 
 		then	emit(OPER{assem = "movq -" ^(Int.toString (j*(~1)))^ "('s0), 'd0\n", 
-				dst = [i],
-			  src = [munchExp(e1)],
+				dst = [d0],
+			  src = [s0],
 				jump = NONE})
 		else	emit(OPER{assem = "movq " ^(Int.toString j)^ "('s0), 'd0\n", 
-			  dst = [i],
-			  src = [munchExp(e1)],
+			  dst = [d0],
+			  src = [s0],
 				jump = NONE })
-
+		end
 	|   munchStm(tigertree.MOVE(TEMP i, CONST j)) = 
 		emit(OPER{assem = "movq $" ^ (Int.toString j) ^ ", 'd0 \n", (*Hay que cambiar los OPER por MOVE cuando sea necesario. Aca, por ejemplo, no lo es. ;P*)
 			  dst = [i],
