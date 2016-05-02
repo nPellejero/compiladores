@@ -8,11 +8,20 @@ open tigerframe
 	fun result(gen) = let val t = tigertemp.newtemp() in gen t; t end
 	
 	(* munchExp::Tree.exp -> tigertemp.temp *)
-fun munchExp(CONST i) = (*no estoy seguro de esta. 'd0 deberia tener 0*)
+fun munchExp(CONST i) = let	
+		in 	
+		if i > 0 
+		then (*no estoy seguro de esta. 'd0 deberia tener 0*)
 		result(fn r => emit(OPER{assem = "movq $"^(Int.toString i)^", 'd0 \n",
 			src = [],
 			dst = [r],
 			jump = NONE})) 
+		else	
+		result(fn r => emit(OPER{assem = "movq $-"^(Int.toString (i*(~1)))^", 'd0 \n",
+			src = [],
+			dst = [r],
+			jump = NONE})) 
+		end
 	|    munchExp(BINOP(MINUS,e1,e2)) =
 		result(fn r => (emit(MOVE{assem =  "movq 's0, 'd0\n",
 			src = munchExp(e1),
