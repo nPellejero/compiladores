@@ -156,7 +156,7 @@ fun nilExp() = Ex (CONST 0)
 fun intExp i = Ex (CONST i)
 
 fun jumper 0 = TEMP fp
-	|jumper n = MEM (jumper (n-1)) (*home made*)
+	|jumper n =  MEM(BINOP(PLUS, jumper (n-1), CONST (~8))) (*  MEM (jumper (n-1)) estaba así antes *) (*home made*)
 
 fun simpleVar(acc, nivel) =
 	let

@@ -9,10 +9,8 @@ subq $24, %rsp
 jmp L3
 L3: 
 movq %rsi, -8(%rbp)
-movq %rdi, %rax
-movq (%rbp), %rbx
-movq -16(%rbx), %rbx
-addq %rbx, %rax
+movq -8(%rbp), %rax
+movq -16(%rax), %rax
 jmp L2 
 L2: 
 leave
@@ -45,7 +43,6 @@ subq $24, %rsp
 jmp L7
 L7: 
 movq %rsi, -8(%rbp)
-movq $9, %rdi 
 movq %rbp, %rsi
 call L0
 movq $0, %rax 
