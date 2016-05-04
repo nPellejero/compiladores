@@ -1,7 +1,7 @@
-let function f():int =
+let function f(z:int):int =
 	let 
-		var d := 5		
-		function g():int = d		
-	in g() end
-in f()
+		var d := 5 + z		
+		function g(y:int):int = d+y		
+	in g(10)+z end
+in f(15)
 end

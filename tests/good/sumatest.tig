@@ -1,3 +1,6 @@
 let
- function f(x:int,a:int,b:int,c:int,d:int,e:int,f:int,g:int):int = x+a+b+c+d+e+f+g+1
+ function f(x:int,a:int,b:int,c:int,d:int,e:int,f:int,g:int):int = 
+	let
+		var aux := x+15
+	in x+a+b+c+d+e+f+g+1 end
 in f(5,6,7,8,9,1,2,3) end
