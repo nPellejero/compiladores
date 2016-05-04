@@ -38,11 +38,11 @@ val alignStack = 16 (* stack align on 64 bit -> convention *)
 val log2WSz = 3			(* base two logarithm of word size in bytes *)
 val fpPrev = 0				(* offset (bytes) *)
 val fpPrevLev = 16 			(* offset (bytes) *)
-val argsInicial = 0			(* words *)
-val argsOffInicial = ~1		(* words *)
+val argsInicial = 1			(* words *)
+val argsOffInicial = 1		(* words *)
 val argsGap = alignStack			(* bytes *)
 val regInicial = 1			(* reg *)
-val localsInicial = 1		(* words *)
+val localsInicial = 0		(* words *)
 val localsGap = 0 			(* bytes *)
 val extraRegs = [r10, rax, rdx, r11, r12, r13, r14, r15, rbx]
 val calldefs = [rv]
@@ -100,7 +100,9 @@ fun allocArg (f: frame) b =
 	case b of
 	true =>
 		let	val ret = (!(#actualArg f)+argsOffInicial)*wSz
-			val _ = #actualArg f := !(#actualArg f)-1
+			  val _ = print ("ActualArg: "^Int.toString(!(#actualArg f))^"\n") 
+			  val _ = print ("RET: "^Int.toString(ret)^"\n") 
+				val _ = #actualArg f := !(#actualArg f)-1
 (*			val _ = #listArgs f := !(#listArgs f) ++ [InFrame ret] *)
 		in	InFrame ret end
 	| false => InReg(tigertemp.newtemp())
@@ -113,6 +115,9 @@ fun allocLocal (f: frame) b =
 	case b of
 	true =>
 		let	val ret = InFrame(((!(#actualLocal f))+(!(#actualArg f)))*wSz+fpPrevLev) (* se agrega fpPrevLev para que en rw  *)
+(*			  val _ = print ("ActualArg: "^Int.toString(!(#actualArg f))^"\n") 
+			  val _ = print ("ActualLocal: "^Int.toString(!(#actualLocal f))^"\n") 
+			  val _ = print ("RET: "^Int.toString(((!(#actualLocal f))+(!(#actualArg f)))*wSz+fpPrevLev)^"\n") *)
 		in	#actualLocal f:=(!(#actualLocal f)-1); ret end
 	| false => InReg(tigertemp.newtemp())
 
