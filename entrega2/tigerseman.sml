@@ -507,8 +507,18 @@ fun transExp(venv, tenv) =
   									val lab = case miLab of
          								 tigerassem.LABEL{assem = a, lab = l} => l
           							 |  _ => "Error Label"
-   
-										val str = ".globl "^lab^"\n.type "^lab^", @function\n"
+  									val str = if Char.compare(String.sub(lab , 0), #".") = EQUAL
+														then 
+																let
+																	val str2 =	".section  .rodata\n"
+																in str2 end
+														else
+															let
+																val str1 =	".globl "^lab^"\n.type "^lab^", @function\n"
+															in str1 end
+
+										(*val _ = print ("LABELLLLLLLLLL: "^lab^"\n")
+										val str = ".globl "^lab^"\n.type "^lab^", @function\n"*)
 										val strAssem = [tigerassem.OPER {assem = str,
 														src = [],
 														dst = [],
@@ -524,7 +534,7 @@ fun transExp(venv, tenv) =
          								 tigerassem.LABEL{assem = a, lab = l} => l
           							 |  _ => "Error Label"
    
-										val str = ".size "^lab^", .-"^lab^"\n"
+									val str = ".size "^lab^", .-"^lab^"\n"
 										val strAssem = [tigerassem.OPER {assem = str,
 														src = [],
 														dst = [],
@@ -544,7 +554,7 @@ fun transExp(venv, tenv) =
 (*			val _ = print "Salio de alloc\n" *)
 			fun miFun2 ins = case ins of
  					OPER{assem,dst,src,jump} => false 
-	 				| LABEL{assem,...} => false
+					| LABEL{assem,...} => false
 	  			| MOVE{assem,dst,src} => let
 					  val s = tigerregalloc.saytemp tabreg src
 					  val d = tigerregalloc.saytemp tabreg dst

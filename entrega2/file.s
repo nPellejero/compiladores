@@ -1,79 +1,46 @@
 .file "file.tig"
 .text
-.globl L0
-.type L0, @function
-L0:
+.section  .rodata
+.L0:
 	.long 4
 	.string "Hola"
-.globl L2
-.type L2, @function
-L2: 
-pushq %rbp
-movq %rsp, %rbp
-subq $24, %rsp
-jmp L4
-L4: 
-movq %rsi, -8(%rbp)
-movq $-0, %rax 
-movq $8, %rbx 
-mul %rbx 
-addq %rax, %rdi
-movq (%rdi), %rax
-movq -8(%rbp), %rbx
-movq -16(%rbx), %rbx
-addq %rbx, %rax
-jmp L3 
-L3: 
-leave
-ret
-.size L2, .-L2
-.globl L1
-.type L1, @function
-L1: 
-pushq %rbp
-movq %rsp, %rbp
-subq $24, %rsp
-jmp L6
-L6: 
-movq %rsi, -8(%rbp)
-movq %rdi, -16(%rbp)
-movq -8(%rbp), %rax
-movq -24(%rax), %rdi
-movq %rbp, %rsi
-call L2
-movq -16(%rbp), %rbx
-addq %rbx, %rax
-jmp L5 
-L5: 
-leave
-ret
-.size L1, .-L1
+	.text
+.section  .rodata
+.L1:
+	.long 4
+	.string "Chau"
+	.text
 .globl _tigermain
 .type _tigermain, @function
 _tigermain: 
 pushq %rbp
 movq %rsp, %rbp
-subq $40, %rsp
-jmp L8
-L8: 
+subq $64, %rsp
+jmp L6
+L6: 
 movq %rsi, -8(%rbp)
-movq %rbp, %rax
-movq $-24, %rbx 
-addq %rbx, %rax
-movq %rax, -8(%rbp)
-movq $L0, %rcx
-movq $10, %rdi 
-movq $2, %rsi 
-call _allocRecord
-movq -8(%rbp), %rbx
-movq %rax, (%rbx) 
-movq %rbx, -8(%rbp)
-movq $342, %rdi 
-movq %rbp, %rsi
-call L1
+movq $4, %rax 
+movq %rax, -24(%rbp)
+movq -24(%rbp), %rax
+movq $-0, %rbx 
+movq -24(%rbp), %rax
+cmp %rax, %rbx 
+je L2 
+L3: 
+movq $.L1, %rsi
+call print
+L4: 
 movq $0, %rax 
-jmp L7 
-L7: 
+jmp L5 
+L2: 
+movq $.L0, %rsi
+call print
+movq -24(%rbp), %rax
+movq $1, %rbx 
+sub %rbx, %rax
+movq %rax, -24(%rbp)
+jmp L4 
+L5: 
 leave
 ret
 .size _tigermain, .-_tigermain

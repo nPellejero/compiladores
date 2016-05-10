@@ -1,10 +1,4 @@
 	.file	"suma.c"
-	.globl	s
-	.data
-	.type	s, @object
-	.size	s, 6
-s:
-	.string	"Hola\n"
 	.text
 	.globl	f
 	.type	f, @function
@@ -28,17 +22,24 @@ f:
 	popq	%rbp
 	ret
 	.size	f, .-f
+	.section	.rodata
+.LC0:
+	.string	"chau\n"
+	.text
 	.globl	g
 	.type	g, @function
 g:
 	pushq	%rbp
 	movq	%rsp, %rbp
+	subq	$32, %rsp
 	movl	%edi, -4(%rbp)
 	movl	%esi, -8(%rbp)
 	movl	%edx, -12(%rbp)
 	movl	%ecx, -16(%rbp)
 	movl	%r8d, -20(%rbp)
 	movl	%r9d, -24(%rbp)
+	movl	$.LC0, %edi
+	call	print
 	movl	-4(%rbp), %eax
 	leal	1(%rax), %edx
 	movl	16(%rbp), %eax
@@ -47,17 +48,21 @@ g:
 	addl	%eax, %edx
 	movl	32(%rbp), %eax
 	addl	%edx, %eax
-	popq	%rbp
+	leave
 	ret
 	.size	g, .-g
+	.section	.rodata
+.LC1:
+	.string	"Hola\n"
+	.text
 	.globl	main
 	.type	main, @function
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	subq	$32, %rsp
-	movl	%edi, -20(%rbp)
-	movq	%rsi, -32(%rbp)
+	subq	$16, %rsp
+	movl	%edi, -4(%rbp)
+	movq	%rsi, -16(%rbp)
 	pushq	$111
 	pushq	$4
 	pushq	$2
@@ -69,6 +74,7 @@ main:
 	movl	$5, %edi
 	call	f
 	addq	$24, %rsp
+	subq	$8, %rsp
 	pushq	$111
 	pushq	$4
 	pushq	$2
@@ -79,15 +85,8 @@ main:
 	movl	$6, %esi
 	movl	$5, %edi
 	call	g
-	addq	$24, %rsp
-	movq	-8(%rbp), %rax
-	movq	$4, (%rax)
-	movzbl	s(%rip), %eax
-	movl	%eax, %edx
-	movq	-8(%rbp), %rax
-	movb	%dl, 8(%rax)
-	movq	-8(%rbp), %rax
-	movq	%rax, %rdi
+	addq	$32, %rsp
+	movl	$.LC1, %edi
 	call	print
 	movl	$0, %eax
 	leave
