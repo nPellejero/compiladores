@@ -24,11 +24,7 @@ f:
 	.size	f, .-f
 	.section	.rodata
 .LC0:
-	.string	"chau"
-.LC1:
-	.string	"%d %d\n"
-.LC4:
-	.string	"%f %f\n"
+	.string	"chau\n"
 	.text
 	.globl	g
 	.type	g, @function
@@ -43,21 +39,8 @@ g:
 	movl	%r8d, -20(%rbp)
 	movl	%r9d, -24(%rbp)
 	movl	$.LC0, %edi
-	call	puts
-	movl	$2, %edx
-	movl	$1, %esi
-	movl	$.LC1, %edi
 	movl	$0, %eax
-	call	printf
-	movabsq	$4612136378390124954, %rdx
-	movabsq	$4607632778762754458, %rax
-	movq	%rdx, -32(%rbp)
-	movsd	-32(%rbp), %xmm1
-	movq	%rax, -32(%rbp)
-	movsd	-32(%rbp), %xmm0
-	movl	$.LC4, %edi
-	movl	$2, %eax
-	call	printf
+	call	print
 	movl	-4(%rbp), %eax
 	leal	1(%rax), %edx
 	movl	16(%rbp), %eax

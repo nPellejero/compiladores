@@ -187,7 +187,7 @@ let
   	val _ = app funPreC (addList(empty Int.compare, [14, 15])) 
 		val _ = color := tabRInserta(rv, singleton Int.compare 0,  !color)
 		val _ = color := tabRInserta(rax, singleton Int.compare 0,  !color) 
-		val _ = color := tabRInserta(rdx, singleton Int.compare 11,  !color)
+		val _ = color := tabRInserta(rdx, singleton Int.compare 10,  !color)
 		val _ = color := tabRInserta(rbx, singleton Int.compare 1,  !color)
 		val _ = color := tabRInserta(r10, singleton Int.compare 2,  !color)
 		val _ = color := tabRInserta(r11, singleton Int.compare 3,  !color)

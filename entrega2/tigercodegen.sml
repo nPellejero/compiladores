@@ -192,62 +192,62 @@ fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "je 'j0 \n",
 			  dst = [],
-			  src = [munchExp(e1),munchExp(e2)],
+			  src = [munchExp(e2),munchExp(e1)],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(NE,e1,e2,l1,l2)) =	
 		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jne 'j0 \n",
-			  src = [munchExp(e1),munchExp(e2)],
+			  src = [munchExp(e2),munchExp(e1)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(LT,e1,e2,l1,l2)) =	
 		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jl 'j0 \n",
-			  src = [munchExp(e1),munchExp(e2)],
+			  src = [munchExp(e2),munchExp(e1)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 
 	|   munchStm(CJUMP(GT,e1,e2,l1,l2)) =	
 		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jg 'j0 \n",
-			  src = [munchExp(e1),munchExp(e2)],
+			  src = [munchExp(e2),munchExp(e1)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 
 	|   munchStm(CJUMP(LE,e1,e2,l1,l2)) =	
 		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jle 'j0 \n",
-			  src = [munchExp(e1),munchExp(e2)],
+			  src = [munchExp(e2),munchExp(e1)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(GE,e1,e2,l1,l2)) =	
 		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jge 'j0 \n",
-			  src = [munchExp(e1),munchExp(e2)],
+			  src = [munchExp(e2),munchExp(e1)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(ULT,e1,e2,l1,l2)) =	
 		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jb 'j0 \n",
-			  src = [munchExp(e1),munchExp(e2)],
+			  src = [munchExp(e2),munchExp(e1)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(ULE,e1,e2,l1,l2)) =	
 		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jbe 'j0 \n",
-			  src = [munchExp(e1),munchExp(e2)],
+			  src = [munchExp(e2),munchExp(e1)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(UGT,e1,e2,l1,l2)) =	
 		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "ja 'j0 \n",
-			  src = [munchExp(e1),munchExp(e2)],
+			  src = [munchExp(e2),munchExp(e1)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(CJUMP(UGE,e1,e2,l1,l2)) =	
 		emit(OPER{assem = "cmp 's0, 's1 \n"
 				  ^ "jae 'j0 \n",
-			  src = [munchExp(e1),munchExp(e2)],
+			  src = [munchExp(e2),munchExp(e1)],
 			  dst = [],
 			  jump = SOME [l1,l2]})
 	|   munchStm(tigertree.LABEL lab ) = 
