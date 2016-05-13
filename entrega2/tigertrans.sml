@@ -132,8 +132,8 @@ fun stringLen s =
 
 fun stringExp(s: string) =
 	let	val l = "."^newlabel()
-		(*val len = ".long "^makestring(stringLen s)^"\n\t.string \""^s^"\"\n\t.text"*)
-		val len = ".string \""^s^"\"\n\t.text"
+		val len = ".quad "^makestring(stringLen s)^"\n\t.string \""^s^"\"\n\t.text"
+		(*val len = ".string \""^s^"\"\n\t.text"*)
 		val _ = datosGlobs:=(!datosGlobs @ [STRING(l, len)]) (* No se para que lo hacen asi, pero no anda y no mekb*)
 		(*val _ = datosGlobs:=(!datosGlobs @ [STRING(l, s)]) Ya se por que hacian asi lo de arriba y mekb. En Tiger se acepta el 0 como parte de un string. *)
 	in	Ex(NAME l) end

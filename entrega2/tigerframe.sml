@@ -118,7 +118,7 @@ fun allocLocal (f: frame) b =
 (*			  val _ = print ("ActualArg: "^Int.toString(!(#actualArg f))^"\n") 
 			  val _ = print ("ActualLocal: "^Int.toString(!(#actualLocal f))^"\n") 
 			  val _ = print ("RET: "^Int.toString(((!(#actualLocal f))+(!(#actualArg f)))*wSz+fpPrevLev)^"\n") *)
-		in	#actualLocal f:=(!(#actualLocal f)-1); ret end
+		in	#actualLocal f:=(!(#actualLocal f)+1); ret end
 	| false => InReg(tigertemp.newtemp())
 
 fun expRW(InFrame k) = MEM(BINOP(PLUS, TEMP(fp), CONST (~k)))

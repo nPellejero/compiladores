@@ -140,11 +140,11 @@ long _stringCompare(string *s, string *t)
 		    return s->chars[i]-t->chars[i];
 	return s->length-t->length;
 }
-void print2(string *s)
+void print(string *s)
 {
     int i;
 		int pipi = s-> length;
-    printf("longitud = %d\n",pipi);
+    //printf("longitud = %d\n",pipi);
     unsigned char *p = (unsigned char*) s->chars;
     for (i = 0; i < pipi; i++, p++)
 		{	
@@ -154,7 +154,7 @@ void print2(string *s)
 
 		}
 }
-void print(char *s)
+void print2(char *s)
 {
     printf(s);
 }

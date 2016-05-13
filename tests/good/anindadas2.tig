@@ -1,0 +1,12 @@
+let function f(z:int):int =
+	let 
+		var d := 5 + z		
+		function g(y:int):int = 
+		let 
+			var x:int := 6
+			var xy:int := 7
+			function h():int = x+xy
+		in d+y end		
+	in g(10)+z end
+in f(15)
+end
