@@ -37,7 +37,6 @@ jmp L6
 L6: 
 movq %rdi, -8(%rbp)
 movq %rsi, -16(%rbp)
-movq $0, %rax 
 movq -8(%rbp), %rax
 movq -24(%rax), %rsi
 movq %rbp, %rdi
@@ -70,12 +69,10 @@ call _allocRecord
 movq -24(%rbp), %rbx
 movq %rax, (%rbx) 
 movq %rbx, -24(%rbp)
-movq $0, %rax 
 movq $342, %rsi 
 movq %rbp, %rdi
 call L1
 movq %rax, %rdi 
-movq $0, %rax 
 call printint
 movq $0, %rax 
 jmp L7 
