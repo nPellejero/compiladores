@@ -127,6 +127,9 @@ fun expRW(InFrame k) = MEM(BINOP(PLUS, TEMP(fp), CONST (~k)))
 fun exp(InFrame k) = MEM(BINOP(PLUS, TEMP(fp), CONST k))
 	| exp(InReg l) = TEMP l
 fun externalCall(s, l) = CALL(NAME s, l)
+fun externalCallArgs_variables(s, l) =  ESEQ( MOVE(CONST 1092, TEMP(rax)), CALL(NAME s, l) )
+
+
 
 fun procEntryExit1 (frame,body) = body
 

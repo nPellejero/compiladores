@@ -125,10 +125,14 @@ fun munchArgs [] = []
 fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 	(*comenzamos por el final, para ir de los arboles mas simples a los mas complejos. Feli dice: no es al reves? Ir de los mas complejos a los mas simples?*)
 	|	munchStm (EXP(CALL (NAME n,args))) = (*Procedure*)
+			(emit(OPER{assem = "movq $0, 'd0 \n",              (*Esto es para funciones con arg variables como _allocLocal. Se pone 0 en rax para indicar que no hay args de punto flotante *)
+				  dst = [rv],
+				  src = [],
+					jump = NONE});
 			emit(OPER{assem="call "^n^"\n",
 						src=munchArgs (List.rev args),
 						dst=callersaves,
-						jump=NONE})
+						jump=NONE}) )
 	|	munchStm (tigertree.MOVE(TEMP i, TEMP j)) =
 			emit(MOVE{assem = "movq 's0, 'd0\n",
 					dst = i,

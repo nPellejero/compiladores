@@ -2,4 +2,4 @@ let type R = {a:string, b:int}
 var v:=R {a="Hola", b=123456}
 var b:=v
 function f(x:int):int=v.b+x
-in f(343) end
+in printint(f(343));1 end

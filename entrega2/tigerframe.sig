@@ -36,6 +36,7 @@ val extraRegs : tigertemp.temp list
 val exp : access -> tigertree.exp
 val expRW : access -> tigertree.exp
 val externalCall : string * tigertree.exp list -> tigertree.exp
+val externalCallArgs_variables : string * tigertree.exp list -> tigertree.exp
 val procEntryExit1 : frame * tigertree.stm -> tigertree.stm
 val procEntryExit2 : frame * tigerassem.instr list -> tigerassem.instr list
 val procEntryExit3 : frame * tigerassem.instr list -> tigerassem.instr list

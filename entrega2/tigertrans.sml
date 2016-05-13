@@ -202,7 +202,8 @@ fun recordExp ls =
 		(*lo que intento hacer es ordenar los argumentos del record para que se pueda declarar una variable con los argumentos intercambiados llamados por sus nombres, ver barufatest.sig *)
 		val exps = map (fn (exp, _) => unEx exp) ls
 	in
-	Ex (externalCall("_allocRecord", cuantos::exps))
+(*	Ex( ESEQ(MOVE(CONST 1092, TEMP rax), externalCallArgs_variables("_allocRecord", cuantos::exps)) ) *)
+	Ex (externalCall("_allocRecord", cuantos::exps)) 
 end (* COMPLETAR capaz que ya esta*)
 
 fun arrayExp{size, init} =

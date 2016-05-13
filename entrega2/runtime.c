@@ -154,7 +154,7 @@ void print(string *s)
 
 		}
 }
-void print2(char *s)
+void printstr(char *s)
 {
     printf(s);
 }
