@@ -67,7 +67,7 @@ movq $10, %rsi
 movq $2, %rdi 
 call _allocRecord
 movq -24(%rbp), %rbx
-movq %rax, (%rbx) 
+movq %rax, %rbx 
 movq %rbx, -24(%rbp)
 movq $342, %rsi 
 movq %rbp, %rdi
