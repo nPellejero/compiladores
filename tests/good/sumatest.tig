@@ -3,4 +3,4 @@ let
 	let
 		var aux := x+15
 	in x+a+b+c+d+e+f+g+1 end
-in f(5,6,7,8,9,1,2,3) end
+in printint(f(5,6,7,8,9,1,2,3)) end

@@ -3,5 +3,5 @@ let function f(z:int):int =
 		var d := 5 + z		
 		function g(y:int):int = d+y		
 	in g(10)+z end
-in f(15)
+in printint(f(15))
 end

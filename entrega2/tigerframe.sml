@@ -103,6 +103,7 @@ fun allocArg (f: frame) b =
 			  val _ = print ("ActualArg: "^Int.toString(!(#actualArg f))^"\n") 
 			  val _ = print ("RET: "^Int.toString(ret)^"\n") 
 				val _ = #actualArg f := !(#actualArg f)-1
+				val _ =	#actualLocal f:=(!(#actualLocal f)+1); 
 (*			val _ = #listArgs f := !(#listArgs f) ++ [InFrame ret] *)
 		in	InFrame ret end
 	| false => InReg(tigertemp.newtemp())
@@ -115,9 +116,9 @@ fun allocLocal (f: frame) b =
 	case b of
 	true =>
 		let	val ret = InFrame(((!(#actualLocal f))+(!(#actualArg f)))*wSz+fpPrevLev) (* se agrega fpPrevLev para que en rw  *)
-(*			  val _ = print ("ActualArg: "^Int.toString(!(#actualArg f))^"\n") 
+			  val _ = print ("ActualArg: "^Int.toString(!(#actualArg f))^"\n") 
 			  val _ = print ("ActualLocal: "^Int.toString(!(#actualLocal f))^"\n") 
-			  val _ = print ("RET: "^Int.toString(((!(#actualLocal f))+(!(#actualArg f)))*wSz+fpPrevLev)^"\n") *)
+			  val _ = print ("RET: "^Int.toString(((!(#actualLocal f))+(!(#actualArg f)))*wSz+fpPrevLev)^"\n") 
 		in	#actualLocal f:=(!(#actualLocal f)+1); ret end
 	| false => InReg(tigertemp.newtemp())
 
@@ -149,7 +150,7 @@ fun makeEpilog({name, formals, locals, actualArg, actualLocal, actualReg}:frame)
 
 fun procEntryExit3 (frame: frame, body) = let
 	val cantRewrites = #cantRewrites frame 
-	val cantString = Int.toString(((!cantRewrites)+1)*wSz+alignStack)
+	val cantString = Int.toString(((!cantRewrites)+1)*wSz+alignStack+fpPrevLev)
 	val miLab = List.hd(body)
 	val lab = case miLab of
 					tigerassem.LABEL{assem = a, lab = l} => l

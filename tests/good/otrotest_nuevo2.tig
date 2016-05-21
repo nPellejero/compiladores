@@ -1,0 +1,8 @@
+let 
+type R = {b:int, a:string}
+var v:=R {b=10, a="Hola"}
+var w:=R {b=11, a="Hol1"}
+function f(x:int):int=
+	let function g(y:R):int = y.b+x
+	in g(v)+g(w)+x end
+in printint(f(342));printint(v.b) end
