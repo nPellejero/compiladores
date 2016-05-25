@@ -1,0 +1,3 @@
+let
+	type l = {v:int, next:l}
+in end

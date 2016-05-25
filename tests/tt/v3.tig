@@ -1,0 +1,5 @@
+
+
+let var x:=10
+	var y:=let var y:=x in 2*y end
+in end

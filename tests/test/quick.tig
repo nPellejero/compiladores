@@ -1,0 +1,45 @@
+let
+	type lista = {val:int, next:lista}
+
+	function imprimirLista (l:lista) =
+		let 
+			function work (a:lista) = if a =nil then ()
+															 else (printint(a.val);if a.next<>nil then print(",");work(a.next))
+		in print("[");work(l);print("]\n") end
+
+	function menores (l:lista,a:int):lista =
+			if l=nil then nil
+			else if (l.val >= a) then menores(l.next,a)
+					 else lista{val=l.val,next=menores(l.next,a)}
+
+	function mayores (l:lista,a:int):lista =
+			if l=nil then nil
+			else if (l.val < a) then mayores(l.next,a)
+					 else lista{val=l.val,next=mayores(l.next,a)}
+
+	function concat (l1:lista, l2:lista):lista =
+						if (l1=nil) then l2
+						else lista{val=l1.val,next=concat(l1.next,l2)}
+	
+	function wrap (v:int):lista = lista{val=v,next=nil}
+
+	function quicksort (l:lista):lista =
+		if l=nil then nil
+		else concat (concat (quicksort(menores(l.next,l.val)),wrap(l.val)),quicksort(mayores(l.next,l.val)))
+
+	var lista1 := lista{val=1,next=lista{val=5,next=lista{val=2,next=lista{val=8,next=nil}}}} 
+	var lista2 := lista{val=2,next=lista{val=1,next=lista{val=6,next=lista{val=10,next=nil}}}} 
+	
+	function listTo (i:int):lista = 
+				if i=0 then nil
+				else lista{val=i,next=listTo(i-1)}
+
+
+in
+	imprimirLista(lista1);
+	imprimirLista(lista2);
+	imprimirLista(quicksort(lista1));
+	imprimirLista(quicksort(lista2));
+	imprimirLista(quicksort(concat(lista1,lista2)));
+	imprimirLista(quicksort(listTo(1200)))
+end

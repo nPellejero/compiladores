@@ -1,0 +1,6 @@
+let
+	function f(i:int) =
+	let 	
+		var f:="Hola"
+	in print(f) end
+in f(4) end

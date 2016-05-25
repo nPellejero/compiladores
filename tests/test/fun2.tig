@@ -1,0 +1,4 @@
+let
+	function f(i:int):int = g(4)
+	function g(j:int):int = f(3)
+in printint(f(1)) end

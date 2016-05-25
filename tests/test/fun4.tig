@@ -1,0 +1,7 @@
+let
+/*	function f() = g()*/
+	var j := 10 
+	function g():string = f()
+	function f():string = concat ("tic ...",g())
+	function f():string = "Hola"
+in print (g()) end

@@ -1,0 +1,6 @@
+let
+	type L = {a:L,b:C,d:D}
+	type C = array of D
+	type D = {a:C,b:L}
+	var j := C[10] of D{a=j,b=nil}
+in end

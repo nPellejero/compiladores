@@ -1,0 +1,6 @@
+let
+	type a = int
+	function fib (i:a) : a =
+		if (i=0 | i=1) then 1
+		else fib(i-2) + fib(i-1)
+in fib(30) end

@@ -1,0 +1,59 @@
+let
+	type lista = {val:int,next:lista}
+	
+	function head (l:lista):int = l.val
+
+	function tail (l:lista):lista = l.next
+
+	function last (l:lista):int = head(reverse(l))
+
+	function length (l:lista):int = if (isNil (l)) then 0
+																	else 1 + (length (l.next))
+
+	function concat (l1:lista, l2:lista):lista =
+						if (isNil(l1)) then l2
+						else lista{val=l1.val,next=concat(l1.next,l2)}
+
+	function isNil (l:lista):int = l=nil
+
+	function suma (l:lista):int = l.val + (suma (l.next))
+
+	function wrap (v:int):lista = lista{val=v,next=nil}
+
+	function reverse (l:lista):lista =
+						if (isNil(l)) then nil
+						else concat (reverse(l.next),wrap(l.val))
+
+	function take_n (l:lista,n:int):lista = 
+						if (n=0) then nil
+						else lista{val=l.val,next=take_n(l.next,n-1)}
+								
+	function drop_n (l:lista,n:int):lista = 
+						if (n=0) then l
+						else drop_n(l.next,n-1)			
+
+	
+	function printLista (l:lista) = 
+				if l=nil then print("nil") 
+				else if l.next = nil then print(chr(l.val)) 
+							else (print(chr(l.val));print(",");printLista(l.next))
+
+	function listTo (i:int):lista = 
+				if i=0 then nil
+				else lista{val=i,next=listTo(i-1)}
+
+	var l1:lista := nil	
+	var l2:lista := wrap(65)
+	
+in 
+/*	printLista (take_n(drop_n(reverse(reverse(reverse(listTo(256)))),64),26)) */
+	l1 = listTo(256);
+	for i:=0 to 100
+		l1 = reverse(l1);
+	printLista (l1)
+/*		printLista (drop_n(reverse(listTo(128)),64)) */
+/*	printLista (take_n(listTo(128),4)) */
+ /*		printLista (listTo(128)) */
+	
+end 
+	

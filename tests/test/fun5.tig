@@ -1,0 +1,5 @@
+/* error: funcion con dos parametros con igual nombre */
+
+let
+	function f (i:int, i:int) : int = i
+in end

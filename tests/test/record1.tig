@@ -1,0 +1,12 @@
+let
+	type L = {a:string,b:string}
+	var j:= L{a="HOla",b="Mundo"}
+in
+	print(j.a);
+	print(j.b);
+	print(j.b);
+	print(j.b);
+	print(j.a);
+	print(j.b);
+	print(j.a)
+end

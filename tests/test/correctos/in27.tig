@@ -1,0 +1,8 @@
+let	
+	type r = {b: int ,a:s}
+	type s = {a:r}
+	function g(a:r):r = a
+	var a : s := nil
+in
+	a
+end

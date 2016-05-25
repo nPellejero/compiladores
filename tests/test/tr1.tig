@@ -1,0 +1,6 @@
+let 
+	var p := "Hola Mundo!\n"
+	var s := 9
+	var j := Lista {val = s, pepe = p}
+	var l:Lista := Lista {pepe="a", val=9 } 
+in s := l end	

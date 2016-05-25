@@ -1,0 +1,70 @@
+let
+	type L = int
+	type V = array of L
+	type M = array of V
+
+	function printMatrix(v:M,m:int,n:int) =
+		for i:=0 to m-1 do (
+			print("| ");
+			(for j:=0 to n-1 do (
+					printint(v[i][j]);
+					print(if j<>n-1 then " , " else " ")));
+			print("|\n"))
+
+	
+	function newMatrix (m:int,n:int):M = 
+		let
+			var nm:M := M[m] of V[n] of 0
+		in
+			(for i:=0 to m-1 do
+				nm[i] := V[n] of 0;
+			nm)
+		end
+
+	function idMatrix (m:int) : M =
+		let
+			var nm:M := newMatrix(m,m)
+		in
+		(for i:=0 to m-1 do
+			for j:=0 to m-1 do
+				nm[i][j] := if i=j then 1 else 0); 
+		nm
+		end
+
+	function prodEscalar (matrix:M,m:int,n:int,c:int) =
+		for i:=0 to m-1 do
+			for j:=0 to m-1 do
+				matrix[i][j] := matrix[i][j] * c 
+
+	function prodMatrix (a:M,b:M,m:int,n:int,k:int):M =
+		let
+			var res:M := newMatrix(m,k)
+		in
+			(for i:=0 to m-1 do
+				for j:=0 to k-1 do
+					for l:=0 to n-1 do
+						res[i][j] := res[i][j] + a[i][l] * b[l][j];
+			res)
+		end
+	
+	function randomMatrix (m:int,n:int):M =
+		let
+			var nm:M := newMatrix(m,n)
+		in
+		(for i:=0 to m-1 do
+			for j:=0 to n-1 do
+				nm[i][j] := randomint(10)); 
+		nm
+		end
+		
+	var m1 := randomMatrix (3,5)
+	var m2 := randomMatrix (5,2)
+
+in 
+	(print("Matriz A:\n");
+	 printMatrix(m1,3,5);
+	 print("Matriz B:\n");
+	 printMatrix(m2,5,2);
+	 print("Matriz A*B\n");
+	 printMatrix(prodMatrix(m1,m2,3,5,2),3,2)) 
+end

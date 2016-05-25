@@ -1,0 +1,6 @@
+let
+	var j:=65
+in
+	for i:=0 to 25 do
+		print("Hola\n")
+end

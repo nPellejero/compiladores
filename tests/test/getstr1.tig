@@ -1,0 +1,9 @@
+let
+	var j:= ""
+in
+	print("Ingrese una letra: ");
+	j := getstr();
+	print ("Ingreso la letra: ");
+	print (j);
+	print("\n")
+end

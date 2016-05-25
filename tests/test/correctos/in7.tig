@@ -1,0 +1,19 @@
+let
+	type ar = array of int
+	type re = { i: int, j:int }
+	var ar1 := ar [10] of 0
+	var ar2 := ar [1] of 0
+	var re1:re := nil
+	var re2 := re{i=1,j=2}
+	var s1 := "Hola"
+	var s2 := "Chau"
+in
+	if ((ar1<>ar2) & (re1=re2)) then
+		()
+	else 
+		if (re1=re2 | re1<>nil | re2=nil) then
+			print(s1)
+		else 
+			print(s2)
+end
+	

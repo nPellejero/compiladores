@@ -1,0 +1,6 @@
+let
+	type r = {a:int, b:s}
+	type s = {a:int}
+	var s1 := s{a=4}
+	var r2:r := r{a=1,b=s1}
+in end	

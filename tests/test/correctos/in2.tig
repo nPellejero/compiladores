@@ -1,0 +1,3 @@
+let
+	var p:= "Hola"
+in print(p) end

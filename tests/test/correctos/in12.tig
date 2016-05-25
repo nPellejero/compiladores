@@ -1,0 +1,6 @@
+let
+	type a = {a:int}
+	var p:a := nil
+in
+	p := (if 1 then	p	else nil)
+end

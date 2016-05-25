@@ -1,0 +1,7 @@
+let
+	type l = {a:int}
+	function id (a:l,b:l):l = a
+	var v:l := nil
+in
+	id(v,nil)
+end

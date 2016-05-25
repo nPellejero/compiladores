@@ -1,0 +1,9 @@
+let
+	function esPar (i:int):int = if (i=0) then 1 else esImpar (i-1)
+	function esImpar (i:int):int = if (i=0) then 0 else esPar (i-1)
+in 
+	if (esPar (3)) then
+		print(" :( \n")
+	else
+		print ("Yes!\n")
+end	

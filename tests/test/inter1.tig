@@ -1,0 +1,30 @@
+let
+	var j1:=65
+	var j2:=0
+	var j3:=0
+	var j4:=0
+	var j5:=0
+	var j6:=0
+	var j7:=0
+	var j8:=0
+	var j9:=0
+	var j10:=0
+	var j11:=0
+	var j12:=0
+	var j13:=0
+	var j14:=0
+	var j15:=0
+	var j16:=0
+	var j17:=0
+	var j18:=0
+	var j19:=0
+	var j20:=0
+	function f() = 
+		let
+			var j21:=0
+			function g() = print(chr(j1+j2+j3+j4+j5+j6+j7+j8+j9+j10+j11+j12+j13+j14+j15+j16+j17+j18+j19+j20+j21))
+		in g() end
+in
+	for i:=0 to 100 do f();
+	while j1<>91 do	(f();j1:=j1+1)
+end

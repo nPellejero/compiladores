@@ -1,0 +1,15 @@
+let
+	type L = {a:int,b:string}
+	type A = array of L
+	var J := 26
+	var off := 65
+	var j:A := A[J] of L{a=0,b="vacio"}
+
+	function printEntry (r:L) = (print("{ ");printint(r.a); print(" , "); print(r.b); print(" }\n"))
+in 
+	for i:=0 to J-1 do 
+		j[i] := let var n:= off+i in L{a=n, b = chr(n)} end ;
+	for i:=0 to J-1 do
+		printEntry(j[i]) 
+end
+	

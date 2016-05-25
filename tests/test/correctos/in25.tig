@@ -1,0 +1,6 @@
+let
+	type a = b
+	type b = array of int
+	var v1 := a[1] of 0
+	var v2 := b[1] of 0
+in end

@@ -1,0 +1,6 @@
+let
+	type L = {a:int,b:string}
+	var j:L := nil
+in
+	print(j.b)
+end

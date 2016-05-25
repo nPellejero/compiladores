@@ -1,0 +1,17 @@
+let
+	type L0 = {cero:L0,uno:L1}
+	
+	type L1 = {cero:L0,uno:L2}
+
+	type L2 = {cero:L2,uno:L1}
+	
+	var j:L0 := nil
+
+	function g(v:L1) = ()	
+	
+in
+
+	g(j.uno.uno.cero.cero.uno)
+
+end
+	

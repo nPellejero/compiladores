@@ -1,0 +1,9 @@
+let
+	var j:=getstr()
+	var clave := randomint(26)+ord("a")
+in
+	while j<>chr(clave) do
+		(if j<>"\n" then print("Erraste!!!! :P\nproba de nuevo...") else ();
+		 j:= getstr());
+	print("Bien!\n")
+end

@@ -1,0 +1,10 @@
+let
+	type Lista = {val:string , next:Lista}
+	var j:= Lista{val="hola",next=nil}
+
+	function printLista (a:Lista) = if a.next=nil then print(a.val)
+																	else (print(a.val);printLista(a.next))
+	
+	var l := Lista {val="Hola!",next= Lista{val="chau!",next=j}}
+
+in printLista(l) end

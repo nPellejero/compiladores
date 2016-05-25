@@ -1,0 +1,8 @@
+let
+	type R1 = {i:int}
+	var t1:= R1{i=10}
+	type R1 = {i:int}
+	var t2:R1 := nil
+in
+	t1 := t2
+end

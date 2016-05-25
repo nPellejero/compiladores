@@ -1,0 +1,8 @@
+let
+	var s1:int := 8
+	function f1(i:int) =
+		let
+			var s2:int := 9
+			function f2(v:string) = print(concat(v,chr(s1)))
+		in print(v) end
+in end

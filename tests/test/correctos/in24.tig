@@ -1,0 +1,17 @@
+let
+	type L = {a:L,b:C,d:D}
+	type C = array of D
+	type D = {a:C,b:L}
+	var a := C[10] of nil
+	var j := C[10] of D{a=a,b=nil}
+	var k := L{a=nil,b=a,d=nil}
+	function f(a:L) = ()
+in 
+	f(nil);
+	f(a[1].b);
+	f(k);
+	f(k.a);
+	f(k.a.a.a.a);
+	f(k.d.b.d.b.d.b);
+	f(a[1].a[1].a[1].a[1].b.b[1].b)
+end

@@ -1,0 +1,5 @@
+let
+	type lista = {a:int,b:lista}
+	var l1:lista := nil
+	var l2:lista := lista{ a=9, b=nil }
+in end

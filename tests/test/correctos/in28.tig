@@ -1,0 +1,6 @@
+let
+	type l = {a:l}
+	var v:l := nil
+in
+	v.a.a.a
+end

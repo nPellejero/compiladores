@@ -1,0 +1,6 @@
+let function f (i:int) = 
+	let
+		var j:= 1 var k:= 2
+		function g():Int = i+j
+	in k := g() end
+in end

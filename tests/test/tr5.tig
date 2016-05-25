@@ -1,0 +1,5 @@
+let 
+	type a = array of int
+  type int = string
+	var x := a[1] of "Hola"
+in print(x[0]) end

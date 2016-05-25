@@ -1,0 +1,6 @@
+let
+	function f(j:int,k:int) : int = 
+			let
+				function g (i:int) : int = j+k+i
+			in g(k)+j end
+in (f(1,2);()) end

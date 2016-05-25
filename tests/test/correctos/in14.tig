@@ -1,0 +1,8 @@
+let
+	type l = {val:b}
+	type b = array of l
+	var v1:b := b[10] of nil
+	var v2:l := l{val = v1}
+in 
+	v2.val[0].val[0] := nil
+end

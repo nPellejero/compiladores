@@ -1,0 +1,8 @@
+/* debe tipar */
+let
+	type t=int
+	type int=string
+	type string=t
+	var i:string:=10
+	var s:int:=8
+in end

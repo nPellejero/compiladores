@@ -1,0 +1,5 @@
+let
+	type a = c
+	type c = int
+	function f (a:a,c:c):c = ((a+c)*(a-c))/a
+in f(0,0) end

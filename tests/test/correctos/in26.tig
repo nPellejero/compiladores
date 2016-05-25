@@ -1,0 +1,49 @@
+let
+	type Tree = {v:int,l:Tree,r:Tree}
+
+	type Lista = {val:int,next:Lista}
+
+	type arrInt = array of int
+
+	function concat (l1:Lista, l2:Lista):Lista =
+						if (l1=nil) then l2
+						else Lista{val=l1.val,next=concat(l1.next,l2)}
+
+	function length (l:Lista):int = if (l=nil) then 0
+																	else 1 + (length (l.next))
+
+	function max (i:int,j:int):int = if i>j then i else j
+
+	function deep (t:Tree):int =
+		let
+			var l := t.l
+			var r := t.r
+			var v := t.v
+		in
+			1 + max (deep (l),deep (r))
+		end
+	
+	function nodos(i:Tree):int = 1 + nodos(i.l) + nodos(i.r)
+
+	function suma (i:Tree):int = i.v + suma(i.l) + suma(i.r)
+
+	function flatten (i:Tree):Lista = 
+					let
+							var l1 := flatten(i.l)
+						  var l2 := flatten(i.r)
+					in Lista{val=i.v,next=concat(l1,l2)}
+					end
+
+	function listatoArray (l:Lista):arrInt =
+			let
+				var j := arrInt[length(l)] of 0
+				var v:Lista := l
+			in
+				for i:=0 to length(l) do
+					(j[i] := v.val;v:=v.next);
+				j
+			end
+		
+		function treeToArray (t:Tree):arrInt = listatoArray(flatten(t))
+
+in end

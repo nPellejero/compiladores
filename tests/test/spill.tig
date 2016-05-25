@@ -1,0 +1,23 @@
+let
+	var j1:=1
+	var j2:=1
+	var j3:=1
+	var j4:=1
+	var j5:=1
+	var j6:=1
+	var j7:=1
+	var j8:=1
+	var j9:=1
+	var j10:=1
+	var j11:=1
+	var j12:=1
+	var j13:=1
+	var j14:=1
+	var j15:=1
+	var j16:=1
+	var j17:=1
+	var j18:=1
+	var j19:=1
+	var j20:=1
+in print (chr(45+j1+j2+j3+j4+j5+j6+j7+j8+j9+j10+j11+j12+j13+j14+j15+j16+j17+j18+j19+j20)) end
+

@@ -1,0 +1,8 @@
+let
+	type lista = {a:int,next:lista}
+	var p:lista := nil
+in
+	for i:=0 to 100 do
+	p := lista{a=1,next=p}
+	
+end

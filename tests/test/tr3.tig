@@ -1,0 +1,5 @@
+let 
+	type l = {p:a,j:l1}
+	type l1 = {j:l}
+	type a = int
+in end

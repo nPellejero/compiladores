@@ -1,0 +1,5 @@
+let
+        var j:=65
+in
+        for i:=1 to 26 do (print(chr(j));j:=j+1)
+end

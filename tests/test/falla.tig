@@ -1,0 +1,10 @@
+let
+        var j:="HOla"
+        var i:= "Chau!"
+        var k:=0
+in
+        while k<20 do (
+         if k&1 then print(j) else print(i);
+         k:=k+1 )
+end
+

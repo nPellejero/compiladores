@@ -1,0 +1,7 @@
+let
+	var j:= 8
+	function f(a:int,b:int):int = 
+		let
+			function f(c:int):int = a+b+c+j
+		in j end
+in end

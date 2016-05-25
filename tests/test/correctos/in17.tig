@@ -1,0 +1,4 @@
+let
+	type l = {a:int}
+	var j:l := nil
+in end

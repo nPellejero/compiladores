@@ -1,0 +1,5 @@
+/* error: nombres repetidos */
+let
+	type t=int
+	type t=int
+in end

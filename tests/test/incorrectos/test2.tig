@@ -1,0 +1,5 @@
+let
+	function f(i:int):int = i
+in
+	f(4,3)
+end

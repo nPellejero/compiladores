@@ -1,0 +1,5 @@
+let
+	var j:= "HOLA\n"
+	function f() = for i:=0 to 20 do
+									print(j)
+in f() end

@@ -1,0 +1,8 @@
+let	
+	var hola:="Hola"
+	var space := " "
+	var mundo := "Mundo!"
+	var nl := "\n"
+in
+	print(concat(concat(hola,concat(space,mundo)),nl))
+end

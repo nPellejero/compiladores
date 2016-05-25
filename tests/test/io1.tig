@@ -1,0 +1,11 @@
+let
+	var j:=" "
+	var buff:=""
+in
+	while j<>"\n" do
+	(
+		j:= getstr();
+		buff := if j<>" " then concat(buff,j) else buff
+	);
+	print(buff)
+end

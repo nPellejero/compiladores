@@ -1,0 +1,3 @@
+let
+	type l = {a:int,a:int}
+in end

@@ -1,0 +1,7 @@
+let
+	var j := 8
+	function f (a:Int) = let 
+		var lista := Listas {a=8,b=nil}
+		function g() = lista.a
+		in a = g() end
+in end

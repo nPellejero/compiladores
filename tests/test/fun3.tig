@@ -1,0 +1,6 @@
+let
+	var j := 10 
+	function g(i:int):string = if i=0 then "" else f(i-1)
+	function f(i:int):string = concat(concat ("tic...","\n"),g(i))
+									
+in print (g(10)) end

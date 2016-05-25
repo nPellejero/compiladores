@@ -1,0 +1,6 @@
+let
+	var j:= "Hola"
+in
+	for i:=1 to 10 do
+	(break;print(j))
+end

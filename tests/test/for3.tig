@@ -1,0 +1,7 @@
+let
+	type L = array of string
+	var j:L := L[10] of "Hola!\n"
+in
+	for i:=0 to 9 do
+		print(j[i])
+end

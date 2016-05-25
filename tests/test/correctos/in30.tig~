@@ -1,0 +1,10 @@
+let
+	type R = {a:A}
+	type A = array of C
+	type C = {a:R}
+	var a:R := nil
+	var b:A := A[10] of nil
+	var c:C := nil
+in
+c
+end

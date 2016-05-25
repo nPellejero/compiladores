@@ -1,0 +1,9 @@
+let
+	var j:=1
+	function f() = print ("Hola!\n")
+in
+	while j<10 do
+		(f();j:=j+1);
+	if j=10 then print ("Todo bien :D :D\n")
+	else print ("todo malllllll\n")
+end

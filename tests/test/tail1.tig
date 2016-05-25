@@ -1,0 +1,7 @@
+let
+	function f (i:int) = if i=0 then print("ieaaa\n")
+											 else f(i-1)
+
+in
+	f(9999999)
+end

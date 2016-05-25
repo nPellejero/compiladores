@@ -1,0 +1,5 @@
+/* error */
+let
+	type rec = {i: array of int}
+in
+end

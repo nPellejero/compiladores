@@ -1,0 +1,8 @@
+let
+	var j:Int := 8
+in
+	for a:=8 to 30 do
+		let
+			function g():Int = a
+		in end
+end

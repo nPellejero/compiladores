@@ -1,0 +1,7 @@
+let
+	function f(i:int):string = 
+		let
+			function f(i:int):int = i+1
+		in chr(f(i))	end
+	var p:string := f(64)
+in end

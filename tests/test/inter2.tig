@@ -1,0 +1,23 @@
+let
+	var j1:=65
+	var j2:=66
+	var j3:=67
+	function swap () = 
+		let 
+			var i:=j1 
+		in 
+			j1:=j2;
+			j2 := i
+		end
+
+		function printInt (i:int) = print(chr(i))
+
+in
+	for i:=0 to 1000 do 
+		for j:=0 to 10 do (
+			swap();
+/*			printInt((j1/2)*2) */
+			printInt(j1)
+		)
+	
+end

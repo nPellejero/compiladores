@@ -1,0 +1,8 @@
+let
+	type L = {a:L}
+	type K = {a:K}
+	var j:L := nil
+	var k:K := nil
+in
+	if (j.a.a.a = j.a.a.a) then () 
+end

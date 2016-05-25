@@ -1,0 +1,63 @@
+let
+
+	/* este programa elimina comentarios de programas Tiger (como este) */
+
+	var j:=" "
+	var inComment:=0
+	
+	type lista = {val:int,next:lista}
+	var buffL:lista := nil
+
+	function listaToString (l:lista):string =
+			if l=nil then ""
+			else concat(chr(l.val),listaToString(l.next))
+	
+	function printLista(l:lista) =
+			if l=nil then print("\n")
+			else (printint(l.val);print(";");printLista(l.next))
+
+	function wrap (v:int):lista = lista{val=v,next=nil}
+	
+	/* otro por aqui! */
+
+	function concatL (l1:lista, l2:lista):lista =
+						if l1=nil then l2
+						else lista{val=l1.val,next=concatL(l1.next,l2)}
+
+	function reverse (l:lista):lista =
+						if l=nil then nil
+						else concatL (reverse(l.next),wrap(l.val))
+
+	function elimComments (l:lista):lista =
+				if l=nil then nil
+				else if l.next=nil then l
+					else
+						let 
+							var n := concat(chr(l.val),(chr(l.next.val)))
+						in
+							if inComment then 
+								if n="*/" then 
+									(inComment:=0;
+									 elimComments(l.next.next))
+								else
+									 elimComments(l.next)
+							else
+								if n="/*" then	
+									(inComment:=1;
+									 elimComments(l.next.next))
+								else
+									 lista{val=l.val,next=elimComments(l.next)}
+						end
+								 
+
+in
+	/* main code */
+	while j<>"" do (
+			j := getstr();
+			buffL := if j<>"" then lista{val=ord(j),next=buffL} else buffL
+	);
+	buffL := reverse(buffL);
+	buffL := elimComments(buffL);
+/*	printLista(buffL) */
+	print(listaToString(buffL)) 
+end	
