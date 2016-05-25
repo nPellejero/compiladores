@@ -1,0 +1,14 @@
+/* define valid mutually recursive procedures */
+let
+
+function do_nothing1 (a : int, b : string)=
+		if a < 0
+		then printint(a)
+		else do_nothing2 (a-1)
+
+function do_nothing2 (d : int) =
+		do_nothing1 (d-1, "str")
+
+in
+	do_nothing1 (100000, "str2")
+end

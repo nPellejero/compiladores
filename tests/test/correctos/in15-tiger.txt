@@ -1,0 +1,29 @@
+LABEL FOR _tigermain: _tigermain
+LABEL FOR head: L0
+LABEL FOR tail: L1
+LABEL FOR last: L2
+LABEL FOR length: L3
+LABEL FOR concat: L4
+LABEL FOR isNil: L5
+LABEL FOR suma: L6
+LABEL FOR wrap: L7
+LABEL FOR reverse: L8
+LABEL FOR take_n: L9
+LABEL FOR drop_n: L10
+LABEL FOR printLista: L11
+LABEL FOR listTo: L12
+ADDED L12
+ADDED L11
+ADDED L10
+ADDED L9
+ADDED L8
+ADDED L7
+ADDED L6
+ADDED L5
+ADDED L4
+ADDED L3
+ADDED L2
+ADDED L1
+ADDED L0
+Fail: Error -- línea 53: error de tipos
+

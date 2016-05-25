@@ -1,0 +1,3 @@
+LABEL FOR _tigermain: _tigermain
+Fail: Error -- línea 8: Error de tipo del campo fst
+

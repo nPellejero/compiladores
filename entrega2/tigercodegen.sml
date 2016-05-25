@@ -6,7 +6,9 @@ open tigerframe
   val ilist = ref (nil: tigerassem.instr list)
 	fun emit x = ilist := x :: !ilist
 	fun result(gen) = let val t = tigertemp.newtemp() in gen t; t end
-	
+	fun result2(gen) = let val t = rv in gen t; t end
+
+
 	(* munchExp::Tree.exp -> tigertemp.temp *)
 fun munchExp(CONST i) = let	
 		in 	
@@ -27,7 +29,7 @@ fun munchExp(CONST i) = let
 			src = munchExp(e1),
 			dst = r
 			});
-			emit(OPER{assem = "sub 's0, 'd0\n",
+			emit(OPER{assem = "subq 's0, 'd0\n",
 				src = [munchExp(e2),r],
 				dst = [r],
 				jump= NONE})))
@@ -103,26 +105,27 @@ fun munchExp(CONST i) = let
 														dst=[r],
 														src=[],
 														jump=NONE}))
+	|	munchExp (CALL (NAME n,args)) =
+			if String.compare(n,"_allocRecord") = EQUAL
+			then
+				result (fn r => (emit(OPER{assem = "movq $0, 'd0 \n", 
+				  dst = [rv],
+				  src = [],
+					jump = NONE});
+			emit(OPER{assem="call "^n^"\n",
+						src=munchArgs (List.rev args),
+						dst=callersaves,
+						jump=NONE}) ))
+		else
+ 		result2 ( fn r => emit(OPER{assem="call "^n^"\n",
+						src=munchArgs (List.rev args),
+						dst=callersaves,
+						jump=NONE})) 
 	|	munchExp exp = result (fn r=>emit(OPER{assem="NADA: "^(ppEXP exp)^"\n",src=[], dst=[], jump=NONE}))
-
-fun munchArgs [] = []
-		|munchArgs(arg::args) = let val temp = munchExp(arg)
-										in (case (getArgForPos (List.length args)) of
-														InReg reg => (emit(MOVE {assem = "movq 's0, 'd0\n",
-																				dst = reg,
-																				src = temp})														
-																	;(reg :: munchArgs args))
-														|InFrame _ => (emit(OPER {assem = "pushq 's0\n", (*medio hack*)
-																						dst = [],
-																						src = [temp],
-																						jump = NONE})
-																			;munchArgs args)
-	     											)
-									end
 
 
 (* munchStm::Tree.stm -> unit *)
-fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
+and munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 	(*comenzamos por el final, para ir de los arboles mas simples a los mas complejos. Feli dice: no es al reves? Ir de los mas complejos a los mas simples?*)
 	|	munchStm (EXP(CALL (NAME n,args))) = (*Procedure*)
 		if String.compare(n,"_allocRecord") = EQUAL
@@ -149,6 +152,12 @@ fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 			emit(MOVE{assem = "movq 's0, 'd0 \n",
 				  dst = i,
 				  src = rv}))
+	|	munchStm (tigertree.MOVE(MEM(TEMP i),CALL (NAME n,args))) = (*Function call*)
+			(munchStm(EXP(CALL(NAME n,args)));
+			emit(MOVE{assem = "movq 's0, ('d0) \n",
+				  dst = i,
+				  src = rv}))
+
 	(*|   munchStm(tigertree.MOVE(MEM(BINOP(PLUS,e1,CONST j)),TEMP i)) =  emit(MOVE{assem = "movq 's0, " ^(Int.toString j) ^ "('d0)\n", 
 			  dst = munchExp(e1),
 			  src = i})  *)
@@ -267,9 +276,24 @@ fun munchStm(SEQ(a, b)) = (munchStm a; munchStm b)(*primer stm*)
 	|	munchStm _ = emit (OPER{assem = "nada.\n",
 				src	 = [], dst = [], jump = NONE})
 	(* munchStm::Tree.stm -> unit *)
-(*	and *)(*comenzamos por las exp mas simples, que van "abajo" en el pattern matching*)
+	(*comenzamos por las exp mas simples, que van "abajo" en el pattern matching*)
 
-		
+and munchArgs [] = []
+		|munchArgs(arg::args) = let val temp = munchExp(arg)
+										in (case (getArgForPos (List.length args)) of
+														InReg reg => (emit(MOVE {assem = "movq 's0, 'd0\n",
+																				dst = reg,
+																				src = temp})														
+																	;(reg :: munchArgs args))
+														|InFrame _ => (emit(OPER {assem = "pushq 's0\n", (*medio hack*)
+																						dst = [],
+																						src = [temp],
+																						jump = NONE})
+																			;munchArgs args)
+	     											)
+									end
+
+	
 
 fun codegen (stm: tigertree.stm) : tigerassem.instr list =  (*Saque el argumento frame porque tenemos FP. Referirse a pagina 206 del Appel para mas detalles. Gracias, vuelva prontos.*)
  let 

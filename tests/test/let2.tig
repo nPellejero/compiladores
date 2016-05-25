@@ -1,0 +1,10 @@
+let
+	function f(i:string) = print(i)
+in
+	f(let type R = {b:int, a:string}
+var v:=R {b=10, a="Hola"}
+function f(x:int):int=
+  let function g(y:R):int = y.b+x
+  in g(v)+x end
+in printint(f(342));"a" end)
+end

@@ -1,0 +1,1840 @@
+LABEL FOR _tigermain: _tigermain
+ActualArg: 1
+ActualLocal: 0
+RET: 24
+LABEL FOR f: L0
+LABEL FOR h: L1
+ActualArg: 1
+RET: 16
+ActualArg: 1
+ActualLocal: 0
+RET: 24
+LABEL FOR g: L2
+ADDED L2
+ADDED L1
+ActualArg: 0
+RET: 8
+ActualArg: 1
+ActualLocal: 0
+RET: 24
+LABEL FOR g: L3
+ADDED L3
+ADDED L0
+ADDED _tigermain
+Todos los frags:
+L2:
+LABEL L5
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ TEMP RV,
+ BINOP(PLUS,
+  BINOP(PLUS,
+   MEM(
+    BINOP(PLUS,
+     MEM(
+      BINOP(PLUS,
+       MEM(
+        BINOP(PLUS,
+         TEMP FP,
+         CONST ~8)),
+       CONST ~8)),
+     CONST ~24)),
+   MEM(
+    BINOP(PLUS,
+     MEM(
+      BINOP(PLUS,
+       TEMP FP,
+       CONST ~8)),
+     CONST ~16))),
+  MEM(
+   BINOP(PLUS,
+    MEM(
+     BINOP(PLUS,
+      TEMP FP,
+      CONST ~8)),
+    CONST ~24))))
+JUMP( NAME L4)
+LABEL L4
+L1:
+LABEL L7
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~16)),
+ TEMP ARG2)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~24)),
+ CONST 10)
+JUMP( NAME L6)
+LABEL L6
+L3:
+LABEL L9
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ TEMP RV,
+ BINOP(PLUS,
+  BINOP(PLUS,
+   MEM(
+    BINOP(PLUS,
+     MEM(
+      BINOP(PLUS,
+       MEM(
+        BINOP(PLUS,
+         TEMP FP,
+         CONST ~8)),
+       CONST ~8)),
+     CONST ~24)),
+   MEM(
+    BINOP(PLUS,
+     MEM(
+      BINOP(PLUS,
+       TEMP FP,
+       CONST ~8)),
+     CONST ~8))),
+  MEM(
+   BINOP(PLUS,
+    MEM(
+     BINOP(PLUS,
+      TEMP FP,
+      CONST ~8)),
+    CONST ~24))))
+JUMP( NAME L8)
+LABEL L8
+L0:
+LABEL L11
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG2)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~24)),
+ CONST 10)
+JUMP( NAME L10)
+LABEL L10
+_tigermain:
+LABEL L13
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~24)),
+ CONST 0)
+MOVE(
+ TEMP T0,
+ CONST 0)
+MOVE(
+ TEMP RV,
+ CONST 0)
+JUMP( NAME L12)
+LABEL L12
+----------------
+ADDING (L2,)
+ADDING (L1,)
+ADDING (L3,)
+ADDING (L0,)
+ADDING (_tigermain,)
+Leng frame: 10
+L2: 
+L5: 
+movq ARG1, -8(FP)
+movq -8(FP), T5
+movq -8(T5), T4
+movq -24(T4), T3
+movq T3, T2
+movq -8(FP), T7
+movq -16(T7), T6
+addq T6, T2
+movq T2, T1
+movq -8(FP), T9
+movq -24(T9), T8
+addq T8, T1
+movq T1, RV 
+jmp L4 
+L4: 
+L1: 
+L7: 
+movq ARG1, -8(FP)
+movq ARG2, -16(FP)
+movq $10, T10 
+movq T10, -24(FP)
+jmp L6 
+L6: 
+L3: 
+L9: 
+movq ARG1, -8(FP)
+movq -8(FP), T15
+movq -8(T15), T14
+movq -24(T14), T13
+movq T13, T12
+movq -8(FP), T17
+movq -8(T17), T16
+addq T16, T12
+movq T12, T11
+movq -8(FP), T19
+movq -24(T19), T18
+addq T18, T11
+movq T11, RV 
+jmp L8 
+L8: 
+L0: 
+L11: 
+movq ARG1, -8(FP)
+movq ARG2, -8(FP)
+movq $10, T20 
+movq T20, -24(FP)
+jmp L10 
+L10: 
+_tigermain: 
+L13: 
+movq ARG1, -8(FP)
+movq $-0, T21 
+movq T21, -24(FP)
+movq $0, T0 
+movq $0, RV 
+jmp L12 
+L12: 
+11::f433
+9
+poniendo noddes: SP, FP
+poniendo noddes: FP, T21
+poniendo noddes: SP, T21
+poniendo noddes: FP, T0
+poniendo noddes: SP, T0
+poniendo noddes: FP, RV
+poniendo noddes: SP, RV
+
+ esto es: initial
+ {T0 ,T21 ,}
+nodeMoves: T0 -> Move que no esta realacionado con otro temporario
+nodeMoves: T21 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: T21 -> 
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: T21 -> Valor: 2
+Nodo: T0 -> Valor: 2
+Nodo: RV -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {T0 ,T21 ,}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+Nodo: T21 -> vecinos: FPvecinos: SP
+Nodo: T0 -> vecinos: FPvecinos: SP
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+AssignColorsT21
+
+ esto es: lista adj
+ {FP ,SP ,}
+getAlias de: FP
+getAlias de: SP
+inserto en color: T21
+AssignColorsT0
+
+ esto es: lista adj
+ {FP ,SP ,}
+getAlias de: FP
+getAlias de: SP
+inserto en color: T0
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (true): 0
+3::f433
+8
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 14
+10::f433
+7
+poniendo noddes: ARG2, FP
+poniendo noddes: RV, FP
+poniendo noddes: SP, FP
+poniendo noddes: FP, T20
+poniendo noddes: RV, T20
+poniendo noddes: SP, T20
+
+ esto es: initial
+ {T20 ,}
+nodeMoves: T20 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: T20 -> 
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: ARG2 -> Valor: 1000
+Nodo: T20 -> Valor: 3
+Nodo: RV -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {T20 ,}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: T20 -> vecinos: FPvecinos: RVvecinos: SP
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+AssignColorsT20
+
+ esto es: lista adj
+ {FP ,RV ,SP ,}
+getAlias de: FP
+getAlias de: RV
+getAlias de: SP
+inserto en color: T20
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 18
+3::f433
+6
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 31
+19::f433
+5
+poniendo noddes: SP, FP
+poniendo noddes: FP, T15
+poniendo noddes: SP, T15
+poniendo noddes: FP, T14
+poniendo noddes: SP, T14
+poniendo noddes: FP, T13
+poniendo noddes: SP, T13
+poniendo noddes: FP, T12
+poniendo noddes: SP, T12
+poniendo noddes: FP, T17
+poniendo noddes: SP, T17
+poniendo noddes: T12, T17
+poniendo noddes: FP, T16
+poniendo noddes: SP, T16
+poniendo noddes: T12, T16
+poniendo noddes: FP, T11
+poniendo noddes: SP, T11
+poniendo noddes: FP, T19
+poniendo noddes: SP, T19
+poniendo noddes: T11, T19
+poniendo noddes: FP, T18
+poniendo noddes: SP, T18
+poniendo noddes: T11, T18
+poniendo noddes: FP, RV
+poniendo noddes: SP, RV
+
+ esto es: initial
+ {T11 ,T12 ,T13 ,T14 ,T15 ,T16 ,T17 ,T18 ,T19 ,}
+nodeMoves: T14 -> Move que no esta realacionado con otro temporario
+nodeMoves: T15 -> Move que no esta realacionado con otro temporario
+nodeMoves: T16 -> Move que no esta realacionado con otro temporario
+nodeMoves: T17 -> Move que no esta realacionado con otro temporario
+nodeMoves: T18 -> Move que no esta realacionado con otro temporario
+nodeMoves: T19 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T11 -> 
+Nodo: T12 -> 
+Nodo: T13 -> 
+Nodo: T14 -> 
+Nodo: T15 -> 
+Nodo: RAX -> Color: 0
+Nodo: T16 -> 
+Nodo: T17 -> 
+Nodo: T18 -> 
+Nodo: T19 -> 
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: T11 -> Valor: 4
+Nodo: T12 -> Valor: 4
+Nodo: T13 -> Valor: 2
+Nodo: T14 -> Valor: 2
+Nodo: T15 -> Valor: 2
+Nodo: T16 -> Valor: 3
+Nodo: T17 -> Valor: 3
+Nodo: T18 -> Valor: 3
+Nodo: T19 -> Valor: 3
+Nodo: RV -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: RV,T11
+MOVE: T11,T12
+MOVE: T11,T12
+MOVE: T12,T13
+MOVE: T12,T13
+MOVE: RV,T11
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {T14 ,T15 ,T16 ,T17 ,T18 ,T19 ,}
+
+ esto es: freezeWorklist
+ {T11 ,T12 ,T13 ,}
+
+ esto es: adjList
+ {Nodo: FP -> 
+Nodo: T11 -> vecinos: FPvecinos: SPvecinos: T18vecinos: T19
+Nodo: T12 -> vecinos: FPvecinos: SPvecinos: T16vecinos: T17
+Nodo: T13 -> vecinos: FPvecinos: SP
+Nodo: T14 -> vecinos: FPvecinos: SP
+Nodo: T15 -> vecinos: FPvecinos: SP
+Nodo: T16 -> vecinos: FPvecinos: SPvecinos: T12
+Nodo: T17 -> vecinos: FPvecinos: SPvecinos: T12
+Nodo: T18 -> vecinos: FPvecinos: SPvecinos: T11
+Nodo: T19 -> vecinos: FPvecinos: SPvecinos: T11
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+MOVE: RV,T11
+MOVE: T11,T12
+MOVE: T12,T13
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+app1
+addWorklist RV
+app1
+addWorklist RV
+app1
+addWorklist RV
+AssignColorsT19
+
+ esto es: lista adj
+ {FP ,SP ,T11 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T11
+inserto en color: T19
+AssignColorsT18
+
+ esto es: lista adj
+ {FP ,SP ,T11 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T11
+inserto en color: T18
+AssignColorsT17
+
+ esto es: lista adj
+ {FP ,SP ,T12 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T12
+inserto en color: T17
+AssignColorsT16
+
+ esto es: lista adj
+ {FP ,SP ,T12 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T12
+inserto en color: T16
+AssignColorsT15
+
+ esto es: lista adj
+ {FP ,SP ,}
+getAlias de: FP
+getAlias de: SP
+inserto en color: T15
+AssignColorsT14
+
+ esto es: lista adj
+ {FP ,SP ,}
+getAlias de: FP
+getAlias de: SP
+inserto en color: T14
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 35
+3::f433
+4
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 57
+10::f433
+3
+poniendo noddes: ARG2, FP
+poniendo noddes: RV, FP
+poniendo noddes: SP, FP
+poniendo noddes: FP, T10
+poniendo noddes: RV, T10
+poniendo noddes: SP, T10
+
+ esto es: initial
+ {T10 ,}
+nodeMoves: T10 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> 
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: ARG2 -> Valor: 1000
+Nodo: T10 -> Valor: 3
+Nodo: RV -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {T10 ,}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: T10 -> vecinos: FPvecinos: RVvecinos: SP
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+AssignColorsT10
+
+ esto es: lista adj
+ {FP ,RV ,SP ,}
+getAlias de: FP
+getAlias de: RV
+getAlias de: SP
+inserto en color: T10
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 1
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 61
+3::f433
+2
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 1
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 1
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 74
+19::f433
+1
+poniendo noddes: SP, FP
+poniendo noddes: FP, T5
+poniendo noddes: SP, T5
+poniendo noddes: FP, T4
+poniendo noddes: SP, T4
+poniendo noddes: FP, T3
+poniendo noddes: SP, T3
+poniendo noddes: FP, T2
+poniendo noddes: SP, T2
+poniendo noddes: FP, T7
+poniendo noddes: SP, T7
+poniendo noddes: T2, T7
+poniendo noddes: FP, T6
+poniendo noddes: SP, T6
+poniendo noddes: T2, T6
+poniendo noddes: FP, T1
+poniendo noddes: SP, T1
+poniendo noddes: FP, T9
+poniendo noddes: SP, T9
+poniendo noddes: T1, T9
+poniendo noddes: FP, T8
+poniendo noddes: SP, T8
+poniendo noddes: T1, T8
+poniendo noddes: FP, RV
+poniendo noddes: SP, RV
+
+ esto es: initial
+ {T1 ,T2 ,T3 ,T4 ,T5 ,T6 ,T7 ,T8 ,T9 ,}
+nodeMoves: T4 -> Move que no esta realacionado con otro temporario
+nodeMoves: T5 -> Move que no esta realacionado con otro temporario
+nodeMoves: T6 -> Move que no esta realacionado con otro temporario
+nodeMoves: T7 -> Move que no esta realacionado con otro temporario
+nodeMoves: T8 -> Move que no esta realacionado con otro temporario
+nodeMoves: T9 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 1
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T1 -> 
+Nodo: T2 -> 
+Nodo: T3 -> 
+Nodo: T4 -> 
+Nodo: T5 -> 
+Nodo: T6 -> 
+Nodo: T7 -> 
+Nodo: T8 -> 
+Nodo: R10 -> Color: 2
+Nodo: T9 -> 
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: RV -> Valor: 1000
+Nodo: T1 -> Valor: 4
+Nodo: T2 -> Valor: 4
+Nodo: T3 -> Valor: 2
+Nodo: T4 -> Valor: 2
+Nodo: T5 -> Valor: 2
+Nodo: T6 -> Valor: 3
+Nodo: T7 -> Valor: 3
+Nodo: T8 -> Valor: 3
+Nodo: T9 -> Valor: 3
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: RV,T1
+MOVE: RV,T1
+MOVE: T1,T2
+MOVE: T1,T2
+MOVE: T2,T3
+MOVE: T2,T3
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {T4 ,T5 ,T6 ,T7 ,T8 ,T9 ,}
+
+ esto es: freezeWorklist
+ {T1 ,T2 ,T3 ,}
+
+ esto es: adjList
+ {Nodo: FP -> 
+Nodo: T1 -> vecinos: FPvecinos: SPvecinos: T8vecinos: T9
+Nodo: T2 -> vecinos: FPvecinos: SPvecinos: T6vecinos: T7
+Nodo: T3 -> vecinos: FPvecinos: SP
+Nodo: T4 -> vecinos: FPvecinos: SP
+Nodo: T5 -> vecinos: FPvecinos: SP
+Nodo: T6 -> vecinos: FPvecinos: SPvecinos: T2
+Nodo: T7 -> vecinos: FPvecinos: SPvecinos: T2
+Nodo: T8 -> vecinos: FPvecinos: SPvecinos: T1
+Nodo: T9 -> vecinos: FPvecinos: SPvecinos: T1
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+MOVE: RV,T1
+MOVE: T1,T2
+MOVE: T2,T3
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+app1
+addWorklist RV
+app1
+addWorklist RV
+app1
+addWorklist RV
+AssignColorsT9
+
+ esto es: lista adj
+ {FP ,SP ,T1 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T1
+inserto en color: T9
+AssignColorsT8
+
+ esto es: lista adj
+ {FP ,SP ,T1 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T1
+inserto en color: T8
+AssignColorsT7
+
+ esto es: lista adj
+ {FP ,SP ,T2 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T2
+inserto en color: T7
+AssignColorsT6
+
+ esto es: lista adj
+ {FP ,SP ,T2 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T2
+inserto en color: T6
+AssignColorsT5
+
+ esto es: lista adj
+ {FP ,SP ,}
+getAlias de: FP
+getAlias de: SP
+inserto en color: T5
+AssignColorsT4
+
+ esto es: lista adj
+ {FP ,SP ,}
+getAlias de: FP
+getAlias de: SP
+inserto en color: T4
+getAlias de T1 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es RV
+getAlias de T3 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 1
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T1 -> Color: 0
+Nodo: T2 -> Color: 0
+Nodo: T3 -> Color: 0
+Nodo: T4 -> Color: 0
+Nodo: T5 -> Color: 0
+Nodo: T6 -> Color: 1
+Nodo: T7 -> Color: 1
+Nodo: T8 -> Color: 1
+Nodo: R10 -> Color: 2
+Nodo: T9 -> Color: 1
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 78
+3::f433
+0
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 1
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T1 -> Color: 0
+Nodo: T2 -> Color: 0
+Nodo: T3 -> Color: 0
+Nodo: T4 -> Color: 0
+Nodo: T5 -> Color: 0
+Nodo: T6 -> Color: 1
+Nodo: T7 -> Color: 1
+Nodo: T8 -> Color: 1
+Nodo: R10 -> Color: 2
+Nodo: T9 -> Color: 1
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T1 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es RV
+getAlias de T3 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 1
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: T14 -> Color: 0
+Nodo: T15 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T1 -> Color: 0
+Nodo: T2 -> Color: 0
+Nodo: T3 -> Color: 0
+Nodo: T4 -> Color: 0
+Nodo: T5 -> Color: 0
+Nodo: T6 -> Color: 1
+Nodo: T7 -> Color: 1
+Nodo: T8 -> Color: 1
+Nodo: R10 -> Color: 2
+Nodo: T9 -> Color: 1
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 100
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T11 -> %rax
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T12 -> %rax
+TEMP -> REG: T11 -> %rax
+TEMP -> REG: T13 -> %rax
+TEMP -> REG: T12 -> %rax
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T1 -> %rax
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T2 -> %rax
+TEMP -> REG: T1 -> %rax
+TEMP -> REG: T3 -> %rax
+TEMP -> REG: T2 -> %rax
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+Limpiados MOV con igual src y dst
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T5 -> %rax
+TEMP -> REG: T5 -> %rax
+TEMP -> REG: T4 -> %rax
+TEMP -> REG: T4 -> %rax
+TEMP -> REG: T3 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T7 -> %rbx
+TEMP -> REG: T7 -> %rbx
+TEMP -> REG: T6 -> %rbx
+TEMP -> REG: T6 -> %rbx
+TEMP -> REG: T2 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T9 -> %rbx
+TEMP -> REG: T9 -> %rbx
+TEMP -> REG: T8 -> %rbx
+TEMP -> REG: T8 -> %rbx
+TEMP -> REG: T1 -> %rax
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T10 -> %rbx
+TEMP -> REG: T10 -> %rbx
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T15 -> %rax
+TEMP -> REG: T15 -> %rax
+TEMP -> REG: T14 -> %rax
+TEMP -> REG: T14 -> %rax
+TEMP -> REG: T13 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T17 -> %rbx
+TEMP -> REG: T17 -> %rbx
+TEMP -> REG: T16 -> %rbx
+TEMP -> REG: T16 -> %rbx
+TEMP -> REG: T12 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T19 -> %rbx
+TEMP -> REG: T19 -> %rbx
+TEMP -> REG: T18 -> %rbx
+TEMP -> REG: T18 -> %rbx
+TEMP -> REG: T11 -> %rax
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T20 -> %rbx
+TEMP -> REG: T20 -> %rbx
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T21 -> %rax
+TEMP -> REG: T21 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T0 -> %rax
+TEMP -> REG: RV -> %rax
+.globl L2
+.type L2, @function
+L2: 
+pushq %rbp
+movq %rsp, %rbp
+subq $40, %rsp
+jmp L5
+L5: 
+movq %rdi, -8(%rbp)
+movq -8(%rbp), %rax
+movq -8(%rax), %rax
+movq -24(%rax), %rax
+movq -8(%rbp), %rbx
+movq -16(%rbx), %rbx
+addq %rbx, %rax
+movq -8(%rbp), %rbx
+movq -24(%rbx), %rbx
+addq %rbx, %rax
+jmp L4 
+L4: 
+leave
+ret
+.size L2, .-L2
+.globl L1
+.type L1, @function
+L1: 
+pushq %rbp
+movq %rsp, %rbp
+subq $40, %rsp
+jmp L7
+L7: 
+movq %rdi, -8(%rbp)
+movq %rsi, -16(%rbp)
+movq $10, %rbx 
+movq %rbx, -24(%rbp)
+jmp L6 
+L6: 
+leave
+ret
+.size L1, .-L1
+.globl L3
+.type L3, @function
+L3: 
+pushq %rbp
+movq %rsp, %rbp
+subq $40, %rsp
+jmp L9
+L9: 
+movq %rdi, -8(%rbp)
+movq -8(%rbp), %rax
+movq -8(%rax), %rax
+movq -24(%rax), %rax
+movq -8(%rbp), %rbx
+movq -8(%rbx), %rbx
+addq %rbx, %rax
+movq -8(%rbp), %rbx
+movq -24(%rbx), %rbx
+addq %rbx, %rax
+jmp L8 
+L8: 
+leave
+ret
+.size L3, .-L3
+.globl L0
+.type L0, @function
+L0: 
+pushq %rbp
+movq %rsp, %rbp
+subq $40, %rsp
+jmp L11
+L11: 
+movq %rdi, -8(%rbp)
+movq %rsi, -8(%rbp)
+movq $10, %rbx 
+movq %rbx, -24(%rbp)
+jmp L10 
+L10: 
+leave
+ret
+.size L0, .-L0
+.globl _tigermain
+.type _tigermain, @function
+_tigermain: 
+pushq %rbp
+movq %rsp, %rbp
+subq $40, %rsp
+jmp L13
+L13: 
+movq %rdi, -8(%rbp)
+movq $-0, %rax 
+movq %rax, -24(%rbp)
+movq $0, %rax 
+movq $0, %rax 
+jmp L12 
+L12: 
+leave
+ret
+.size _tigermain, .-_tigermain
+
+ bien!
+yes!!

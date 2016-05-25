@@ -1,0 +1,10 @@
+let
+	type p={v:int}
+	type v=array of p
+	var p := v[10] of nil
+in (p[5].v := 15;
+	let 
+		var q:=p[5].v
+	in printint(q) end)
+end 
+

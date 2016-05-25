@@ -1,0 +1,6 @@
+LABEL FOR _tigermain: _tigermain
+ActualArg: 1
+ActualLocal: 0
+RET: 24
+LABEL FOR f: L1
+Fail: i no asignable

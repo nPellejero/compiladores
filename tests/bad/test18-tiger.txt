@@ -1,0 +1,4 @@
+LABEL FOR _tigermain: _tigermain
+LABEL FOR do_nothing1: L0
+Fail: Error -- línea 5: do_nothing2: no existe
+

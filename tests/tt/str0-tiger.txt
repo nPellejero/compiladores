@@ -1,0 +1,5838 @@
+LABEL FOR _tigermain: _tigermain
+ADDED _tigermain
+Todos los frags:
+.L0:	.quad 4
+	.string "hola"
+	.text
+.L1:	.quad 4
+	.string "chau"
+	.text
+.L2:	.quad 2
+	.string "si"
+	.text
+.L3:	.quad 2
+	.string "no"
+	.text
+.L7:	.quad 2
+	.string "si"
+	.text
+.L8:	.quad 2
+	.string "no"
+	.text
+.L12:	.quad 2
+	.string "si"
+	.text
+.L13:	.quad 2
+	.string "no"
+	.text
+.L17:	.quad 2
+	.string "si"
+	.text
+.L18:	.quad 2
+	.string "no"
+	.text
+.L22:	.quad 2
+	.string "si"
+	.text
+.L23:	.quad 2
+	.string "no"
+	.text
+.L27:	.quad 2
+	.string "si"
+	.text
+.L28:	.quad 2
+	.string "no"
+	.text
+_tigermain:
+LABEL L33
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ TEMP T0,
+ NAME .L0)
+MOVE(
+ TEMP T1,
+ NAME .L1)
+MOVE(
+ TEMP T8,
+ CALL(
+  NAME _stringCompare,
+   TEMP T0,
+   TEMP T1))
+CJUMP(LT,
+ TEMP T8,
+ CONST 0,
+ L4,L5)
+LABEL L5
+MOVE(
+ TEMP T2,
+ NAME .L3)
+LABEL L6
+EXP(
+ CALL(
+  NAME print,
+   TEMP T2))
+MOVE(
+ TEMP T9,
+ CALL(
+  NAME _stringCompare,
+   TEMP T0,
+   TEMP T1))
+CJUMP(LE,
+ TEMP T9,
+ CONST 0,
+ L9,L10)
+LABEL L10
+MOVE(
+ TEMP T3,
+ NAME .L8)
+LABEL L11
+EXP(
+ CALL(
+  NAME print,
+   TEMP T3))
+MOVE(
+ TEMP T10,
+ CALL(
+  NAME _stringCompare,
+   TEMP T0,
+   TEMP T1))
+CJUMP(GT,
+ TEMP T10,
+ CONST 0,
+ L14,L15)
+LABEL L15
+MOVE(
+ TEMP T4,
+ NAME .L13)
+LABEL L16
+EXP(
+ CALL(
+  NAME print,
+   TEMP T4))
+MOVE(
+ TEMP T11,
+ CALL(
+  NAME _stringCompare,
+   TEMP T0,
+   TEMP T1))
+CJUMP(GE,
+ TEMP T11,
+ CONST 0,
+ L19,L20)
+LABEL L20
+MOVE(
+ TEMP T5,
+ NAME .L18)
+LABEL L21
+EXP(
+ CALL(
+  NAME print,
+   TEMP T5))
+MOVE(
+ TEMP T12,
+ CALL(
+  NAME _stringCompare,
+   TEMP T0,
+   TEMP T1))
+CJUMP(EQ,
+ TEMP T12,
+ CONST 0,
+ L24,L25)
+LABEL L25
+MOVE(
+ TEMP T6,
+ NAME .L23)
+LABEL L26
+EXP(
+ CALL(
+  NAME print,
+   TEMP T6))
+MOVE(
+ TEMP T13,
+ CALL(
+  NAME _stringCompare,
+   TEMP T0,
+   TEMP T1))
+CJUMP(NE,
+ TEMP T13,
+ CONST 0,
+ L29,L30)
+LABEL L30
+MOVE(
+ TEMP T7,
+ NAME .L28)
+LABEL L31
+EXP(
+ CALL(
+  NAME print,
+   TEMP T7))
+MOVE(
+ TEMP RV,
+ CONST 0)
+JUMP( NAME L32)
+LABEL L4
+MOVE(
+ TEMP T2,
+ NAME .L2)
+JUMP( NAME L6)
+LABEL L9
+MOVE(
+ TEMP T3,
+ NAME .L7)
+JUMP( NAME L11)
+LABEL L14
+MOVE(
+ TEMP T4,
+ NAME .L12)
+JUMP( NAME L16)
+LABEL L19
+MOVE(
+ TEMP T5,
+ NAME .L17)
+JUMP( NAME L21)
+LABEL L24
+MOVE(
+ TEMP T6,
+ NAME .L22)
+JUMP( NAME L26)
+LABEL L29
+MOVE(
+ TEMP T7,
+ NAME .L27)
+JUMP( NAME L31)
+LABEL L32
+----------------
+ADDING (.L0,.quad 4
+	.string "hola"
+	.text)
+ADDING (.L1,.quad 4
+	.string "chau"
+	.text)
+ADDING (.L2,.quad 2
+	.string "si"
+	.text)
+ADDING (.L3,.quad 2
+	.string "no"
+	.text)
+ADDING (.L7,.quad 2
+	.string "si"
+	.text)
+ADDING (.L8,.quad 2
+	.string "no"
+	.text)
+ADDING (.L12,.quad 2
+	.string "si"
+	.text)
+ADDING (.L13,.quad 2
+	.string "no"
+	.text)
+ADDING (.L17,.quad 2
+	.string "si"
+	.text)
+ADDING (.L18,.quad 2
+	.string "no"
+	.text)
+ADDING (.L22,.quad 2
+	.string "si"
+	.text)
+ADDING (.L23,.quad 2
+	.string "no"
+	.text)
+ADDING (.L27,.quad 2
+	.string "si"
+	.text)
+ADDING (.L28,.quad 2
+	.string "no"
+	.text)
+ADDING (_tigermain,)
+Leng frame: 16
+.L0:
+	.quad 4
+	.string "hola"
+	.text
+.L1:
+	.quad 4
+	.string "chau"
+	.text
+.L2:
+	.quad 2
+	.string "si"
+	.text
+.L3:
+	.quad 2
+	.string "no"
+	.text
+.L7:
+	.quad 2
+	.string "si"
+	.text
+.L8:
+	.quad 2
+	.string "no"
+	.text
+.L12:
+	.quad 2
+	.string "si"
+	.text
+.L13:
+	.quad 2
+	.string "no"
+	.text
+.L17:
+	.quad 2
+	.string "si"
+	.text
+.L18:
+	.quad 2
+	.string "no"
+	.text
+.L22:
+	.quad 2
+	.string "si"
+	.text
+.L23:
+	.quad 2
+	.string "no"
+	.text
+.L27:
+	.quad 2
+	.string "si"
+	.text
+.L28:
+	.quad 2
+	.string "no"
+	.text
+_tigermain: 
+L33: 
+movq ARG1, -8(FP)
+movq $.L0, T20
+movq T20, T0 
+movq $.L1, T21
+movq T21, T1 
+movq T1, ARG2
+movq T0, ARG1
+call _stringCompare
+movq RV, T8 
+movq $-0, T22 
+cmp T22, T8 
+jl L4 
+L5: 
+movq $.L3, T23
+movq T23, T2 
+L6: 
+movq T2, ARG1
+call print
+movq T1, ARG2
+movq T0, ARG1
+call _stringCompare
+movq RV, T9 
+movq $-0, T24 
+cmp T24, T9 
+jle L9 
+L10: 
+movq $.L8, T25
+movq T25, T3 
+L11: 
+movq T3, ARG1
+call print
+movq T1, ARG2
+movq T0, ARG1
+call _stringCompare
+movq RV, T10 
+movq $-0, T26 
+cmp T26, T10 
+jg L14 
+L15: 
+movq $.L13, T27
+movq T27, T4 
+L16: 
+movq T4, ARG1
+call print
+movq T1, ARG2
+movq T0, ARG1
+call _stringCompare
+movq RV, T11 
+movq $-0, T28 
+cmp T28, T11 
+jge L19 
+L20: 
+movq $.L18, T29
+movq T29, T5 
+L21: 
+movq T5, ARG1
+call print
+movq T1, ARG2
+movq T0, ARG1
+call _stringCompare
+movq RV, T12 
+movq $-0, T30 
+cmp T30, T12 
+je L24 
+L25: 
+movq $.L23, T31
+movq T31, T6 
+L26: 
+movq T6, ARG1
+call print
+movq T1, ARG2
+movq T0, ARG1
+call _stringCompare
+movq RV, T13 
+movq $-0, T32 
+cmp T32, T13 
+jne L29 
+L30: 
+movq $.L28, T33
+movq T33, T7 
+L31: 
+movq T7, ARG1
+call print
+movq $0, RV 
+jmp L32 
+L4: 
+movq $.L2, T34
+movq T34, T2 
+jmp L6 
+L9: 
+movq $.L7, T35
+movq T35, T3 
+jmp L11 
+L14: 
+movq $.L12, T36
+movq T36, T4 
+jmp L16 
+L19: 
+movq $.L17, T37
+movq T37, T5 
+jmp L21 
+L24: 
+movq $.L22, T38
+movq T38, T6 
+jmp L26 
+L29: 
+movq $.L27, T39
+movq T39, T7 
+jmp L31 
+L32: 
+108::f433
+15
+poniendo noddes: T0, T21
+poniendo noddes: T0, T1
+poniendo noddes: T0, ARG2
+poniendo noddes: T1, ARG2
+poniendo noddes: ARG2, ARG1
+poniendo noddes: T0, ARG1
+poniendo noddes: T1, ARG1
+poniendo noddes: ARG1, ARG3
+poniendo noddes: ARG1, ARG4
+poniendo noddes: ARG1, ARG5
+poniendo noddes: ARG1, ARG6
+poniendo noddes: ARG1, FP
+poniendo noddes: ARG1, R10
+poniendo noddes: ARG1, R11
+poniendo noddes: ARG1, R12
+poniendo noddes: ARG1, R13
+poniendo noddes: ARG1, R14
+poniendo noddes: ARG1, R15
+poniendo noddes: ARG1, RAX
+poniendo noddes: ARG1, RBX
+poniendo noddes: ARG1, RDX
+poniendo noddes: ARG1, RV
+poniendo noddes: ARG1, SP
+poniendo noddes: ARG2, ARG3
+poniendo noddes: ARG2, ARG4
+poniendo noddes: ARG2, ARG5
+poniendo noddes: ARG2, ARG6
+poniendo noddes: ARG2, FP
+poniendo noddes: ARG2, R10
+poniendo noddes: ARG2, R11
+poniendo noddes: ARG2, R12
+poniendo noddes: ARG2, R13
+poniendo noddes: ARG2, R14
+poniendo noddes: ARG2, R15
+poniendo noddes: ARG2, RAX
+poniendo noddes: ARG2, RBX
+poniendo noddes: ARG2, RDX
+poniendo noddes: ARG2, RV
+poniendo noddes: ARG2, SP
+poniendo noddes: ARG3, ARG4
+poniendo noddes: ARG3, ARG5
+poniendo noddes: ARG3, ARG6
+poniendo noddes: ARG3, FP
+poniendo noddes: ARG3, R10
+poniendo noddes: ARG3, R11
+poniendo noddes: ARG3, R12
+poniendo noddes: ARG3, R13
+poniendo noddes: ARG3, R14
+poniendo noddes: ARG3, R15
+poniendo noddes: ARG3, RAX
+poniendo noddes: ARG3, RBX
+poniendo noddes: ARG3, RDX
+poniendo noddes: ARG3, RV
+poniendo noddes: ARG3, SP
+poniendo noddes: ARG4, ARG5
+poniendo noddes: ARG4, ARG6
+poniendo noddes: ARG4, FP
+poniendo noddes: ARG4, R10
+poniendo noddes: ARG4, R11
+poniendo noddes: ARG4, R12
+poniendo noddes: ARG4, R13
+poniendo noddes: ARG4, R14
+poniendo noddes: ARG4, R15
+poniendo noddes: ARG4, RAX
+poniendo noddes: ARG4, RBX
+poniendo noddes: ARG4, RDX
+poniendo noddes: ARG4, RV
+poniendo noddes: ARG4, SP
+poniendo noddes: ARG5, ARG6
+poniendo noddes: ARG5, FP
+poniendo noddes: ARG5, R10
+poniendo noddes: ARG5, R11
+poniendo noddes: ARG5, R12
+poniendo noddes: ARG5, R13
+poniendo noddes: ARG5, R14
+poniendo noddes: ARG5, R15
+poniendo noddes: ARG5, RAX
+poniendo noddes: ARG5, RBX
+poniendo noddes: ARG5, RDX
+poniendo noddes: ARG5, RV
+poniendo noddes: ARG5, SP
+poniendo noddes: ARG6, FP
+poniendo noddes: ARG6, R10
+poniendo noddes: ARG6, R11
+poniendo noddes: ARG6, R12
+poniendo noddes: ARG6, R13
+poniendo noddes: ARG6, R14
+poniendo noddes: ARG6, R15
+poniendo noddes: ARG6, RAX
+poniendo noddes: ARG6, RBX
+poniendo noddes: ARG6, RDX
+poniendo noddes: ARG6, RV
+poniendo noddes: ARG6, SP
+poniendo noddes: FP, R10
+poniendo noddes: FP, R11
+poniendo noddes: FP, R12
+poniendo noddes: FP, R13
+poniendo noddes: FP, R14
+poniendo noddes: FP, R15
+poniendo noddes: FP, RAX
+poniendo noddes: FP, RBX
+poniendo noddes: FP, RDX
+poniendo noddes: FP, RV
+poniendo noddes: FP, SP
+poniendo noddes: R10, R11
+poniendo noddes: R10, R12
+poniendo noddes: R10, R13
+poniendo noddes: R10, R14
+poniendo noddes: R10, R15
+poniendo noddes: R10, RAX
+poniendo noddes: R10, RBX
+poniendo noddes: R10, RDX
+poniendo noddes: R10, RV
+poniendo noddes: R10, SP
+poniendo noddes: R11, R12
+poniendo noddes: R11, R13
+poniendo noddes: R11, R14
+poniendo noddes: R11, R15
+poniendo noddes: R11, RAX
+poniendo noddes: R11, RBX
+poniendo noddes: R11, RDX
+poniendo noddes: R11, RV
+poniendo noddes: R11, SP
+poniendo noddes: R12, R13
+poniendo noddes: R12, R14
+poniendo noddes: R12, R15
+poniendo noddes: R12, RAX
+poniendo noddes: R12, RBX
+poniendo noddes: R12, RDX
+poniendo noddes: R12, RV
+poniendo noddes: R12, SP
+poniendo noddes: R13, R14
+poniendo noddes: R13, R15
+poniendo noddes: R13, RAX
+poniendo noddes: R13, RBX
+poniendo noddes: R13, RDX
+poniendo noddes: R13, RV
+poniendo noddes: R13, SP
+poniendo noddes: R14, R15
+poniendo noddes: R14, RAX
+poniendo noddes: R14, RBX
+poniendo noddes: R14, RDX
+poniendo noddes: R14, RV
+poniendo noddes: R14, SP
+poniendo noddes: R15, RAX
+poniendo noddes: R15, RBX
+poniendo noddes: R15, RDX
+poniendo noddes: R15, RV
+poniendo noddes: R15, SP
+poniendo noddes: RAX, RBX
+poniendo noddes: RAX, RDX
+poniendo noddes: RAX, RV
+poniendo noddes: RAX, SP
+poniendo noddes: RBX, RDX
+poniendo noddes: RBX, RV
+poniendo noddes: RBX, SP
+poniendo noddes: RDX, RV
+poniendo noddes: RDX, SP
+poniendo noddes: RV, SP
+poniendo noddes: T0, ARG3
+poniendo noddes: T0, ARG4
+poniendo noddes: T0, ARG5
+poniendo noddes: T0, ARG6
+poniendo noddes: T0, FP
+poniendo noddes: T0, R10
+poniendo noddes: T0, R11
+poniendo noddes: T0, R12
+poniendo noddes: T0, R13
+poniendo noddes: T0, R14
+poniendo noddes: T0, R15
+poniendo noddes: T0, RAX
+poniendo noddes: T0, RBX
+poniendo noddes: T0, RDX
+poniendo noddes: T0, RV
+poniendo noddes: T0, SP
+poniendo noddes: T1, ARG3
+poniendo noddes: T1, ARG4
+poniendo noddes: T1, ARG5
+poniendo noddes: T1, ARG6
+poniendo noddes: T1, FP
+poniendo noddes: T1, R10
+poniendo noddes: T1, R11
+poniendo noddes: T1, R12
+poniendo noddes: T1, R13
+poniendo noddes: T1, R14
+poniendo noddes: T1, R15
+poniendo noddes: T1, RAX
+poniendo noddes: T1, RBX
+poniendo noddes: T1, RDX
+poniendo noddes: T1, RV
+poniendo noddes: T1, SP
+poniendo noddes: T0, T8
+poniendo noddes: T1, T8
+poniendo noddes: T0, T22
+poniendo noddes: T1, T22
+poniendo noddes: T8, T22
+poniendo noddes: T0, T23
+poniendo noddes: T1, T23
+poniendo noddes: T0, T2
+poniendo noddes: T1, T2
+poniendo noddes: T0, T9
+poniendo noddes: T1, T9
+poniendo noddes: T0, T24
+poniendo noddes: T1, T24
+poniendo noddes: T9, T24
+poniendo noddes: T0, T25
+poniendo noddes: T1, T25
+poniendo noddes: T0, T3
+poniendo noddes: T1, T3
+poniendo noddes: T0, T10
+poniendo noddes: T1, T10
+poniendo noddes: T0, T26
+poniendo noddes: T1, T26
+poniendo noddes: T10, T26
+poniendo noddes: T0, T27
+poniendo noddes: T1, T27
+poniendo noddes: T0, T4
+poniendo noddes: T1, T4
+poniendo noddes: T0, T11
+poniendo noddes: T1, T11
+poniendo noddes: T0, T28
+poniendo noddes: T1, T28
+poniendo noddes: T11, T28
+poniendo noddes: T0, T29
+poniendo noddes: T1, T29
+poniendo noddes: T0, T5
+poniendo noddes: T1, T5
+poniendo noddes: T0, T12
+poniendo noddes: T1, T12
+poniendo noddes: T0, T30
+poniendo noddes: T1, T30
+poniendo noddes: T12, T30
+poniendo noddes: T0, T31
+poniendo noddes: T1, T31
+poniendo noddes: T0, T6
+poniendo noddes: T1, T6
+poniendo noddes: T13, T32
+poniendo noddes: T0, T34
+poniendo noddes: T1, T34
+poniendo noddes: T0, T35
+poniendo noddes: T1, T35
+poniendo noddes: T0, T36
+poniendo noddes: T1, T36
+poniendo noddes: T0, T37
+poniendo noddes: T1, T37
+poniendo noddes: T0, T38
+poniendo noddes: T1, T38
+
+ esto es: initial
+ {T0 ,T1 ,T10 ,T11 ,T12 ,T13 ,T2 ,T20 ,T21 ,T22 ,T23 ,T24 ,T25 ,T26 ,T27 ,T28 ,T29 ,T3 ,T30 ,T31 ,T32 ,T33 ,T34 ,T35 ,T36 ,T37 ,T38 ,T39 ,T4 ,T5 ,T6 ,T7 ,T8 ,T9 ,}
+nodeMoves: T22 -> Move que no esta realacionado con otro temporario
+nodeMoves: T24 -> Move que no esta realacionado con otro temporario
+nodeMoves: T26 -> Move que no esta realacionado con otro temporario
+nodeMoves: T28 -> Move que no esta realacionado con otro temporario
+nodeMoves: T30 -> Move que no esta realacionado con otro temporario
+nodeMoves: T32 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> 
+Nodo: T11 -> 
+Nodo: T12 -> 
+Nodo: T13 -> 
+Nodo: RAX -> Color: 0
+Nodo: T20 -> 
+Nodo: T21 -> 
+Nodo: T22 -> 
+Nodo: T23 -> 
+Nodo: T24 -> 
+Nodo: T25 -> 
+Nodo: RBX -> Color: 1
+Nodo: T26 -> 
+Nodo: T27 -> 
+Nodo: T28 -> 
+Nodo: T29 -> 
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> 
+Nodo: T2 -> 
+Nodo: T31 -> 
+Nodo: T3 -> 
+Nodo: T32 -> 
+Nodo: T33 -> 
+Nodo: T4 -> 
+Nodo: T34 -> 
+Nodo: T5 -> 
+Nodo: T35 -> 
+Nodo: T6 -> 
+Nodo: T36 -> 
+Nodo: T7 -> 
+Nodo: T37 -> 
+Nodo: T8 -> 
+Nodo: R10 -> Color: 2
+Nodo: T38 -> 
+Nodo: T9 -> 
+Nodo: R11 -> Color: 3
+Nodo: T39 -> 
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: RDX -> Valor: 1000
+Nodo: ARG1 -> Valor: 1000
+Nodo: ARG2 -> Valor: 1000
+Nodo: ARG3 -> Valor: 1000
+Nodo: ARG4 -> Valor: 1000
+Nodo: ARG5 -> Valor: 1000
+Nodo: ARG6 -> Valor: 1000
+Nodo: T10 -> Valor: 3
+Nodo: T11 -> Valor: 3
+Nodo: T12 -> Valor: 3
+Nodo: T13 -> Valor: 1
+Nodo: RAX -> Valor: 1000
+Nodo: T20 -> Valor: 0
+Nodo: T21 -> Valor: 1
+Nodo: T22 -> Valor: 3
+Nodo: T23 -> Valor: 2
+Nodo: T24 -> Valor: 3
+Nodo: T25 -> Valor: 2
+Nodo: RBX -> Valor: 1000
+Nodo: T26 -> Valor: 3
+Nodo: T27 -> Valor: 2
+Nodo: T28 -> Valor: 3
+Nodo: T29 -> Valor: 2
+Nodo: T0 -> Valor: 45
+Nodo: RV -> Valor: 1000
+Nodo: T1 -> Valor: 44
+Nodo: T30 -> Valor: 3
+Nodo: T2 -> Valor: 2
+Nodo: T31 -> Valor: 2
+Nodo: T3 -> Valor: 2
+Nodo: T32 -> Valor: 1
+Nodo: T4 -> Valor: 2
+Nodo: T33 -> Valor: 0
+Nodo: T5 -> Valor: 2
+Nodo: T34 -> Valor: 2
+Nodo: T6 -> Valor: 2
+Nodo: T35 -> Valor: 2
+Nodo: T7 -> Valor: 0
+Nodo: T36 -> Valor: 2
+Nodo: T8 -> Valor: 3
+Nodo: T37 -> Valor: 2
+Nodo: R10 -> Valor: 1000
+Nodo: T9 -> Valor: 3
+Nodo: T38 -> Valor: 2
+Nodo: R11 -> Valor: 1000
+Nodo: T39 -> Valor: 0
+Nodo: R12 -> Valor: 1000
+Nodo: R13 -> Valor: 1000
+Nodo: R14 -> Valor: 1000
+Nodo: SP -> Valor: 1000
+Nodo: R15 -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: ARG1,T7
+MOVE: ARG1,T0
+MOVE: ARG1,T6
+MOVE: ARG1,T0
+MOVE: ARG1,T5
+MOVE: ARG1,T0
+MOVE: ARG1,T4
+MOVE: ARG1,T0
+MOVE: ARG1,T3
+MOVE: ARG1,T0
+MOVE: ARG1,T2
+MOVE: ARG1,T0
+MOVE: ARG2,T1
+MOVE: T10,RV
+MOVE: T11,RV
+MOVE: T12,RV
+MOVE: T13,RV
+MOVE: T0,T20
+MOVE: T1,T21
+MOVE: T2,T23
+MOVE: T3,T25
+MOVE: T4,T27
+MOVE: T5,T29
+MOVE: T13,RV
+MOVE: T12,RV
+MOVE: T11,RV
+MOVE: T10,RV
+MOVE: T9,RV
+MOVE: T8,RV
+MOVE: ARG1,T0
+MOVE: T0,T20
+MOVE: ARG2,T1
+MOVE: T1,T21
+MOVE: T6,T31
+MOVE: T2,T34
+MOVE: ARG1,T2
+MOVE: T2,T23
+MOVE: T3,T35
+MOVE: ARG1,T3
+MOVE: T3,T25
+MOVE: T7,T33
+MOVE: T4,T36
+MOVE: ARG1,T4
+MOVE: T4,T27
+MOVE: T2,T34
+MOVE: T5,T37
+MOVE: ARG1,T5
+MOVE: T5,T29
+MOVE: T3,T35
+MOVE: T6,T38
+MOVE: ARG1,T6
+MOVE: T6,T31
+MOVE: T4,T36
+MOVE: T7,T39
+MOVE: ARG1,T7
+MOVE: T7,T33
+MOVE: T5,T37
+MOVE: T8,RV
+MOVE: T6,T38
+MOVE: T9,RV
+MOVE: T7,T39
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {T0 ,T1 ,}
+
+ esto es: simplifyWorklist
+ {T22 ,T24 ,T26 ,T28 ,T30 ,T32 ,}
+
+ esto es: freezeWorklist
+ {T10 ,T11 ,T12 ,T13 ,T2 ,T20 ,T21 ,T23 ,T25 ,T27 ,T29 ,T3 ,T31 ,T33 ,T34 ,T35 ,T36 ,T37 ,T38 ,T39 ,T4 ,T5 ,T6 ,T7 ,T8 ,T9 ,}
+
+ esto es: adjList
+ {Nodo: FP -> 
+Nodo: ARG1 -> 
+Nodo: ARG2 -> 
+Nodo: T10 -> vecinos: T0vecinos: T1vecinos: T26
+Nodo: T11 -> vecinos: T0vecinos: T1vecinos: T28
+Nodo: T12 -> vecinos: T0vecinos: T1vecinos: T30
+Nodo: T13 -> vecinos: T32
+Nodo: T20 -> 
+Nodo: T21 -> vecinos: T0
+Nodo: T22 -> vecinos: T0vecinos: T1vecinos: T8
+Nodo: T23 -> vecinos: T0vecinos: T1
+Nodo: T24 -> vecinos: T0vecinos: T1vecinos: T9
+Nodo: T25 -> vecinos: T0vecinos: T1
+Nodo: T26 -> vecinos: T0vecinos: T1vecinos: T10
+Nodo: T27 -> vecinos: T0vecinos: T1
+Nodo: T28 -> vecinos: T0vecinos: T1vecinos: T11
+Nodo: T29 -> vecinos: T0vecinos: T1
+Nodo: T0 -> vecinos: ARG1vecinos: ARG2vecinos: ARG3vecinos: ARG4vecinos: ARG5vecinos: ARG6vecinos: FPvecinos: R10vecinos: R11vecinos: R12vecinos: R13vecinos: R14vecinos: R15vecinos: RAXvecinos: RBXvecinos: RDXvecinos: RVvecinos: SPvecinos: T1vecinos: T10vecinos: T11vecinos: T12vecinos: T2vecinos: T21vecinos: T22vecinos: T23vecinos: T24vecinos: T25vecinos: T26vecinos: T27vecinos: T28vecinos: T29vecinos: T3vecinos: T30vecinos: T31vecinos: T34vecinos: T35vecinos: T36vecinos: T37vecinos: T38vecinos: T4vecinos: T5vecinos: T6vecinos: T8vecinos: T9
+Nodo: T1 -> vecinos: ARG1vecinos: ARG2vecinos: ARG3vecinos: ARG4vecinos: ARG5vecinos: ARG6vecinos: FPvecinos: R10vecinos: R11vecinos: R12vecinos: R13vecinos: R14vecinos: R15vecinos: RAXvecinos: RBXvecinos: RDXvecinos: RVvecinos: SPvecinos: T0vecinos: T10vecinos: T11vecinos: T12vecinos: T2vecinos: T22vecinos: T23vecinos: T24vecinos: T25vecinos: T26vecinos: T27vecinos: T28vecinos: T29vecinos: T3vecinos: T30vecinos: T31vecinos: T34vecinos: T35vecinos: T36vecinos: T37vecinos: T38vecinos: T4vecinos: T5vecinos: T6vecinos: T8vecinos: T9
+Nodo: T30 -> vecinos: T0vecinos: T1vecinos: T12
+Nodo: T2 -> vecinos: T0vecinos: T1
+Nodo: T31 -> vecinos: T0vecinos: T1
+Nodo: T3 -> vecinos: T0vecinos: T1
+Nodo: T32 -> vecinos: T13
+Nodo: T4 -> vecinos: T0vecinos: T1
+Nodo: T33 -> 
+Nodo: T5 -> vecinos: T0vecinos: T1
+Nodo: T34 -> vecinos: T0vecinos: T1
+Nodo: T6 -> vecinos: T0vecinos: T1
+Nodo: T35 -> vecinos: T0vecinos: T1
+Nodo: T7 -> 
+Nodo: T36 -> vecinos: T0vecinos: T1
+Nodo: T8 -> vecinos: T0vecinos: T1vecinos: T22
+Nodo: T37 -> vecinos: T0vecinos: T1
+Nodo: T9 -> vecinos: T0vecinos: T1vecinos: T24
+Nodo: T38 -> vecinos: T0vecinos: T1
+Nodo: T39 -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+MOVE: T7,T39
+MOVE: T6,T38
+MOVE: T5,T37
+MOVE: T4,T36
+MOVE: T3,T35
+MOVE: T2,T34
+MOVE: ARG1,T7
+MOVE: T7,T33
+MOVE: T13,RV
+MOVE: ARG1,T0
+MOVE: ARG2,T1
+MOVE: ARG1,T6
+MOVE: T6,T31
+MOVE: T12,RV
+MOVE: ARG1,T0
+MOVE: ARG2,T1
+MOVE: ARG1,T5
+MOVE: T5,T29
+MOVE: T11,RV
+MOVE: ARG1,T0
+MOVE: ARG2,T1
+MOVE: ARG1,T4
+MOVE: T4,T27
+MOVE: T10,RV
+MOVE: ARG1,T0
+MOVE: ARG2,T1
+MOVE: ARG1,T3
+MOVE: T3,T25
+MOVE: T9,RV
+MOVE: ARG1,T0
+MOVE: ARG2,T1
+MOVE: ARG1,T2
+MOVE: T2,T23
+MOVE: T8,RV
+MOVE: ARG1,T0
+MOVE: ARG2,T1
+MOVE: T1,T21
+MOVE: T0,T20
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+addWorklist ARG1
+addWorklist T0
+addWorklist ARG2
+addWorklist T1
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+addWorklist ARG1
+addWorklist T0
+addWorklist ARG2
+addWorklist T1
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+addWorklist ARG1
+addWorklist T0
+addWorklist ARG2
+addWorklist T1
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+addWorklist ARG1
+addWorklist T0
+addWorklist ARG2
+addWorklist T1
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+addWorklist ARG1
+addWorklist T0
+addWorklist ARG2
+addWorklist T1
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+addWorklist ARG1
+addWorklist T0
+addWorklist ARG2
+addWorklist T1
+AssignColorsT1
+
+ esto es: lista adj
+ {ARG1 ,ARG2 ,ARG3 ,ARG4 ,ARG5 ,ARG6 ,FP ,R10 ,R11 ,R12 ,R13 ,R14 ,R15 ,RAX ,RBX ,RDX ,RV ,SP ,T0 ,T10 ,T11 ,T12 ,T2 ,T22 ,T23 ,T24 ,T25 ,T26 ,T27 ,T28 ,T29 ,T3 ,T30 ,T31 ,T34 ,T35 ,T36 ,T37 ,T38 ,T4 ,T5 ,T6 ,T8 ,T9 ,}
+getAlias de: ARG1
+getAlias de: ARG2
+getAlias de: ARG3
+getAlias de: ARG4
+getAlias de: ARG5
+getAlias de: ARG6
+getAlias de: FP
+getAlias de: R10
+getAlias de: R11
+getAlias de: R12
+getAlias de: R13
+getAlias de: R14
+getAlias de: R15
+getAlias de: RAX
+getAlias de: RBX
+getAlias de: RDX
+getAlias de: RV
+getAlias de: SP
+getAlias de: T0
+getAlias de: T10
+getAlias de: T11
+getAlias de: T12
+getAlias de: T2
+getAlias de: T22
+getAlias de: T23
+getAlias de: T24
+getAlias de: T25
+getAlias de: T26
+getAlias de: T27
+getAlias de: T28
+getAlias de: T29
+getAlias de: T3
+getAlias de: T30
+getAlias de: T31
+getAlias de: T34
+getAlias de: T35
+getAlias de: T36
+getAlias de: T37
+getAlias de: T38
+getAlias de: T4
+getAlias de: T5
+getAlias de: T6
+getAlias de: T8
+getAlias de: T9
+----- NO color: T1
+AssignColorsT0
+
+ esto es: lista adj
+ {ARG1 ,ARG2 ,ARG3 ,ARG4 ,ARG5 ,ARG6 ,FP ,R10 ,R11 ,R12 ,R13 ,R14 ,R15 ,RAX ,RBX ,RDX ,RV ,SP ,T1 ,T10 ,T11 ,T12 ,T2 ,T21 ,T22 ,T23 ,T24 ,T25 ,T26 ,T27 ,T28 ,T29 ,T3 ,T30 ,T31 ,T34 ,T35 ,T36 ,T37 ,T38 ,T4 ,T5 ,T6 ,T8 ,T9 ,}
+getAlias de: ARG1
+getAlias de: ARG2
+getAlias de: ARG3
+getAlias de: ARG4
+getAlias de: ARG5
+getAlias de: ARG6
+getAlias de: FP
+getAlias de: R10
+getAlias de: R11
+getAlias de: R12
+getAlias de: R13
+getAlias de: R14
+getAlias de: R15
+getAlias de: RAX
+getAlias de: RBX
+getAlias de: RDX
+getAlias de: RV
+getAlias de: SP
+getAlias de: T1
+getAlias de: T10
+getAlias de: T11
+getAlias de: T12
+getAlias de: T2
+getAlias de: T21
+getAlias de: T22
+getAlias de: T23
+getAlias de: T24
+getAlias de: T25
+getAlias de: T26
+getAlias de: T27
+getAlias de: T28
+getAlias de: T29
+getAlias de: T3
+getAlias de: T30
+getAlias de: T31
+getAlias de: T34
+getAlias de: T35
+getAlias de: T36
+getAlias de: T37
+getAlias de: T38
+getAlias de: T4
+getAlias de: T5
+getAlias de: T6
+getAlias de: T8
+getAlias de: T9
+----- NO color: T0
+AssignColorsT39
+
+ esto es: lista adj
+ {}
+inserto en color: T39
+AssignColorsT38
+
+ esto es: lista adj
+ {T0 ,T1 ,}
+getAlias de: T0
+getAlias de: T1
+inserto en color: T38
+AssignColorsT37
+
+ esto es: lista adj
+ {T0 ,T1 ,}
+getAlias de: T0
+getAlias de: T1
+inserto en color: T37
+AssignColorsT36
+
+ esto es: lista adj
+ {T0 ,T1 ,}
+getAlias de: T0
+getAlias de: T1
+inserto en color: T36
+AssignColorsT35
+
+ esto es: lista adj
+ {T0 ,T1 ,}
+getAlias de: T0
+getAlias de: T1
+inserto en color: T35
+AssignColorsT34
+
+ esto es: lista adj
+ {T0 ,T1 ,}
+getAlias de: T0
+getAlias de: T1
+inserto en color: T34
+AssignColorsT21
+
+ esto es: lista adj
+ {T0 ,}
+getAlias de: T0
+inserto en color: T21
+AssignColorsT20
+
+ esto es: lista adj
+ {}
+inserto en color: T20
+AssignColorsT32
+
+ esto es: lista adj
+ {T13 ,}
+getAlias de: T13
+inserto en color: T32
+AssignColorsT30
+
+ esto es: lista adj
+ {T0 ,T1 ,T12 ,}
+getAlias de: T0
+getAlias de: T1
+getAlias de: T12
+inserto en color: T30
+AssignColorsT28
+
+ esto es: lista adj
+ {T0 ,T1 ,T11 ,}
+getAlias de: T0
+getAlias de: T1
+getAlias de: T11
+inserto en color: T28
+AssignColorsT26
+
+ esto es: lista adj
+ {T0 ,T1 ,T10 ,}
+getAlias de: T0
+getAlias de: T1
+getAlias de: T10
+inserto en color: T26
+AssignColorsT24
+
+ esto es: lista adj
+ {T0 ,T1 ,T9 ,}
+getAlias de: T0
+getAlias de: T1
+getAlias de: T9
+inserto en color: T24
+AssignColorsT22
+
+ esto es: lista adj
+ {T0 ,T1 ,T8 ,}
+getAlias de: T0
+getAlias de: T1
+getAlias de: T8
+inserto en color: T22
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T5 es ARG1
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {T0 ,T1 ,}
+Rewrite 
+TempSpilleado: T0
+ActualArg: 1
+ActualLocal: 0
+RET: 24
+movq T20, T0 
+movq T20, T40 
+movq T40, -24(FP)
+movq T0, ARG1
+movq -24(FP), T41
+movq T0, ARG1
+movq -24(FP), T42
+movq T0, ARG1
+movq -24(FP), T43
+movq T0, ARG1
+movq -24(FP), T44
+movq T0, ARG1
+movq -24(FP), T45
+movq T0, ARG1
+movq -24(FP), T46
+TempSpilleado: T1
+ActualArg: 1
+ActualLocal: 1
+RET: 32
+movq T21, T1 
+movq T21, T47 
+movq T47, -32(FP)
+movq T1, ARG2
+movq -32(FP), T48
+movq T1, ARG2
+movq -32(FP), T49
+movq T1, ARG2
+movq -32(FP), T50
+movq T1, ARG2
+movq -32(FP), T51
+movq T1, ARG2
+movq -32(FP), T52
+movq T1, ARG2
+movq -32(FP), T53
+cantRewrites: 14
+L33: 
+movq ARG1, -8(FP)
+movq $.L0, T20
+movq T20, T40 
+movq T40, -24(FP)
+movq $.L1, T21
+movq T21, T47 
+movq T47, -32(FP)
+movq -32(FP), T48
+movq T48, ARG2
+movq -24(FP), T41
+movq T41, ARG1
+call _stringCompare
+movq RV, T8 
+movq $-0, T22 
+cmp T22, T8 
+jl L4 
+L5: 
+movq $.L3, T23
+movq T23, T2 
+L6: 
+movq T2, ARG1
+call print
+movq -32(FP), T49
+movq T49, ARG2
+movq -24(FP), T42
+movq T42, ARG1
+call _stringCompare
+movq RV, T9 
+movq $-0, T24 
+cmp T24, T9 
+jle L9 
+L10: 
+movq $.L8, T25
+movq T25, T3 
+L11: 
+movq T3, ARG1
+call print
+movq -32(FP), T50
+movq T50, ARG2
+movq -24(FP), T43
+movq T43, ARG1
+call _stringCompare
+movq RV, T10 
+movq $-0, T26 
+cmp T26, T10 
+jg L14 
+L15: 
+movq $.L13, T27
+movq T27, T4 
+L16: 
+movq T4, ARG1
+call print
+movq -32(FP), T51
+movq T51, ARG2
+movq -24(FP), T44
+movq T44, ARG1
+call _stringCompare
+movq RV, T11 
+movq $-0, T28 
+cmp T28, T11 
+jge L19 
+L20: 
+movq $.L18, T29
+movq T29, T5 
+L21: 
+movq T5, ARG1
+call print
+movq -32(FP), T52
+movq T52, ARG2
+movq -24(FP), T45
+movq T45, ARG1
+call _stringCompare
+movq RV, T12 
+movq $-0, T30 
+cmp T30, T12 
+je L24 
+L25: 
+movq $.L23, T31
+movq T31, T6 
+L26: 
+movq T6, ARG1
+call print
+movq -32(FP), T53
+movq T53, ARG2
+movq -24(FP), T46
+movq T46, ARG1
+call _stringCompare
+movq RV, T13 
+movq $-0, T32 
+cmp T32, T13 
+jne L29 
+L30: 
+movq $.L28, T33
+movq T33, T7 
+L31: 
+movq T7, ARG1
+call print
+movq $0, RV 
+jmp L32 
+L4: 
+movq $.L2, T34
+movq T34, T2 
+jmp L6 
+L9: 
+movq $.L7, T35
+movq T35, T3 
+jmp L11 
+L14: 
+movq $.L12, T36
+movq T36, T4 
+jmp L16 
+L19: 
+movq $.L17, T37
+movq T37, T5 
+jmp L21 
+L24: 
+movq $.L22, T38
+movq T38, T6 
+jmp L26 
+L29: 
+movq $.L27, T39
+movq T39, T7 
+jmp L31 
+L32: 
+movq FP FP
+movq SP SP
+poniendo noddes: FP, T20
+poniendo noddes: FP, T40
+poniendo noddes: FP, T21
+poniendo noddes: FP, T47
+poniendo noddes: FP, T48
+poniendo noddes: FP, ARG2
+poniendo noddes: ARG2, T41
+poniendo noddes: ARG2, ARG1
+poniendo noddes: ARG1, ARG3
+poniendo noddes: ARG1, ARG4
+poniendo noddes: ARG1, ARG5
+poniendo noddes: ARG1, ARG6
+poniendo noddes: ARG1, FP
+poniendo noddes: ARG1, R10
+poniendo noddes: ARG1, R11
+poniendo noddes: ARG1, R12
+poniendo noddes: ARG1, R13
+poniendo noddes: ARG1, R14
+poniendo noddes: ARG1, R15
+poniendo noddes: ARG1, RAX
+poniendo noddes: ARG1, RBX
+poniendo noddes: ARG1, RDX
+poniendo noddes: ARG1, RV
+poniendo noddes: ARG1, SP
+poniendo noddes: ARG2, ARG3
+poniendo noddes: ARG2, ARG4
+poniendo noddes: ARG2, ARG5
+poniendo noddes: ARG2, ARG6
+poniendo noddes: ARG2, R10
+poniendo noddes: ARG2, R11
+poniendo noddes: ARG2, R12
+poniendo noddes: ARG2, R13
+poniendo noddes: ARG2, R14
+poniendo noddes: ARG2, R15
+poniendo noddes: ARG2, RAX
+poniendo noddes: ARG2, RBX
+poniendo noddes: ARG2, RDX
+poniendo noddes: ARG2, RV
+poniendo noddes: ARG2, SP
+poniendo noddes: ARG3, ARG4
+poniendo noddes: ARG3, ARG5
+poniendo noddes: ARG3, ARG6
+poniendo noddes: ARG3, FP
+poniendo noddes: ARG3, R10
+poniendo noddes: ARG3, R11
+poniendo noddes: ARG3, R12
+poniendo noddes: ARG3, R13
+poniendo noddes: ARG3, R14
+poniendo noddes: ARG3, R15
+poniendo noddes: ARG3, RAX
+poniendo noddes: ARG3, RBX
+poniendo noddes: ARG3, RDX
+poniendo noddes: ARG3, RV
+poniendo noddes: ARG3, SP
+poniendo noddes: ARG4, ARG5
+poniendo noddes: ARG4, ARG6
+poniendo noddes: ARG4, FP
+poniendo noddes: ARG4, R10
+poniendo noddes: ARG4, R11
+poniendo noddes: ARG4, R12
+poniendo noddes: ARG4, R13
+poniendo noddes: ARG4, R14
+poniendo noddes: ARG4, R15
+poniendo noddes: ARG4, RAX
+poniendo noddes: ARG4, RBX
+poniendo noddes: ARG4, RDX
+poniendo noddes: ARG4, RV
+poniendo noddes: ARG4, SP
+poniendo noddes: ARG5, ARG6
+poniendo noddes: ARG5, FP
+poniendo noddes: ARG5, R10
+poniendo noddes: ARG5, R11
+poniendo noddes: ARG5, R12
+poniendo noddes: ARG5, R13
+poniendo noddes: ARG5, R14
+poniendo noddes: ARG5, R15
+poniendo noddes: ARG5, RAX
+poniendo noddes: ARG5, RBX
+poniendo noddes: ARG5, RDX
+poniendo noddes: ARG5, RV
+poniendo noddes: ARG5, SP
+poniendo noddes: ARG6, FP
+poniendo noddes: ARG6, R10
+poniendo noddes: ARG6, R11
+poniendo noddes: ARG6, R12
+poniendo noddes: ARG6, R13
+poniendo noddes: ARG6, R14
+poniendo noddes: ARG6, R15
+poniendo noddes: ARG6, RAX
+poniendo noddes: ARG6, RBX
+poniendo noddes: ARG6, RDX
+poniendo noddes: ARG6, RV
+poniendo noddes: ARG6, SP
+poniendo noddes: FP, R10
+poniendo noddes: FP, R11
+poniendo noddes: FP, R12
+poniendo noddes: FP, R13
+poniendo noddes: FP, R14
+poniendo noddes: FP, R15
+poniendo noddes: FP, RAX
+poniendo noddes: FP, RBX
+poniendo noddes: FP, RDX
+poniendo noddes: FP, RV
+poniendo noddes: FP, SP
+poniendo noddes: R10, R11
+poniendo noddes: R10, R12
+poniendo noddes: R10, R13
+poniendo noddes: R10, R14
+poniendo noddes: R10, R15
+poniendo noddes: R10, RAX
+poniendo noddes: R10, RBX
+poniendo noddes: R10, RDX
+poniendo noddes: R10, RV
+poniendo noddes: R10, SP
+poniendo noddes: R11, R12
+poniendo noddes: R11, R13
+poniendo noddes: R11, R14
+poniendo noddes: R11, R15
+poniendo noddes: R11, RAX
+poniendo noddes: R11, RBX
+poniendo noddes: R11, RDX
+poniendo noddes: R11, RV
+poniendo noddes: R11, SP
+poniendo noddes: R12, R13
+poniendo noddes: R12, R14
+poniendo noddes: R12, R15
+poniendo noddes: R12, RAX
+poniendo noddes: R12, RBX
+poniendo noddes: R12, RDX
+poniendo noddes: R12, RV
+poniendo noddes: R12, SP
+poniendo noddes: R13, R14
+poniendo noddes: R13, R15
+poniendo noddes: R13, RAX
+poniendo noddes: R13, RBX
+poniendo noddes: R13, RDX
+poniendo noddes: R13, RV
+poniendo noddes: R13, SP
+poniendo noddes: R14, R15
+poniendo noddes: R14, RAX
+poniendo noddes: R14, RBX
+poniendo noddes: R14, RDX
+poniendo noddes: R14, RV
+poniendo noddes: R14, SP
+poniendo noddes: R15, RAX
+poniendo noddes: R15, RBX
+poniendo noddes: R15, RDX
+poniendo noddes: R15, RV
+poniendo noddes: R15, SP
+poniendo noddes: RAX, RBX
+poniendo noddes: RAX, RDX
+poniendo noddes: RAX, RV
+poniendo noddes: RAX, SP
+poniendo noddes: RBX, RDX
+poniendo noddes: RBX, RV
+poniendo noddes: RBX, SP
+poniendo noddes: RDX, RV
+poniendo noddes: RDX, SP
+poniendo noddes: RV, SP
+poniendo noddes: T8, T22
+poniendo noddes: FP, T49
+poniendo noddes: ARG2, T42
+poniendo noddes: T9, T24
+poniendo noddes: FP, T50
+poniendo noddes: ARG2, T43
+poniendo noddes: T10, T26
+poniendo noddes: FP, T51
+poniendo noddes: ARG2, T44
+poniendo noddes: T11, T28
+poniendo noddes: FP, T52
+poniendo noddes: ARG2, T45
+poniendo noddes: T12, T30
+poniendo noddes: FP, T53
+poniendo noddes: ARG2, T46
+poniendo noddes: T13, T32
+
+ esto es: initial
+ {T10 ,T11 ,T12 ,T13 ,T2 ,T20 ,T21 ,T22 ,T23 ,T24 ,T25 ,T26 ,T27 ,T28 ,T29 ,T3 ,T30 ,T31 ,T32 ,T33 ,T34 ,T35 ,T36 ,T37 ,T38 ,T39 ,T4 ,T40 ,T41 ,T42 ,T43 ,T44 ,T45 ,T46 ,T47 ,T48 ,T49 ,T5 ,T50 ,T51 ,T52 ,T53 ,T6 ,T7 ,T8 ,T9 ,}
+nodeMoves: T22 -> Move que no esta realacionado con otro temporario
+nodeMoves: T24 -> Move que no esta realacionado con otro temporario
+nodeMoves: T26 -> Move que no esta realacionado con otro temporario
+nodeMoves: T28 -> Move que no esta realacionado con otro temporario
+nodeMoves: T30 -> Move que no esta realacionado con otro temporario
+nodeMoves: T32 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: T40 -> 
+Nodo: T41 -> 
+Nodo: FP -> Color: 14
+Nodo: T42 -> 
+Nodo: T43 -> 
+Nodo: T44 -> 
+Nodo: T45 -> 
+Nodo: RDX -> Color: 10
+Nodo: T46 -> 
+Nodo: T47 -> 
+Nodo: T48 -> 
+Nodo: T49 -> 
+Nodo: T50 -> 
+Nodo: T51 -> 
+Nodo: T52 -> 
+Nodo: T53 -> 
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> 
+Nodo: T11 -> 
+Nodo: T12 -> 
+Nodo: T13 -> 
+Nodo: RAX -> Color: 0
+Nodo: T20 -> 
+Nodo: T21 -> 
+Nodo: T22 -> 
+Nodo: T23 -> 
+Nodo: T24 -> 
+Nodo: T25 -> 
+Nodo: RBX -> Color: 1
+Nodo: T26 -> 
+Nodo: T27 -> 
+Nodo: T28 -> 
+Nodo: T29 -> 
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> 
+Nodo: T2 -> 
+Nodo: T31 -> 
+Nodo: T3 -> 
+Nodo: T32 -> 
+Nodo: T33 -> 
+Nodo: T4 -> 
+Nodo: T34 -> 
+Nodo: T5 -> 
+Nodo: T35 -> 
+Nodo: T6 -> 
+Nodo: T36 -> 
+Nodo: T7 -> 
+Nodo: T37 -> 
+Nodo: T8 -> 
+Nodo: R10 -> Color: 2
+Nodo: T38 -> 
+Nodo: T9 -> 
+Nodo: R11 -> Color: 3
+Nodo: T39 -> 
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: T40 -> Valor: 1
+Nodo: T41 -> Valor: 1
+Nodo: FP -> Valor: 1000
+Nodo: T42 -> Valor: 1
+Nodo: T43 -> Valor: 1
+Nodo: T44 -> Valor: 1
+Nodo: T45 -> Valor: 1
+Nodo: RDX -> Valor: 1000
+Nodo: T46 -> Valor: 1
+Nodo: T47 -> Valor: 1
+Nodo: T48 -> Valor: 1
+Nodo: T49 -> Valor: 1
+Nodo: T50 -> Valor: 1
+Nodo: T51 -> Valor: 1
+Nodo: T52 -> Valor: 1
+Nodo: T53 -> Valor: 1
+Nodo: ARG1 -> Valor: 1000
+Nodo: ARG2 -> Valor: 1000
+Nodo: ARG3 -> Valor: 1000
+Nodo: ARG4 -> Valor: 1000
+Nodo: ARG5 -> Valor: 1000
+Nodo: ARG6 -> Valor: 1000
+Nodo: T10 -> Valor: 1
+Nodo: T11 -> Valor: 1
+Nodo: T12 -> Valor: 1
+Nodo: T13 -> Valor: 1
+Nodo: RAX -> Valor: 1000
+Nodo: T20 -> Valor: 1
+Nodo: T21 -> Valor: 1
+Nodo: T22 -> Valor: 1
+Nodo: T23 -> Valor: 0
+Nodo: T24 -> Valor: 1
+Nodo: T25 -> Valor: 0
+Nodo: RBX -> Valor: 1000
+Nodo: T26 -> Valor: 1
+Nodo: T27 -> Valor: 0
+Nodo: T28 -> Valor: 1
+Nodo: T29 -> Valor: 0
+Nodo: RV -> Valor: 1000
+Nodo: T30 -> Valor: 1
+Nodo: T2 -> Valor: 0
+Nodo: T31 -> Valor: 0
+Nodo: T3 -> Valor: 0
+Nodo: T32 -> Valor: 1
+Nodo: T4 -> Valor: 0
+Nodo: T33 -> Valor: 0
+Nodo: T5 -> Valor: 0
+Nodo: T34 -> Valor: 0
+Nodo: T6 -> Valor: 0
+Nodo: T35 -> Valor: 0
+Nodo: T7 -> Valor: 0
+Nodo: T36 -> Valor: 0
+Nodo: T8 -> Valor: 1
+Nodo: T37 -> Valor: 0
+Nodo: R10 -> Valor: 1000
+Nodo: T9 -> Valor: 1
+Nodo: T38 -> Valor: 0
+Nodo: R11 -> Valor: 1000
+Nodo: T39 -> Valor: 0
+Nodo: R12 -> Valor: 1000
+Nodo: R13 -> Valor: 1000
+Nodo: R14 -> Valor: 1000
+Nodo: SP -> Valor: 1000
+Nodo: R15 -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: T40,T20
+MOVE: ARG1,T41
+MOVE: FP,FP
+MOVE: ARG1,T42
+MOVE: ARG1,T43
+MOVE: ARG1,T44
+MOVE: ARG1,T45
+MOVE: ARG1,T46
+MOVE: T47,T21
+MOVE: ARG2,T48
+MOVE: ARG2,T49
+MOVE: ARG2,T50
+MOVE: ARG2,T51
+MOVE: ARG2,T52
+MOVE: ARG2,T53
+MOVE: ARG1,T7
+MOVE: ARG1,T46
+MOVE: ARG1,T6
+MOVE: ARG1,T45
+MOVE: ARG1,T5
+MOVE: ARG1,T44
+MOVE: ARG1,T4
+MOVE: ARG1,T43
+MOVE: ARG1,T3
+MOVE: ARG1,T42
+MOVE: ARG1,T2
+MOVE: ARG1,T41
+MOVE: ARG2,T53
+MOVE: ARG2,T52
+MOVE: ARG2,T51
+MOVE: ARG2,T50
+MOVE: ARG2,T49
+MOVE: ARG2,T48
+MOVE: T10,RV
+MOVE: T11,RV
+MOVE: T12,RV
+MOVE: T13,RV
+MOVE: T40,T20
+MOVE: T47,T21
+MOVE: T2,T23
+MOVE: T3,T25
+MOVE: T4,T27
+MOVE: T5,T29
+MOVE: T13,RV
+MOVE: T12,RV
+MOVE: T11,RV
+MOVE: T10,RV
+MOVE: T9,RV
+MOVE: T8,RV
+MOVE: T6,T31
+MOVE: T2,T34
+MOVE: ARG1,T2
+MOVE: T2,T23
+MOVE: T3,T35
+MOVE: ARG1,T3
+MOVE: T3,T25
+MOVE: T7,T33
+MOVE: T4,T36
+MOVE: ARG1,T4
+MOVE: T4,T27
+MOVE: T2,T34
+MOVE: T5,T37
+MOVE: ARG1,T5
+MOVE: T5,T29
+MOVE: T3,T35
+MOVE: T6,T38
+MOVE: ARG1,T6
+MOVE: T6,T31
+MOVE: T4,T36
+MOVE: T7,T39
+MOVE: ARG1,T7
+MOVE: T7,T33
+MOVE: T5,T37
+MOVE: T8,RV
+MOVE: T6,T38
+MOVE: T9,RV
+MOVE: T7,T39
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {T22 ,T24 ,T26 ,T28 ,T30 ,T32 ,}
+
+ esto es: freezeWorklist
+ {T10 ,T11 ,T12 ,T13 ,T2 ,T20 ,T21 ,T23 ,T25 ,T27 ,T29 ,T3 ,T31 ,T33 ,T34 ,T35 ,T36 ,T37 ,T38 ,T39 ,T4 ,T40 ,T41 ,T42 ,T43 ,T44 ,T45 ,T46 ,T47 ,T48 ,T49 ,T5 ,T50 ,T51 ,T52 ,T53 ,T6 ,T7 ,T8 ,T9 ,}
+
+ esto es: adjList
+ {Nodo: T40 -> vecinos: FP
+Nodo: T41 -> vecinos: ARG2
+Nodo: FP -> 
+Nodo: T42 -> vecinos: ARG2
+Nodo: T43 -> vecinos: ARG2
+Nodo: T44 -> vecinos: ARG2
+Nodo: T45 -> vecinos: ARG2
+Nodo: T46 -> vecinos: ARG2
+Nodo: T47 -> vecinos: FP
+Nodo: T48 -> vecinos: FP
+Nodo: T49 -> vecinos: FP
+Nodo: T50 -> vecinos: FP
+Nodo: T51 -> vecinos: FP
+Nodo: T52 -> vecinos: FP
+Nodo: T53 -> vecinos: FP
+Nodo: ARG1 -> 
+Nodo: ARG2 -> 
+Nodo: T10 -> vecinos: T26
+Nodo: T11 -> vecinos: T28
+Nodo: T12 -> vecinos: T30
+Nodo: T13 -> vecinos: T32
+Nodo: T20 -> vecinos: FP
+Nodo: T21 -> vecinos: FP
+Nodo: T22 -> vecinos: T8
+Nodo: T23 -> 
+Nodo: T24 -> vecinos: T9
+Nodo: T25 -> 
+Nodo: T26 -> vecinos: T10
+Nodo: T27 -> 
+Nodo: T28 -> vecinos: T11
+Nodo: T29 -> 
+Nodo: T30 -> vecinos: T12
+Nodo: T2 -> 
+Nodo: T31 -> 
+Nodo: T3 -> 
+Nodo: T32 -> vecinos: T13
+Nodo: T4 -> 
+Nodo: T33 -> 
+Nodo: T5 -> 
+Nodo: T34 -> 
+Nodo: T6 -> 
+Nodo: T35 -> 
+Nodo: T7 -> 
+Nodo: T36 -> 
+Nodo: T8 -> vecinos: T22
+Nodo: T37 -> 
+Nodo: T9 -> vecinos: T24
+Nodo: T38 -> 
+Nodo: T39 -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+MOVE: T7,T39
+MOVE: T6,T38
+MOVE: T5,T37
+MOVE: T4,T36
+MOVE: T3,T35
+MOVE: T2,T34
+MOVE: ARG1,T7
+MOVE: T7,T33
+MOVE: T13,RV
+MOVE: ARG1,T46
+MOVE: ARG2,T53
+MOVE: ARG1,T6
+MOVE: T6,T31
+MOVE: T12,RV
+MOVE: ARG1,T45
+MOVE: ARG2,T52
+MOVE: ARG1,T5
+MOVE: T5,T29
+MOVE: T11,RV
+MOVE: ARG1,T44
+MOVE: ARG2,T51
+MOVE: ARG1,T4
+MOVE: T4,T27
+MOVE: T10,RV
+MOVE: ARG1,T43
+MOVE: ARG2,T50
+MOVE: ARG1,T3
+MOVE: T3,T25
+MOVE: T9,RV
+MOVE: ARG1,T42
+MOVE: ARG2,T49
+MOVE: ARG1,T2
+MOVE: T2,T23
+MOVE: T8,RV
+MOVE: ARG1,T41
+MOVE: ARG2,T48
+MOVE: T47,T21
+MOVE: T40,T20
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+app1
+addWorklist ARG1
+app1
+addWorklist ARG2
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+app1
+addWorklist ARG1
+app1
+addWorklist ARG2
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+app1
+addWorklist ARG1
+app1
+addWorklist ARG2
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+app1
+addWorklist ARG1
+app1
+addWorklist ARG2
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+app1
+addWorklist ARG1
+app1
+addWorklist ARG2
+app1
+addWorklist ARG1
+app1
+addWorklist ARG1
+app1
+addWorklist RV
+app1
+addWorklist ARG1
+app1
+addWorklist ARG2
+alias v entro
+alias v entro
+AssignColorsT39
+
+ esto es: lista adj
+ {}
+inserto en color: T39
+AssignColorsT38
+
+ esto es: lista adj
+ {}
+inserto en color: T38
+AssignColorsT37
+
+ esto es: lista adj
+ {}
+inserto en color: T37
+AssignColorsT36
+
+ esto es: lista adj
+ {}
+inserto en color: T36
+AssignColorsT35
+
+ esto es: lista adj
+ {}
+inserto en color: T35
+AssignColorsT34
+
+ esto es: lista adj
+ {}
+inserto en color: T34
+AssignColorsT47
+
+ esto es: lista adj
+ {FP ,}
+getAlias de: FP
+inserto en color: T47
+AssignColorsT21
+
+ esto es: lista adj
+ {FP ,}
+getAlias de: FP
+inserto en color: T21
+AssignColorsT40
+
+ esto es: lista adj
+ {FP ,}
+getAlias de: FP
+inserto en color: T40
+AssignColorsT20
+
+ esto es: lista adj
+ {FP ,}
+getAlias de: FP
+inserto en color: T20
+AssignColorsT32
+
+ esto es: lista adj
+ {T13 ,}
+getAlias de: T13
+inserto en color: T32
+AssignColorsT30
+
+ esto es: lista adj
+ {T12 ,}
+getAlias de: T12
+inserto en color: T30
+AssignColorsT28
+
+ esto es: lista adj
+ {T11 ,}
+getAlias de: T11
+inserto en color: T28
+AssignColorsT26
+
+ esto es: lista adj
+ {T10 ,}
+getAlias de: T10
+inserto en color: T26
+AssignColorsT24
+
+ esto es: lista adj
+ {T9 ,}
+getAlias de: T9
+inserto en color: T24
+AssignColorsT22
+
+ esto es: lista adj
+ {T8 ,}
+getAlias de: T8
+inserto en color: T22
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (true): 0
+3::f433
+14
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 125
+3::f433
+13
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 129
+3::f433
+12
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 133
+3::f433
+11
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 137
+3::f433
+10
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 141
+3::f433
+9
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 145
+3::f433
+8
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 149
+3::f433
+7
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 153
+3::f433
+6
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 157
+3::f433
+5
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 161
+3::f433
+4
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 165
+3::f433
+3
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 169
+3::f433
+2
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 173
+3::f433
+1
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 177
+3::f433
+0
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T10 es RV
+getAlias de T11 es RV
+getAlias de T12 es RV
+getAlias de T13 es RV
+getAlias de T2 es ARG1
+getAlias de T23 es ARG1
+getAlias de T25 es ARG1
+getAlias de T27 es ARG1
+getAlias de T29 es ARG1
+getAlias de T3 es ARG1
+getAlias de T31 es ARG1
+getAlias de T33 es ARG1
+getAlias de T4 es ARG1
+getAlias de T41 es ARG1
+getAlias de T42 es ARG1
+getAlias de T43 es ARG1
+getAlias de T44 es ARG1
+getAlias de T45 es ARG1
+getAlias de T46 es ARG1
+getAlias de T48 es ARG2
+getAlias de T49 es ARG2
+getAlias de T5 es ARG1
+getAlias de T50 es ARG2
+getAlias de T51 es ARG2
+getAlias de T52 es ARG2
+getAlias de T53 es ARG2
+getAlias de T6 es ARG1
+getAlias de T7 es ARG1
+getAlias de T8 es RV
+getAlias de T9 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: T40 -> Color: 0
+Nodo: T41 -> Color: 8
+Nodo: FP -> Color: 14
+Nodo: T42 -> Color: 8
+Nodo: T43 -> Color: 8
+Nodo: T44 -> Color: 8
+Nodo: T45 -> Color: 8
+Nodo: RDX -> Color: 10
+Nodo: T46 -> Color: 8
+Nodo: T47 -> Color: 0
+Nodo: T48 -> Color: 9
+Nodo: T49 -> Color: 9
+Nodo: T50 -> Color: 9
+Nodo: T51 -> Color: 9
+Nodo: T52 -> Color: 9
+Nodo: T53 -> Color: 9
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 0
+Nodo: T13 -> Color: 0
+Nodo: RAX -> Color: 0
+Nodo: T20 -> Color: 0
+Nodo: T21 -> Color: 0
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 8
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 8
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 1
+Nodo: T27 -> Color: 8
+Nodo: T28 -> Color: 1
+Nodo: T29 -> Color: 8
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T1 -> 
+Nodo: T30 -> Color: 1
+Nodo: T2 -> Color: 8
+Nodo: T31 -> Color: 8
+Nodo: T3 -> Color: 8
+Nodo: T32 -> Color: 1
+Nodo: T33 -> Color: 8
+Nodo: T4 -> Color: 8
+Nodo: T34 -> Color: 0
+Nodo: T5 -> Color: 8
+Nodo: T35 -> Color: 0
+Nodo: T6 -> Color: 8
+Nodo: T36 -> Color: 0
+Nodo: T7 -> Color: 8
+Nodo: T37 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T38 -> Color: 0
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: T39 -> Color: 0
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 181
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T39 -> %rax
+TEMP -> REG: T7 -> %rdi
+TEMP -> REG: T38 -> %rax
+TEMP -> REG: T6 -> %rdi
+TEMP -> REG: T37 -> %rax
+TEMP -> REG: T5 -> %rdi
+TEMP -> REG: T36 -> %rax
+TEMP -> REG: T4 -> %rdi
+TEMP -> REG: T35 -> %rax
+TEMP -> REG: T3 -> %rdi
+TEMP -> REG: T34 -> %rax
+TEMP -> REG: T2 -> %rdi
+TEMP -> REG: T7 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T33 -> %rdi
+TEMP -> REG: T7 -> %rdi
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T13 -> %rax
+TEMP -> REG: T46 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T53 -> %rsi
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: T6 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T31 -> %rdi
+TEMP -> REG: T6 -> %rdi
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T12 -> %rax
+TEMP -> REG: T45 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T52 -> %rsi
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: T5 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T29 -> %rdi
+TEMP -> REG: T5 -> %rdi
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T11 -> %rax
+TEMP -> REG: T44 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T51 -> %rsi
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: T4 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T27 -> %rdi
+TEMP -> REG: T4 -> %rdi
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T10 -> %rax
+TEMP -> REG: T43 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T50 -> %rsi
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: T3 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T25 -> %rdi
+TEMP -> REG: T3 -> %rdi
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T9 -> %rax
+TEMP -> REG: T42 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T49 -> %rsi
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: T2 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T23 -> %rdi
+TEMP -> REG: T2 -> %rdi
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T8 -> %rax
+TEMP -> REG: T41 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T48 -> %rsi
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: T21 -> %rax
+TEMP -> REG: T47 -> %rax
+TEMP -> REG: T20 -> %rax
+TEMP -> REG: T40 -> %rax
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+Limpiados MOV con igual src y dst
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T20 -> %rax
+TEMP -> REG: T40 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T21 -> %rax
+TEMP -> REG: T47 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T48 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T41 -> %rdi
+TEMP -> REG: T22 -> %rbx
+TEMP -> REG: T22 -> %rbx
+TEMP -> REG: T8 -> %rax
+TEMP -> REG: T23 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T49 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T42 -> %rdi
+TEMP -> REG: T24 -> %rbx
+TEMP -> REG: T24 -> %rbx
+TEMP -> REG: T9 -> %rax
+TEMP -> REG: T25 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T50 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T43 -> %rdi
+TEMP -> REG: T26 -> %rbx
+TEMP -> REG: T26 -> %rbx
+TEMP -> REG: T10 -> %rax
+TEMP -> REG: T27 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T51 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T44 -> %rdi
+TEMP -> REG: T28 -> %rbx
+TEMP -> REG: T28 -> %rbx
+TEMP -> REG: T11 -> %rax
+TEMP -> REG: T29 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T52 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T45 -> %rdi
+TEMP -> REG: T30 -> %rbx
+TEMP -> REG: T30 -> %rbx
+TEMP -> REG: T12 -> %rax
+TEMP -> REG: T31 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T53 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T46 -> %rdi
+TEMP -> REG: T32 -> %rbx
+TEMP -> REG: T32 -> %rbx
+TEMP -> REG: T13 -> %rax
+TEMP -> REG: T33 -> %rdi
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T34 -> %rax
+TEMP -> REG: T34 -> %rax
+TEMP -> REG: T2 -> %rdi
+TEMP -> REG: T35 -> %rax
+TEMP -> REG: T35 -> %rax
+TEMP -> REG: T3 -> %rdi
+TEMP -> REG: T36 -> %rax
+TEMP -> REG: T36 -> %rax
+TEMP -> REG: T4 -> %rdi
+TEMP -> REG: T37 -> %rax
+TEMP -> REG: T37 -> %rax
+TEMP -> REG: T5 -> %rdi
+TEMP -> REG: T38 -> %rax
+TEMP -> REG: T38 -> %rax
+TEMP -> REG: T6 -> %rdi
+TEMP -> REG: T39 -> %rax
+TEMP -> REG: T39 -> %rax
+TEMP -> REG: T7 -> %rdi
+.section  .rodata
+.L0:
+	.quad 4
+	.string "hola"
+	.text
+.section  .rodata
+.L1:
+	.quad 4
+	.string "chau"
+	.text
+.section  .rodata
+.L2:
+	.quad 2
+	.string "si"
+	.text
+.section  .rodata
+.L3:
+	.quad 2
+	.string "no"
+	.text
+.section  .rodata
+.L7:
+	.quad 2
+	.string "si"
+	.text
+.section  .rodata
+.L8:
+	.quad 2
+	.string "no"
+	.text
+.section  .rodata
+.L12:
+	.quad 2
+	.string "si"
+	.text
+.section  .rodata
+.L13:
+	.quad 2
+	.string "no"
+	.text
+.section  .rodata
+.L17:
+	.quad 2
+	.string "si"
+	.text
+.section  .rodata
+.L18:
+	.quad 2
+	.string "no"
+	.text
+.section  .rodata
+.L22:
+	.quad 2
+	.string "si"
+	.text
+.section  .rodata
+.L23:
+	.quad 2
+	.string "no"
+	.text
+.section  .rodata
+.L27:
+	.quad 2
+	.string "si"
+	.text
+.section  .rodata
+.L28:
+	.quad 2
+	.string "no"
+	.text
+.globl _tigermain
+.type _tigermain, @function
+_tigermain: 
+pushq %rbp
+movq %rsp, %rbp
+subq $152, %rsp
+jmp L33
+L33: 
+movq %rdi, -8(%rbp)
+movq $.L0, %rax
+movq %rax, -24(%rbp)
+movq $.L1, %rax
+movq %rax, -32(%rbp)
+movq -32(%rbp), %rsi
+movq -24(%rbp), %rdi
+call _stringCompare
+movq $-0, %rbx 
+cmp %rbx, %rax 
+jl L4 
+L5: 
+movq $.L3, %rdi
+L6: 
+call print
+movq -32(%rbp), %rsi
+movq -24(%rbp), %rdi
+call _stringCompare
+movq $-0, %rbx 
+cmp %rbx, %rax 
+jle L9 
+L10: 
+movq $.L8, %rdi
+L11: 
+call print
+movq -32(%rbp), %rsi
+movq -24(%rbp), %rdi
+call _stringCompare
+movq $-0, %rbx 
+cmp %rbx, %rax 
+jg L14 
+L15: 
+movq $.L13, %rdi
+L16: 
+call print
+movq -32(%rbp), %rsi
+movq -24(%rbp), %rdi
+call _stringCompare
+movq $-0, %rbx 
+cmp %rbx, %rax 
+jge L19 
+L20: 
+movq $.L18, %rdi
+L21: 
+call print
+movq -32(%rbp), %rsi
+movq -24(%rbp), %rdi
+call _stringCompare
+movq $-0, %rbx 
+cmp %rbx, %rax 
+je L24 
+L25: 
+movq $.L23, %rdi
+L26: 
+call print
+movq -32(%rbp), %rsi
+movq -24(%rbp), %rdi
+call _stringCompare
+movq $-0, %rbx 
+cmp %rbx, %rax 
+jne L29 
+L30: 
+movq $.L28, %rdi
+L31: 
+call print
+movq $0, %rax 
+jmp L32 
+L4: 
+movq $.L2, %rax
+movq %rax, %rdi 
+jmp L6 
+L9: 
+movq $.L7, %rax
+movq %rax, %rdi 
+jmp L11 
+L14: 
+movq $.L12, %rax
+movq %rax, %rdi 
+jmp L16 
+L19: 
+movq $.L17, %rax
+movq %rax, %rdi 
+jmp L21 
+L24: 
+movq $.L22, %rax
+movq %rax, %rdi 
+jmp L26 
+L29: 
+movq $.L27, %rax
+movq %rax, %rdi 
+jmp L31 
+L32: 
+leave
+ret
+.size _tigermain, .-_tigermain
+
+ bien!
+yes!!

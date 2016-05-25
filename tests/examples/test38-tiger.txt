@@ -1,0 +1,2 @@
+LABEL FOR _tigermain: _tigermain
+Fail: Repeticion de tipos

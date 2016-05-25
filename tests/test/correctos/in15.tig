@@ -49,7 +49,8 @@ in
 /*	printLista (take_n(drop_n(reverse(reverse(reverse(listTo(256)))),64),26)) */
 	l1 = listTo(256);
 	for i:=0 to 100
-		l1 = reverse(l1);
+		do
+			l1 = reverse(l1);
 	printLista (l1)
 /*		printLista (drop_n(reverse(listTo(128)),64)) */
 /*	printLista (take_n(listTo(128),4)) */

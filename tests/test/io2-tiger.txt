@@ -1,0 +1,18 @@
+LABEL FOR _tigermain: _tigermain
+ActualArg: 1
+ActualLocal: 0
+RET: 24
+LABEL FOR listaToString: L1
+LABEL FOR printLista: L2
+LABEL FOR wrap: L3
+LABEL FOR concatL: L4
+LABEL FOR reverse: L5
+LABEL FOR elimComments: L6
+ADDED L6
+ADDED L5
+ADDED L4
+ADDED L3
+ADDED L2
+ADDED L1
+Fail: Error -- línea 56: getstr: no existe
+

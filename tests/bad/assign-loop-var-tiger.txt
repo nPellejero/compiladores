@@ -1,0 +1,2 @@
+LABEL FOR _tigermain: _tigermain
+Fail: i no asignable

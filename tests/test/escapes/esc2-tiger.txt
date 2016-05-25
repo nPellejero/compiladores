@@ -1,0 +1,4 @@
+LABEL FOR _tigermain: _tigermain
+LABEL FOR f: L0
+Fail: no existe el tipo
+

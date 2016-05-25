@@ -1,0 +1,9 @@
+LABEL FOR _tigermain: _tigermain
+ActualArg: 1
+ActualLocal: 0
+RET: 24
+LABEL FOR readint: L1
+LABEL FOR isdigit: L2
+LABEL FOR skipto: L3
+Fail: Error -- línea 13: getstr: no existe
+

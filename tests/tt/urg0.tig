@@ -3,5 +3,5 @@ let
 	type v=array of p
 	var p := v[10] of nil
 	var q:=p[0].v
-in
+in print("HOLA") 
 end

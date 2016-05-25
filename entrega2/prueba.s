@@ -7,22 +7,46 @@
 var:
 	.quad	4
 	.text
+	.globl	func1
+	.type	func1, @function
+func1:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$16, %rsp
+	movl	%edi, -4(%rbp)
+	movl	-4(%rbp), %eax
+	movl	%eax, %edi
+	call	func2
+	movl	-4(%rbp), %eax
+	addl	$1, %eax
+	leave
+	ret
+	.size	func1, .-func1
+	.globl	func2
+	.type	func2, @function
+func2:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$16, %rsp
+	movl	%edi, -4(%rbp)
+	movl	-4(%rbp), %eax
+	movl	%eax, %edi
+	call	func1
+	movl	-4(%rbp), %eax
+	addl	$2, %eax
+	leave
+	ret
+	.size	func2, .-func2
 	.globl	main
 	.type	main, @function
 main:
-.LFB0:
-	.cfi_startproc
 	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
 	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	movq	var(%rip), %rax
+	movl	$3, %edi
+	call	func1
+	movl	$0, %eax
 	popq	%rbp
-	.cfi_def_cfa 7, 8
 	ret
-	.cfi_endproc
-.LFE0:
 	.size	main, .-main
 	.ident	"GCC: (Debian 4.9.2-10) 4.9.2"
 	.section	.note.GNU-stack,"",@progbits

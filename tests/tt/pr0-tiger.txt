@@ -1,0 +1,2855 @@
+LABEL FOR _tigermain: _tigermain
+LABEL FOR a: L0
+ActualArg: 1
+RET: 16
+ActualArg: 1
+ActualLocal: 0
+RET: 24
+LABEL FOR b: L1
+ActualArg: 1
+RET: 16
+ActualArg: 1
+ActualLocal: 0
+RET: 24
+LABEL FOR c: L2
+ActualArg: 1
+RET: 16
+ActualArg: 1
+ActualLocal: 0
+RET: 24
+LABEL FOR d: L3
+ADDED L3
+ADDED L2
+ADDED L1
+ADDED L0
+ADDED _tigermain
+Todos los frags:
+L3:
+LABEL L5
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ TEMP T1,
+ TEMP ARG2)
+MOVE(
+ TEMP RV,
+ BINOP(PLUS,
+  BINOP(PLUS,
+   BINOP(PLUS,
+    BINOP(PLUS,
+     BINOP(PLUS,
+      BINOP(PLUS,
+       MEM(
+        BINOP(PLUS,
+         MEM(
+          BINOP(PLUS,
+           MEM(
+            BINOP(PLUS,
+             MEM(
+              BINOP(PLUS,
+               TEMP FP,
+               CONST ~8)),
+             CONST ~8)),
+           CONST ~8)),
+         CONST ~16)),
+       MEM(
+        BINOP(PLUS,
+         MEM(
+          BINOP(PLUS,
+           MEM(
+            BINOP(PLUS,
+             TEMP FP,
+             CONST ~8)),
+           CONST ~8)),
+         CONST ~16))),
+      MEM(
+       BINOP(PLUS,
+        MEM(
+         BINOP(PLUS,
+          TEMP FP,
+          CONST ~8)),
+        CONST ~16))),
+     TEMP T1),
+    MEM(
+     BINOP(PLUS,
+      MEM(
+       BINOP(PLUS,
+        MEM(
+         BINOP(PLUS,
+          MEM(
+           BINOP(PLUS,
+            TEMP FP,
+            CONST ~8)),
+          CONST ~8)),
+        CONST ~8)),
+      CONST ~24))),
+   MEM(
+    BINOP(PLUS,
+     MEM(
+      BINOP(PLUS,
+       MEM(
+        BINOP(PLUS,
+         TEMP FP,
+         CONST ~8)),
+       CONST ~8)),
+     CONST ~24))),
+  MEM(
+   BINOP(PLUS,
+    MEM(
+     BINOP(PLUS,
+      TEMP FP,
+      CONST ~8)),
+    CONST ~24))))
+JUMP( NAME L4)
+LABEL L4
+L2:
+LABEL L7
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~16)),
+ TEMP ARG2)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~24)),
+ CONST 3)
+MOVE(
+ TEMP RV,
+ CALL(
+  NAME L3,
+   TEMP FP,
+   CONST 12))
+JUMP( NAME L6)
+LABEL L6
+L1:
+LABEL L9
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~16)),
+ TEMP ARG2)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~24)),
+ CONST 2)
+MOVE(
+ TEMP RV,
+ CALL(
+  NAME L2,
+   TEMP FP,
+   CONST 11))
+JUMP( NAME L8)
+LABEL L8
+L0:
+LABEL L11
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~16)),
+ TEMP ARG2)
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~24)),
+ CONST 1)
+MOVE(
+ TEMP RV,
+ CALL(
+  NAME L1,
+   TEMP FP,
+   CONST 10))
+JUMP( NAME L10)
+LABEL L10
+_tigermain:
+LABEL L13
+MOVE(
+ MEM(
+  BINOP(PLUS,
+   TEMP FP,
+   CONST ~8)),
+ TEMP ARG1)
+MOVE(
+ TEMP T0,
+ CONST 0)
+MOVE(
+ TEMP T0,
+ CALL(
+  NAME L0,
+   TEMP FP,
+   CONST 9))
+MOVE(
+ TEMP RV,
+ CONST 0)
+JUMP( NAME L12)
+LABEL L12
+----------------
+ADDING (L3,)
+ADDING (L2,)
+ADDING (L1,)
+ADDING (L0,)
+ADDING (_tigermain,)
+Leng frame: 10
+L3: 
+L5: 
+movq ARG1, -8(FP)
+movq ARG2, T1
+movq -8(FP), T11
+movq -8(T11), T10
+movq -8(T10), T9
+movq -16(T9), T8
+movq T8, T7
+movq -8(FP), T14
+movq -8(T14), T13
+movq -16(T13), T12
+addq T12, T7
+movq T7, T6
+movq -8(FP), T16
+movq -16(T16), T15
+addq T15, T6
+movq T6, T5
+addq T1, T5
+movq T5, T4
+movq -8(FP), T20
+movq -8(T20), T19
+movq -8(T19), T18
+movq -24(T18), T17
+addq T17, T4
+movq T4, T3
+movq -8(FP), T23
+movq -8(T23), T22
+movq -24(T22), T21
+addq T21, T3
+movq T3, T2
+movq -8(FP), T25
+movq -24(T25), T24
+addq T24, T2
+movq T2, RV 
+jmp L4 
+L4: 
+L2: 
+L7: 
+movq ARG1, -8(FP)
+movq ARG2, -16(FP)
+movq $3, T26 
+movq T26, -24(FP)
+movq $12, T27 
+movq T27, ARG2
+movq FP, ARG1
+call L3
+movq RV, RV 
+jmp L6 
+L6: 
+L1: 
+L9: 
+movq ARG1, -8(FP)
+movq ARG2, -16(FP)
+movq $2, T28 
+movq T28, -24(FP)
+movq $11, T29 
+movq T29, ARG2
+movq FP, ARG1
+call L2
+movq RV, RV 
+jmp L8 
+L8: 
+L0: 
+L11: 
+movq ARG1, -8(FP)
+movq ARG2, -16(FP)
+movq $1, T30 
+movq T30, -24(FP)
+movq $10, T31 
+movq T31, ARG2
+movq FP, ARG1
+call L1
+movq RV, RV 
+jmp L10 
+L10: 
+_tigermain: 
+L13: 
+movq ARG1, -8(FP)
+movq $0, T0 
+movq $9, T32 
+movq T32, ARG2
+movq FP, ARG1
+call L0
+movq RV, T0 
+movq $0, RV 
+jmp L12 
+L12: 
+14::f433
+9
+poniendo noddes: FP, T0
+poniendo noddes: FP, T32
+poniendo noddes: FP, ARG2
+poniendo noddes: ARG2, ARG1
+poniendo noddes: ARG1, ARG3
+poniendo noddes: ARG1, ARG4
+poniendo noddes: ARG1, ARG5
+poniendo noddes: ARG1, ARG6
+poniendo noddes: ARG1, FP
+poniendo noddes: ARG1, R10
+poniendo noddes: ARG1, R11
+poniendo noddes: ARG1, R12
+poniendo noddes: ARG1, R13
+poniendo noddes: ARG1, R14
+poniendo noddes: ARG1, R15
+poniendo noddes: ARG1, RAX
+poniendo noddes: ARG1, RBX
+poniendo noddes: ARG1, RDX
+poniendo noddes: ARG1, RV
+poniendo noddes: ARG1, SP
+poniendo noddes: ARG2, ARG3
+poniendo noddes: ARG2, ARG4
+poniendo noddes: ARG2, ARG5
+poniendo noddes: ARG2, ARG6
+poniendo noddes: ARG2, R10
+poniendo noddes: ARG2, R11
+poniendo noddes: ARG2, R12
+poniendo noddes: ARG2, R13
+poniendo noddes: ARG2, R14
+poniendo noddes: ARG2, R15
+poniendo noddes: ARG2, RAX
+poniendo noddes: ARG2, RBX
+poniendo noddes: ARG2, RDX
+poniendo noddes: ARG2, RV
+poniendo noddes: ARG2, SP
+poniendo noddes: ARG3, ARG4
+poniendo noddes: ARG3, ARG5
+poniendo noddes: ARG3, ARG6
+poniendo noddes: ARG3, FP
+poniendo noddes: ARG3, R10
+poniendo noddes: ARG3, R11
+poniendo noddes: ARG3, R12
+poniendo noddes: ARG3, R13
+poniendo noddes: ARG3, R14
+poniendo noddes: ARG3, R15
+poniendo noddes: ARG3, RAX
+poniendo noddes: ARG3, RBX
+poniendo noddes: ARG3, RDX
+poniendo noddes: ARG3, RV
+poniendo noddes: ARG3, SP
+poniendo noddes: ARG4, ARG5
+poniendo noddes: ARG4, ARG6
+poniendo noddes: ARG4, FP
+poniendo noddes: ARG4, R10
+poniendo noddes: ARG4, R11
+poniendo noddes: ARG4, R12
+poniendo noddes: ARG4, R13
+poniendo noddes: ARG4, R14
+poniendo noddes: ARG4, R15
+poniendo noddes: ARG4, RAX
+poniendo noddes: ARG4, RBX
+poniendo noddes: ARG4, RDX
+poniendo noddes: ARG4, RV
+poniendo noddes: ARG4, SP
+poniendo noddes: ARG5, ARG6
+poniendo noddes: ARG5, FP
+poniendo noddes: ARG5, R10
+poniendo noddes: ARG5, R11
+poniendo noddes: ARG5, R12
+poniendo noddes: ARG5, R13
+poniendo noddes: ARG5, R14
+poniendo noddes: ARG5, R15
+poniendo noddes: ARG5, RAX
+poniendo noddes: ARG5, RBX
+poniendo noddes: ARG5, RDX
+poniendo noddes: ARG5, RV
+poniendo noddes: ARG5, SP
+poniendo noddes: ARG6, FP
+poniendo noddes: ARG6, R10
+poniendo noddes: ARG6, R11
+poniendo noddes: ARG6, R12
+poniendo noddes: ARG6, R13
+poniendo noddes: ARG6, R14
+poniendo noddes: ARG6, R15
+poniendo noddes: ARG6, RAX
+poniendo noddes: ARG6, RBX
+poniendo noddes: ARG6, RDX
+poniendo noddes: ARG6, RV
+poniendo noddes: ARG6, SP
+poniendo noddes: FP, R10
+poniendo noddes: FP, R11
+poniendo noddes: FP, R12
+poniendo noddes: FP, R13
+poniendo noddes: FP, R14
+poniendo noddes: FP, R15
+poniendo noddes: FP, RAX
+poniendo noddes: FP, RBX
+poniendo noddes: FP, RDX
+poniendo noddes: FP, RV
+poniendo noddes: FP, SP
+poniendo noddes: R10, R11
+poniendo noddes: R10, R12
+poniendo noddes: R10, R13
+poniendo noddes: R10, R14
+poniendo noddes: R10, R15
+poniendo noddes: R10, RAX
+poniendo noddes: R10, RBX
+poniendo noddes: R10, RDX
+poniendo noddes: R10, RV
+poniendo noddes: R10, SP
+poniendo noddes: R11, R12
+poniendo noddes: R11, R13
+poniendo noddes: R11, R14
+poniendo noddes: R11, R15
+poniendo noddes: R11, RAX
+poniendo noddes: R11, RBX
+poniendo noddes: R11, RDX
+poniendo noddes: R11, RV
+poniendo noddes: R11, SP
+poniendo noddes: R12, R13
+poniendo noddes: R12, R14
+poniendo noddes: R12, R15
+poniendo noddes: R12, RAX
+poniendo noddes: R12, RBX
+poniendo noddes: R12, RDX
+poniendo noddes: R12, RV
+poniendo noddes: R12, SP
+poniendo noddes: R13, R14
+poniendo noddes: R13, R15
+poniendo noddes: R13, RAX
+poniendo noddes: R13, RBX
+poniendo noddes: R13, RDX
+poniendo noddes: R13, RV
+poniendo noddes: R13, SP
+poniendo noddes: R14, R15
+poniendo noddes: R14, RAX
+poniendo noddes: R14, RBX
+poniendo noddes: R14, RDX
+poniendo noddes: R14, RV
+poniendo noddes: R14, SP
+poniendo noddes: R15, RAX
+poniendo noddes: R15, RBX
+poniendo noddes: R15, RDX
+poniendo noddes: R15, RV
+poniendo noddes: R15, SP
+poniendo noddes: RAX, RBX
+poniendo noddes: RAX, RDX
+poniendo noddes: RAX, RV
+poniendo noddes: RAX, SP
+poniendo noddes: RBX, RDX
+poniendo noddes: RBX, RV
+poniendo noddes: RBX, SP
+poniendo noddes: RDX, RV
+poniendo noddes: RDX, SP
+poniendo noddes: RV, SP
+poniendo noddes: SP, T0
+
+ esto es: initial
+ {T0 ,T32 ,}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> 
+Nodo: T32 -> 
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: RDX -> Valor: 1000
+Nodo: ARG1 -> Valor: 1000
+Nodo: ARG2 -> Valor: 1000
+Nodo: ARG3 -> Valor: 1000
+Nodo: ARG4 -> Valor: 1000
+Nodo: ARG5 -> Valor: 1000
+Nodo: ARG6 -> Valor: 1000
+Nodo: RAX -> Valor: 1000
+Nodo: RBX -> Valor: 1000
+Nodo: T0 -> Valor: 2
+Nodo: RV -> Valor: 1000
+Nodo: T32 -> Valor: 1
+Nodo: R10 -> Valor: 1000
+Nodo: R11 -> Valor: 1000
+Nodo: R12 -> Valor: 1000
+Nodo: R13 -> Valor: 1000
+Nodo: R14 -> Valor: 1000
+Nodo: SP -> Valor: 1000
+Nodo: R15 -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: ARG1,FP
+MOVE: ARG1,FP
+MOVE: ARG2,T32
+MOVE: T0,RV
+MOVE: T0,RV
+MOVE: ARG2,T32
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {T0 ,T32 ,}
+
+ esto es: adjList
+ {Nodo: FP -> 
+Nodo: ARG1 -> 
+Nodo: ARG2 -> 
+Nodo: T0 -> vecinos: FPvecinos: SP
+Nodo: T32 -> vecinos: FP
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+MOVE: T0,RV
+MOVE: ARG1,FP
+MOVE: ARG2,T32
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+app1
+addWorklist RV
+addWorklist FP
+addWorklist ARG1
+app1
+addWorklist ARG2
+getAlias de T0 es RV
+getAlias de T32 es ARG2
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (true): 0
+3::f433
+8
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T0 es RV
+getAlias de T32 es ARG2
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 17
+15::f433
+7
+poniendo noddes: ARG2, FP
+poniendo noddes: FP, T30
+poniendo noddes: FP, T31
+poniendo noddes: ARG2, ARG1
+poniendo noddes: ARG1, ARG3
+poniendo noddes: ARG1, ARG4
+poniendo noddes: ARG1, ARG5
+poniendo noddes: ARG1, ARG6
+poniendo noddes: ARG1, FP
+poniendo noddes: ARG1, R10
+poniendo noddes: ARG1, R11
+poniendo noddes: ARG1, R12
+poniendo noddes: ARG1, R13
+poniendo noddes: ARG1, R14
+poniendo noddes: ARG1, R15
+poniendo noddes: ARG1, RAX
+poniendo noddes: ARG1, RBX
+poniendo noddes: ARG1, RDX
+poniendo noddes: ARG1, RV
+poniendo noddes: ARG1, SP
+poniendo noddes: ARG2, ARG3
+poniendo noddes: ARG2, ARG4
+poniendo noddes: ARG2, ARG5
+poniendo noddes: ARG2, ARG6
+poniendo noddes: ARG2, R10
+poniendo noddes: ARG2, R11
+poniendo noddes: ARG2, R12
+poniendo noddes: ARG2, R13
+poniendo noddes: ARG2, R14
+poniendo noddes: ARG2, R15
+poniendo noddes: ARG2, RAX
+poniendo noddes: ARG2, RBX
+poniendo noddes: ARG2, RDX
+poniendo noddes: ARG2, RV
+poniendo noddes: ARG2, SP
+poniendo noddes: ARG3, ARG4
+poniendo noddes: ARG3, ARG5
+poniendo noddes: ARG3, ARG6
+poniendo noddes: ARG3, FP
+poniendo noddes: ARG3, R10
+poniendo noddes: ARG3, R11
+poniendo noddes: ARG3, R12
+poniendo noddes: ARG3, R13
+poniendo noddes: ARG3, R14
+poniendo noddes: ARG3, R15
+poniendo noddes: ARG3, RAX
+poniendo noddes: ARG3, RBX
+poniendo noddes: ARG3, RDX
+poniendo noddes: ARG3, RV
+poniendo noddes: ARG3, SP
+poniendo noddes: ARG4, ARG5
+poniendo noddes: ARG4, ARG6
+poniendo noddes: ARG4, FP
+poniendo noddes: ARG4, R10
+poniendo noddes: ARG4, R11
+poniendo noddes: ARG4, R12
+poniendo noddes: ARG4, R13
+poniendo noddes: ARG4, R14
+poniendo noddes: ARG4, R15
+poniendo noddes: ARG4, RAX
+poniendo noddes: ARG4, RBX
+poniendo noddes: ARG4, RDX
+poniendo noddes: ARG4, RV
+poniendo noddes: ARG4, SP
+poniendo noddes: ARG5, ARG6
+poniendo noddes: ARG5, FP
+poniendo noddes: ARG5, R10
+poniendo noddes: ARG5, R11
+poniendo noddes: ARG5, R12
+poniendo noddes: ARG5, R13
+poniendo noddes: ARG5, R14
+poniendo noddes: ARG5, R15
+poniendo noddes: ARG5, RAX
+poniendo noddes: ARG5, RBX
+poniendo noddes: ARG5, RDX
+poniendo noddes: ARG5, RV
+poniendo noddes: ARG5, SP
+poniendo noddes: ARG6, FP
+poniendo noddes: ARG6, R10
+poniendo noddes: ARG6, R11
+poniendo noddes: ARG6, R12
+poniendo noddes: ARG6, R13
+poniendo noddes: ARG6, R14
+poniendo noddes: ARG6, R15
+poniendo noddes: ARG6, RAX
+poniendo noddes: ARG6, RBX
+poniendo noddes: ARG6, RDX
+poniendo noddes: ARG6, RV
+poniendo noddes: ARG6, SP
+poniendo noddes: FP, R10
+poniendo noddes: FP, R11
+poniendo noddes: FP, R12
+poniendo noddes: FP, R13
+poniendo noddes: FP, R14
+poniendo noddes: FP, R15
+poniendo noddes: FP, RAX
+poniendo noddes: FP, RBX
+poniendo noddes: FP, RDX
+poniendo noddes: FP, RV
+poniendo noddes: FP, SP
+poniendo noddes: R10, R11
+poniendo noddes: R10, R12
+poniendo noddes: R10, R13
+poniendo noddes: R10, R14
+poniendo noddes: R10, R15
+poniendo noddes: R10, RAX
+poniendo noddes: R10, RBX
+poniendo noddes: R10, RDX
+poniendo noddes: R10, RV
+poniendo noddes: R10, SP
+poniendo noddes: R11, R12
+poniendo noddes: R11, R13
+poniendo noddes: R11, R14
+poniendo noddes: R11, R15
+poniendo noddes: R11, RAX
+poniendo noddes: R11, RBX
+poniendo noddes: R11, RDX
+poniendo noddes: R11, RV
+poniendo noddes: R11, SP
+poniendo noddes: R12, R13
+poniendo noddes: R12, R14
+poniendo noddes: R12, R15
+poniendo noddes: R12, RAX
+poniendo noddes: R12, RBX
+poniendo noddes: R12, RDX
+poniendo noddes: R12, RV
+poniendo noddes: R12, SP
+poniendo noddes: R13, R14
+poniendo noddes: R13, R15
+poniendo noddes: R13, RAX
+poniendo noddes: R13, RBX
+poniendo noddes: R13, RDX
+poniendo noddes: R13, RV
+poniendo noddes: R13, SP
+poniendo noddes: R14, R15
+poniendo noddes: R14, RAX
+poniendo noddes: R14, RBX
+poniendo noddes: R14, RDX
+poniendo noddes: R14, RV
+poniendo noddes: R14, SP
+poniendo noddes: R15, RAX
+poniendo noddes: R15, RBX
+poniendo noddes: R15, RDX
+poniendo noddes: R15, RV
+poniendo noddes: R15, SP
+poniendo noddes: RAX, RBX
+poniendo noddes: RAX, RDX
+poniendo noddes: RAX, RV
+poniendo noddes: RAX, SP
+poniendo noddes: RBX, RDX
+poniendo noddes: RBX, RV
+poniendo noddes: RBX, SP
+poniendo noddes: RDX, RV
+poniendo noddes: RDX, SP
+poniendo noddes: RV, SP
+
+ esto es: initial
+ {T30 ,T31 ,}
+nodeMoves: T30 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> 
+Nodo: T31 -> 
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: RDX -> Valor: 1000
+Nodo: ARG1 -> Valor: 1000
+Nodo: ARG2 -> Valor: 1000
+Nodo: ARG3 -> Valor: 1000
+Nodo: ARG4 -> Valor: 1000
+Nodo: ARG5 -> Valor: 1000
+Nodo: ARG6 -> Valor: 1000
+Nodo: RAX -> Valor: 1000
+Nodo: RBX -> Valor: 1000
+Nodo: RV -> Valor: 1000
+Nodo: T30 -> Valor: 1
+Nodo: T31 -> Valor: 1
+Nodo: R10 -> Valor: 1000
+Nodo: R11 -> Valor: 1000
+Nodo: R12 -> Valor: 1000
+Nodo: R13 -> Valor: 1000
+Nodo: R14 -> Valor: 1000
+Nodo: SP -> Valor: 1000
+Nodo: R15 -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: ARG1,FP
+MOVE: ARG1,FP
+MOVE: ARG2,T31
+MOVE: RV,RV
+MOVE: ARG2,T31
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {T30 ,}
+
+ esto es: freezeWorklist
+ {T31 ,}
+
+ esto es: adjList
+ {Nodo: ARG1 -> 
+Nodo: T30 -> vecinos: FP
+Nodo: T31 -> vecinos: FP
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+MOVE: RV,RV
+MOVE: ARG1,FP
+MOVE: ARG2,T31
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+addWorklist RV
+addWorklist FP
+addWorklist ARG1
+app1
+addWorklist ARG2
+AssignColorsT30
+
+ esto es: lista adj
+ {FP ,}
+getAlias de: FP
+inserto en color: T30
+getAlias de T0 es RV
+getAlias de T31 es ARG2
+getAlias de T32 es ARG2
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 21
+3::f433
+6
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T0 es RV
+getAlias de T31 es ARG2
+getAlias de T32 es ARG2
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 39
+15::f433
+5
+poniendo noddes: ARG2, FP
+poniendo noddes: FP, T28
+poniendo noddes: FP, T29
+poniendo noddes: ARG2, ARG1
+poniendo noddes: ARG1, ARG3
+poniendo noddes: ARG1, ARG4
+poniendo noddes: ARG1, ARG5
+poniendo noddes: ARG1, ARG6
+poniendo noddes: ARG1, FP
+poniendo noddes: ARG1, R10
+poniendo noddes: ARG1, R11
+poniendo noddes: ARG1, R12
+poniendo noddes: ARG1, R13
+poniendo noddes: ARG1, R14
+poniendo noddes: ARG1, R15
+poniendo noddes: ARG1, RAX
+poniendo noddes: ARG1, RBX
+poniendo noddes: ARG1, RDX
+poniendo noddes: ARG1, RV
+poniendo noddes: ARG1, SP
+poniendo noddes: ARG2, ARG3
+poniendo noddes: ARG2, ARG4
+poniendo noddes: ARG2, ARG5
+poniendo noddes: ARG2, ARG6
+poniendo noddes: ARG2, R10
+poniendo noddes: ARG2, R11
+poniendo noddes: ARG2, R12
+poniendo noddes: ARG2, R13
+poniendo noddes: ARG2, R14
+poniendo noddes: ARG2, R15
+poniendo noddes: ARG2, RAX
+poniendo noddes: ARG2, RBX
+poniendo noddes: ARG2, RDX
+poniendo noddes: ARG2, RV
+poniendo noddes: ARG2, SP
+poniendo noddes: ARG3, ARG4
+poniendo noddes: ARG3, ARG5
+poniendo noddes: ARG3, ARG6
+poniendo noddes: ARG3, FP
+poniendo noddes: ARG3, R10
+poniendo noddes: ARG3, R11
+poniendo noddes: ARG3, R12
+poniendo noddes: ARG3, R13
+poniendo noddes: ARG3, R14
+poniendo noddes: ARG3, R15
+poniendo noddes: ARG3, RAX
+poniendo noddes: ARG3, RBX
+poniendo noddes: ARG3, RDX
+poniendo noddes: ARG3, RV
+poniendo noddes: ARG3, SP
+poniendo noddes: ARG4, ARG5
+poniendo noddes: ARG4, ARG6
+poniendo noddes: ARG4, FP
+poniendo noddes: ARG4, R10
+poniendo noddes: ARG4, R11
+poniendo noddes: ARG4, R12
+poniendo noddes: ARG4, R13
+poniendo noddes: ARG4, R14
+poniendo noddes: ARG4, R15
+poniendo noddes: ARG4, RAX
+poniendo noddes: ARG4, RBX
+poniendo noddes: ARG4, RDX
+poniendo noddes: ARG4, RV
+poniendo noddes: ARG4, SP
+poniendo noddes: ARG5, ARG6
+poniendo noddes: ARG5, FP
+poniendo noddes: ARG5, R10
+poniendo noddes: ARG5, R11
+poniendo noddes: ARG5, R12
+poniendo noddes: ARG5, R13
+poniendo noddes: ARG5, R14
+poniendo noddes: ARG5, R15
+poniendo noddes: ARG5, RAX
+poniendo noddes: ARG5, RBX
+poniendo noddes: ARG5, RDX
+poniendo noddes: ARG5, RV
+poniendo noddes: ARG5, SP
+poniendo noddes: ARG6, FP
+poniendo noddes: ARG6, R10
+poniendo noddes: ARG6, R11
+poniendo noddes: ARG6, R12
+poniendo noddes: ARG6, R13
+poniendo noddes: ARG6, R14
+poniendo noddes: ARG6, R15
+poniendo noddes: ARG6, RAX
+poniendo noddes: ARG6, RBX
+poniendo noddes: ARG6, RDX
+poniendo noddes: ARG6, RV
+poniendo noddes: ARG6, SP
+poniendo noddes: FP, R10
+poniendo noddes: FP, R11
+poniendo noddes: FP, R12
+poniendo noddes: FP, R13
+poniendo noddes: FP, R14
+poniendo noddes: FP, R15
+poniendo noddes: FP, RAX
+poniendo noddes: FP, RBX
+poniendo noddes: FP, RDX
+poniendo noddes: FP, RV
+poniendo noddes: FP, SP
+poniendo noddes: R10, R11
+poniendo noddes: R10, R12
+poniendo noddes: R10, R13
+poniendo noddes: R10, R14
+poniendo noddes: R10, R15
+poniendo noddes: R10, RAX
+poniendo noddes: R10, RBX
+poniendo noddes: R10, RDX
+poniendo noddes: R10, RV
+poniendo noddes: R10, SP
+poniendo noddes: R11, R12
+poniendo noddes: R11, R13
+poniendo noddes: R11, R14
+poniendo noddes: R11, R15
+poniendo noddes: R11, RAX
+poniendo noddes: R11, RBX
+poniendo noddes: R11, RDX
+poniendo noddes: R11, RV
+poniendo noddes: R11, SP
+poniendo noddes: R12, R13
+poniendo noddes: R12, R14
+poniendo noddes: R12, R15
+poniendo noddes: R12, RAX
+poniendo noddes: R12, RBX
+poniendo noddes: R12, RDX
+poniendo noddes: R12, RV
+poniendo noddes: R12, SP
+poniendo noddes: R13, R14
+poniendo noddes: R13, R15
+poniendo noddes: R13, RAX
+poniendo noddes: R13, RBX
+poniendo noddes: R13, RDX
+poniendo noddes: R13, RV
+poniendo noddes: R13, SP
+poniendo noddes: R14, R15
+poniendo noddes: R14, RAX
+poniendo noddes: R14, RBX
+poniendo noddes: R14, RDX
+poniendo noddes: R14, RV
+poniendo noddes: R14, SP
+poniendo noddes: R15, RAX
+poniendo noddes: R15, RBX
+poniendo noddes: R15, RDX
+poniendo noddes: R15, RV
+poniendo noddes: R15, SP
+poniendo noddes: RAX, RBX
+poniendo noddes: RAX, RDX
+poniendo noddes: RAX, RV
+poniendo noddes: RAX, SP
+poniendo noddes: RBX, RDX
+poniendo noddes: RBX, RV
+poniendo noddes: RBX, SP
+poniendo noddes: RDX, RV
+poniendo noddes: RDX, SP
+poniendo noddes: RV, SP
+
+ esto es: initial
+ {T28 ,T29 ,}
+nodeMoves: T28 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: T28 -> 
+Nodo: T29 -> 
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: RDX -> Valor: 1000
+Nodo: ARG1 -> Valor: 1000
+Nodo: ARG2 -> Valor: 1000
+Nodo: ARG3 -> Valor: 1000
+Nodo: ARG4 -> Valor: 1000
+Nodo: ARG5 -> Valor: 1000
+Nodo: ARG6 -> Valor: 1000
+Nodo: RAX -> Valor: 1000
+Nodo: RBX -> Valor: 1000
+Nodo: T28 -> Valor: 1
+Nodo: T29 -> Valor: 1
+Nodo: RV -> Valor: 1000
+Nodo: R10 -> Valor: 1000
+Nodo: R11 -> Valor: 1000
+Nodo: R12 -> Valor: 1000
+Nodo: R13 -> Valor: 1000
+Nodo: R14 -> Valor: 1000
+Nodo: SP -> Valor: 1000
+Nodo: R15 -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: ARG1,FP
+MOVE: ARG1,FP
+MOVE: ARG2,T29
+MOVE: ARG2,T29
+MOVE: RV,RV
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {T28 ,}
+
+ esto es: freezeWorklist
+ {T29 ,}
+
+ esto es: adjList
+ {Nodo: ARG1 -> 
+Nodo: T28 -> vecinos: FP
+Nodo: T29 -> vecinos: FP
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+MOVE: RV,RV
+MOVE: ARG1,FP
+MOVE: ARG2,T29
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+addWorklist RV
+addWorklist FP
+addWorklist ARG1
+app1
+addWorklist ARG2
+AssignColorsT28
+
+ esto es: lista adj
+ {FP ,}
+getAlias de: FP
+inserto en color: T28
+getAlias de T0 es RV
+getAlias de T29 es ARG2
+getAlias de T31 es ARG2
+getAlias de T32 es ARG2
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 43
+3::f433
+4
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T0 es RV
+getAlias de T29 es ARG2
+getAlias de T31 es ARG2
+getAlias de T32 es ARG2
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 61
+15::f433
+3
+poniendo noddes: ARG2, FP
+poniendo noddes: FP, T26
+poniendo noddes: FP, T27
+poniendo noddes: ARG2, ARG1
+poniendo noddes: ARG1, ARG3
+poniendo noddes: ARG1, ARG4
+poniendo noddes: ARG1, ARG5
+poniendo noddes: ARG1, ARG6
+poniendo noddes: ARG1, FP
+poniendo noddes: ARG1, R10
+poniendo noddes: ARG1, R11
+poniendo noddes: ARG1, R12
+poniendo noddes: ARG1, R13
+poniendo noddes: ARG1, R14
+poniendo noddes: ARG1, R15
+poniendo noddes: ARG1, RAX
+poniendo noddes: ARG1, RBX
+poniendo noddes: ARG1, RDX
+poniendo noddes: ARG1, RV
+poniendo noddes: ARG1, SP
+poniendo noddes: ARG2, ARG3
+poniendo noddes: ARG2, ARG4
+poniendo noddes: ARG2, ARG5
+poniendo noddes: ARG2, ARG6
+poniendo noddes: ARG2, R10
+poniendo noddes: ARG2, R11
+poniendo noddes: ARG2, R12
+poniendo noddes: ARG2, R13
+poniendo noddes: ARG2, R14
+poniendo noddes: ARG2, R15
+poniendo noddes: ARG2, RAX
+poniendo noddes: ARG2, RBX
+poniendo noddes: ARG2, RDX
+poniendo noddes: ARG2, RV
+poniendo noddes: ARG2, SP
+poniendo noddes: ARG3, ARG4
+poniendo noddes: ARG3, ARG5
+poniendo noddes: ARG3, ARG6
+poniendo noddes: ARG3, FP
+poniendo noddes: ARG3, R10
+poniendo noddes: ARG3, R11
+poniendo noddes: ARG3, R12
+poniendo noddes: ARG3, R13
+poniendo noddes: ARG3, R14
+poniendo noddes: ARG3, R15
+poniendo noddes: ARG3, RAX
+poniendo noddes: ARG3, RBX
+poniendo noddes: ARG3, RDX
+poniendo noddes: ARG3, RV
+poniendo noddes: ARG3, SP
+poniendo noddes: ARG4, ARG5
+poniendo noddes: ARG4, ARG6
+poniendo noddes: ARG4, FP
+poniendo noddes: ARG4, R10
+poniendo noddes: ARG4, R11
+poniendo noddes: ARG4, R12
+poniendo noddes: ARG4, R13
+poniendo noddes: ARG4, R14
+poniendo noddes: ARG4, R15
+poniendo noddes: ARG4, RAX
+poniendo noddes: ARG4, RBX
+poniendo noddes: ARG4, RDX
+poniendo noddes: ARG4, RV
+poniendo noddes: ARG4, SP
+poniendo noddes: ARG5, ARG6
+poniendo noddes: ARG5, FP
+poniendo noddes: ARG5, R10
+poniendo noddes: ARG5, R11
+poniendo noddes: ARG5, R12
+poniendo noddes: ARG5, R13
+poniendo noddes: ARG5, R14
+poniendo noddes: ARG5, R15
+poniendo noddes: ARG5, RAX
+poniendo noddes: ARG5, RBX
+poniendo noddes: ARG5, RDX
+poniendo noddes: ARG5, RV
+poniendo noddes: ARG5, SP
+poniendo noddes: ARG6, FP
+poniendo noddes: ARG6, R10
+poniendo noddes: ARG6, R11
+poniendo noddes: ARG6, R12
+poniendo noddes: ARG6, R13
+poniendo noddes: ARG6, R14
+poniendo noddes: ARG6, R15
+poniendo noddes: ARG6, RAX
+poniendo noddes: ARG6, RBX
+poniendo noddes: ARG6, RDX
+poniendo noddes: ARG6, RV
+poniendo noddes: ARG6, SP
+poniendo noddes: FP, R10
+poniendo noddes: FP, R11
+poniendo noddes: FP, R12
+poniendo noddes: FP, R13
+poniendo noddes: FP, R14
+poniendo noddes: FP, R15
+poniendo noddes: FP, RAX
+poniendo noddes: FP, RBX
+poniendo noddes: FP, RDX
+poniendo noddes: FP, RV
+poniendo noddes: FP, SP
+poniendo noddes: R10, R11
+poniendo noddes: R10, R12
+poniendo noddes: R10, R13
+poniendo noddes: R10, R14
+poniendo noddes: R10, R15
+poniendo noddes: R10, RAX
+poniendo noddes: R10, RBX
+poniendo noddes: R10, RDX
+poniendo noddes: R10, RV
+poniendo noddes: R10, SP
+poniendo noddes: R11, R12
+poniendo noddes: R11, R13
+poniendo noddes: R11, R14
+poniendo noddes: R11, R15
+poniendo noddes: R11, RAX
+poniendo noddes: R11, RBX
+poniendo noddes: R11, RDX
+poniendo noddes: R11, RV
+poniendo noddes: R11, SP
+poniendo noddes: R12, R13
+poniendo noddes: R12, R14
+poniendo noddes: R12, R15
+poniendo noddes: R12, RAX
+poniendo noddes: R12, RBX
+poniendo noddes: R12, RDX
+poniendo noddes: R12, RV
+poniendo noddes: R12, SP
+poniendo noddes: R13, R14
+poniendo noddes: R13, R15
+poniendo noddes: R13, RAX
+poniendo noddes: R13, RBX
+poniendo noddes: R13, RDX
+poniendo noddes: R13, RV
+poniendo noddes: R13, SP
+poniendo noddes: R14, R15
+poniendo noddes: R14, RAX
+poniendo noddes: R14, RBX
+poniendo noddes: R14, RDX
+poniendo noddes: R14, RV
+poniendo noddes: R14, SP
+poniendo noddes: R15, RAX
+poniendo noddes: R15, RBX
+poniendo noddes: R15, RDX
+poniendo noddes: R15, RV
+poniendo noddes: R15, SP
+poniendo noddes: RAX, RBX
+poniendo noddes: RAX, RDX
+poniendo noddes: RAX, RV
+poniendo noddes: RAX, SP
+poniendo noddes: RBX, RDX
+poniendo noddes: RBX, RV
+poniendo noddes: RBX, SP
+poniendo noddes: RDX, RV
+poniendo noddes: RDX, SP
+poniendo noddes: RV, SP
+
+ esto es: initial
+ {T26 ,T27 ,}
+nodeMoves: T26 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: T26 -> 
+Nodo: T27 -> 
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: RDX -> Valor: 1000
+Nodo: ARG1 -> Valor: 1000
+Nodo: ARG2 -> Valor: 1000
+Nodo: ARG3 -> Valor: 1000
+Nodo: ARG4 -> Valor: 1000
+Nodo: ARG5 -> Valor: 1000
+Nodo: ARG6 -> Valor: 1000
+Nodo: RAX -> Valor: 1000
+Nodo: T26 -> Valor: 1
+Nodo: RBX -> Valor: 1000
+Nodo: T27 -> Valor: 1
+Nodo: RV -> Valor: 1000
+Nodo: R10 -> Valor: 1000
+Nodo: R11 -> Valor: 1000
+Nodo: R12 -> Valor: 1000
+Nodo: R13 -> Valor: 1000
+Nodo: R14 -> Valor: 1000
+Nodo: SP -> Valor: 1000
+Nodo: R15 -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: ARG1,FP
+MOVE: ARG1,FP
+MOVE: ARG2,T27
+MOVE: ARG2,T27
+MOVE: RV,RV
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {T26 ,}
+
+ esto es: freezeWorklist
+ {T27 ,}
+
+ esto es: adjList
+ {Nodo: ARG1 -> 
+Nodo: T26 -> vecinos: FP
+Nodo: T27 -> vecinos: FP
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+MOVE: RV,RV
+MOVE: ARG1,FP
+MOVE: ARG2,T27
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+addWorklist RV
+addWorklist FP
+addWorklist ARG1
+app1
+addWorklist ARG2
+AssignColorsT26
+
+ esto es: lista adj
+ {FP ,}
+getAlias de: FP
+inserto en color: T26
+getAlias de T0 es RV
+getAlias de T27 es ARG2
+getAlias de T29 es ARG2
+getAlias de T31 es ARG2
+getAlias de T32 es ARG2
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 0
+Nodo: T27 -> Color: 9
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 65
+3::f433
+2
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 0
+Nodo: T27 -> Color: 9
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T0 es RV
+getAlias de T27 es ARG2
+getAlias de T29 es ARG2
+getAlias de T31 es ARG2
+getAlias de T32 es ARG2
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: RAX -> Color: 0
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 0
+Nodo: T27 -> Color: 9
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T31 -> Color: 9
+Nodo: T32 -> Color: 9
+Nodo: R10 -> Color: 2
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 83
+39::f433
+1
+poniendo noddes: ARG2, FP
+poniendo noddes: SP, FP
+poniendo noddes: FP, T1
+poniendo noddes: SP, T1
+poniendo noddes: FP, T11
+poniendo noddes: SP, T11
+poniendo noddes: T1, T11
+poniendo noddes: FP, T10
+poniendo noddes: SP, T10
+poniendo noddes: T1, T10
+poniendo noddes: FP, T9
+poniendo noddes: SP, T9
+poniendo noddes: T1, T9
+poniendo noddes: FP, T8
+poniendo noddes: SP, T8
+poniendo noddes: T1, T8
+poniendo noddes: FP, T7
+poniendo noddes: SP, T7
+poniendo noddes: T1, T7
+poniendo noddes: FP, T14
+poniendo noddes: SP, T14
+poniendo noddes: T1, T14
+poniendo noddes: T7, T14
+poniendo noddes: FP, T13
+poniendo noddes: SP, T13
+poniendo noddes: T1, T13
+poniendo noddes: T7, T13
+poniendo noddes: FP, T12
+poniendo noddes: SP, T12
+poniendo noddes: T1, T12
+poniendo noddes: T7, T12
+poniendo noddes: FP, T6
+poniendo noddes: SP, T6
+poniendo noddes: T1, T6
+poniendo noddes: FP, T16
+poniendo noddes: SP, T16
+poniendo noddes: T1, T16
+poniendo noddes: T6, T16
+poniendo noddes: FP, T15
+poniendo noddes: SP, T15
+poniendo noddes: T1, T15
+poniendo noddes: T6, T15
+poniendo noddes: FP, T5
+poniendo noddes: SP, T5
+poniendo noddes: T1, T5
+poniendo noddes: FP, T4
+poniendo noddes: SP, T4
+poniendo noddes: FP, T20
+poniendo noddes: SP, T20
+poniendo noddes: T4, T20
+poniendo noddes: FP, T19
+poniendo noddes: SP, T19
+poniendo noddes: T4, T19
+poniendo noddes: FP, T18
+poniendo noddes: SP, T18
+poniendo noddes: T4, T18
+poniendo noddes: FP, T17
+poniendo noddes: SP, T17
+poniendo noddes: T4, T17
+poniendo noddes: FP, T3
+poniendo noddes: SP, T3
+poniendo noddes: FP, T23
+poniendo noddes: SP, T23
+poniendo noddes: T3, T23
+poniendo noddes: FP, T22
+poniendo noddes: SP, T22
+poniendo noddes: T3, T22
+poniendo noddes: FP, T21
+poniendo noddes: SP, T21
+poniendo noddes: T3, T21
+poniendo noddes: FP, T2
+poniendo noddes: SP, T2
+poniendo noddes: FP, T25
+poniendo noddes: SP, T25
+poniendo noddes: T2, T25
+poniendo noddes: FP, T24
+poniendo noddes: SP, T24
+poniendo noddes: T2, T24
+poniendo noddes: FP, RV
+poniendo noddes: SP, RV
+
+ esto es: initial
+ {T1 ,T10 ,T11 ,T12 ,T13 ,T14 ,T15 ,T16 ,T17 ,T18 ,T19 ,T2 ,T20 ,T21 ,T22 ,T23 ,T24 ,T25 ,T3 ,T4 ,T5 ,T6 ,T7 ,T8 ,T9 ,}
+nodeMoves: T10 -> Move que no esta realacionado con otro temporario
+nodeMoves: T11 -> Move que no esta realacionado con otro temporario
+nodeMoves: T12 -> Move que no esta realacionado con otro temporario
+nodeMoves: T13 -> Move que no esta realacionado con otro temporario
+nodeMoves: T14 -> Move que no esta realacionado con otro temporario
+nodeMoves: T15 -> Move que no esta realacionado con otro temporario
+nodeMoves: T16 -> Move que no esta realacionado con otro temporario
+nodeMoves: T17 -> Move que no esta realacionado con otro temporario
+nodeMoves: T18 -> Move que no esta realacionado con otro temporario
+nodeMoves: T19 -> Move que no esta realacionado con otro temporario
+nodeMoves: T20 -> Move que no esta realacionado con otro temporario
+nodeMoves: T21 -> Move que no esta realacionado con otro temporario
+nodeMoves: T22 -> Move que no esta realacionado con otro temporario
+nodeMoves: T23 -> Move que no esta realacionado con otro temporario
+nodeMoves: T24 -> Move que no esta realacionado con otro temporario
+nodeMoves: T25 -> Move que no esta realacionado con otro temporario
+nodeMoves: T9 -> Move que no esta realacionado con otro temporario
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> 
+Nodo: T11 -> 
+Nodo: T12 -> 
+Nodo: T13 -> 
+Nodo: T14 -> 
+Nodo: T15 -> 
+Nodo: RAX -> Color: 0
+Nodo: T16 -> 
+Nodo: T17 -> 
+Nodo: T18 -> 
+Nodo: T19 -> 
+Nodo: T20 -> 
+Nodo: T21 -> 
+Nodo: T22 -> 
+Nodo: T23 -> 
+Nodo: T24 -> 
+Nodo: T25 -> 
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 0
+Nodo: T27 -> Color: 9
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T1 -> 
+Nodo: T31 -> Color: 9
+Nodo: T2 -> 
+Nodo: T32 -> Color: 9
+Nodo: T3 -> 
+Nodo: T4 -> 
+Nodo: T5 -> 
+Nodo: T6 -> 
+Nodo: T7 -> 
+Nodo: T8 -> 
+Nodo: R10 -> Color: 2
+Nodo: T9 -> 
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: ARG2 -> Valor: 1000
+Nodo: T10 -> Valor: 3
+Nodo: T11 -> Valor: 3
+Nodo: T12 -> Valor: 4
+Nodo: T13 -> Valor: 4
+Nodo: T14 -> Valor: 4
+Nodo: T15 -> Valor: 4
+Nodo: T16 -> Valor: 4
+Nodo: T17 -> Valor: 3
+Nodo: T18 -> Valor: 3
+Nodo: T19 -> Valor: 3
+Nodo: T20 -> Valor: 3
+Nodo: T21 -> Valor: 3
+Nodo: T22 -> Valor: 3
+Nodo: T23 -> Valor: 3
+Nodo: T24 -> Valor: 3
+Nodo: T25 -> Valor: 3
+Nodo: RV -> Valor: 1000
+Nodo: T1 -> Valor: 14
+Nodo: T2 -> Valor: 4
+Nodo: T3 -> Valor: 5
+Nodo: T4 -> Valor: 6
+Nodo: T5 -> Valor: 3
+Nodo: T6 -> Valor: 5
+Nodo: T7 -> Valor: 6
+Nodo: T8 -> Valor: 3
+Nodo: T9 -> Valor: 3
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: T1,ARG2
+MOVE: RV,T2
+MOVE: T1,ARG2
+MOVE: RV,T2
+MOVE: T2,T3
+MOVE: T2,T3
+MOVE: T3,T4
+MOVE: T3,T4
+MOVE: T4,T5
+MOVE: T4,T5
+MOVE: T5,T6
+MOVE: T5,T6
+MOVE: T6,T7
+MOVE: T6,T7
+MOVE: T7,T8
+MOVE: T7,T8
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {T1 ,}
+
+ esto es: simplifyWorklist
+ {T10 ,T11 ,T12 ,T13 ,T14 ,T15 ,T16 ,T17 ,T18 ,T19 ,T20 ,T21 ,T22 ,T23 ,T24 ,T25 ,T9 ,}
+
+ esto es: freezeWorklist
+ {T2 ,T3 ,T4 ,T5 ,T6 ,T7 ,T8 ,}
+
+ esto es: adjList
+ {Nodo: T10 -> vecinos: FPvecinos: SPvecinos: T1
+Nodo: T11 -> vecinos: FPvecinos: SPvecinos: T1
+Nodo: T12 -> vecinos: FPvecinos: SPvecinos: T1vecinos: T7
+Nodo: T13 -> vecinos: FPvecinos: SPvecinos: T1vecinos: T7
+Nodo: T14 -> vecinos: FPvecinos: SPvecinos: T1vecinos: T7
+Nodo: T15 -> vecinos: FPvecinos: SPvecinos: T1vecinos: T6
+Nodo: T16 -> vecinos: FPvecinos: SPvecinos: T1vecinos: T6
+Nodo: T17 -> vecinos: FPvecinos: SPvecinos: T4
+Nodo: T18 -> vecinos: FPvecinos: SPvecinos: T4
+Nodo: T19 -> vecinos: FPvecinos: SPvecinos: T4
+Nodo: T20 -> vecinos: FPvecinos: SPvecinos: T4
+Nodo: T21 -> vecinos: FPvecinos: SPvecinos: T3
+Nodo: T22 -> vecinos: FPvecinos: SPvecinos: T3
+Nodo: T23 -> vecinos: FPvecinos: SPvecinos: T3
+Nodo: T24 -> vecinos: FPvecinos: SPvecinos: T2
+Nodo: T25 -> vecinos: FPvecinos: SPvecinos: T2
+Nodo: T1 -> vecinos: FPvecinos: SPvecinos: T10vecinos: T11vecinos: T12vecinos: T13vecinos: T14vecinos: T15vecinos: T16vecinos: T5vecinos: T6vecinos: T7vecinos: T8vecinos: T9
+Nodo: T2 -> vecinos: FPvecinos: SPvecinos: T24vecinos: T25
+Nodo: T3 -> vecinos: FPvecinos: SPvecinos: T21vecinos: T22vecinos: T23
+Nodo: T4 -> vecinos: FPvecinos: SPvecinos: T17vecinos: T18vecinos: T19vecinos: T20
+Nodo: T5 -> vecinos: FPvecinos: SPvecinos: T1
+Nodo: T6 -> vecinos: FPvecinos: SPvecinos: T1vecinos: T15vecinos: T16
+Nodo: T7 -> vecinos: FPvecinos: SPvecinos: T1vecinos: T12vecinos: T13vecinos: T14
+Nodo: T8 -> vecinos: FPvecinos: SPvecinos: T1
+Nodo: T9 -> vecinos: FPvecinos: SPvecinos: T1
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+MOVE: RV,T2
+MOVE: T2,T3
+MOVE: T3,T4
+MOVE: T4,T5
+MOVE: T5,T6
+MOVE: T6,T7
+MOVE: T7,T8
+MOVE: T1,ARG2
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+nodeMoves: T11 -> Move que no esta realacionado con otro temporario
+nodeMoves: T12 -> Move que no esta realacionado con otro temporario
+nodeMoves: T13 -> Move que no esta realacionado con otro temporario
+nodeMoves: T14 -> Move que no esta realacionado con otro temporario
+nodeMoves: T15 -> Move que no esta realacionado con otro temporario
+nodeMoves: T16 -> Move que no esta realacionado con otro temporario
+nodeMoves: T9 -> Move que no esta realacionado con otro temporario
+addWorklist SP
+addWorklist FP
+app1
+addWorklist RV
+app1
+addWorklist RV
+app1
+addWorklist RV
+poniendo noddes: T1, RV
+app1
+addWorklist RV
+app1
+addWorklist RV
+app1
+addWorklist RV
+app1
+addWorklist RV
+poniendo noddes: RV, ARG2
+poniendo noddes: SP, ARG2
+app1
+addWorklist ARG2
+AssignColorsT9
+
+ esto es: lista adj
+ {FP ,SP ,T1 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T1
+inserto en color: T9
+AssignColorsT25
+
+ esto es: lista adj
+ {FP ,SP ,T2 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T2
+inserto en color: T25
+AssignColorsT24
+
+ esto es: lista adj
+ {FP ,SP ,T2 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T2
+inserto en color: T24
+AssignColorsT23
+
+ esto es: lista adj
+ {FP ,SP ,T3 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T3
+inserto en color: T23
+AssignColorsT22
+
+ esto es: lista adj
+ {FP ,SP ,T3 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T3
+inserto en color: T22
+AssignColorsT21
+
+ esto es: lista adj
+ {FP ,SP ,T3 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T3
+inserto en color: T21
+AssignColorsT20
+
+ esto es: lista adj
+ {FP ,SP ,T4 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T4
+inserto en color: T20
+AssignColorsT19
+
+ esto es: lista adj
+ {FP ,SP ,T4 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T4
+inserto en color: T19
+AssignColorsT18
+
+ esto es: lista adj
+ {FP ,SP ,T4 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T4
+inserto en color: T18
+AssignColorsT17
+
+ esto es: lista adj
+ {FP ,SP ,T4 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T4
+inserto en color: T17
+AssignColorsT16
+
+ esto es: lista adj
+ {FP ,SP ,T1 ,T6 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T1
+getAlias de: T6
+inserto en color: T16
+AssignColorsT15
+
+ esto es: lista adj
+ {FP ,SP ,T1 ,T6 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T1
+getAlias de: T6
+inserto en color: T15
+AssignColorsT14
+
+ esto es: lista adj
+ {FP ,SP ,T1 ,T7 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T1
+getAlias de: T7
+inserto en color: T14
+AssignColorsT13
+
+ esto es: lista adj
+ {FP ,SP ,T1 ,T7 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T1
+getAlias de: T7
+inserto en color: T13
+AssignColorsT12
+
+ esto es: lista adj
+ {FP ,SP ,T1 ,T7 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T1
+getAlias de: T7
+inserto en color: T12
+AssignColorsT11
+
+ esto es: lista adj
+ {FP ,SP ,T1 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T1
+inserto en color: T11
+AssignColorsT10
+
+ esto es: lista adj
+ {FP ,SP ,T1 ,}
+getAlias de: FP
+getAlias de: SP
+getAlias de: T1
+inserto en color: T10
+getAlias de T0 es RV
+getAlias de T1 es ARG2
+getAlias de T2 es RV
+getAlias de T27 es ARG2
+getAlias de T29 es ARG2
+getAlias de T3 es RV
+getAlias de T31 es ARG2
+getAlias de T32 es ARG2
+getAlias de T4 es RV
+getAlias de T5 es RV
+getAlias de T6 es RV
+getAlias de T7 es RV
+getAlias de T8 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 1
+Nodo: T13 -> Color: 1
+Nodo: T14 -> Color: 1
+Nodo: T15 -> Color: 1
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 1
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 1
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 1
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 0
+Nodo: T27 -> Color: 9
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T1 -> Color: 9
+Nodo: T31 -> Color: 9
+Nodo: T2 -> Color: 0
+Nodo: T32 -> Color: 9
+Nodo: T3 -> Color: 0
+Nodo: T4 -> Color: 0
+Nodo: T5 -> Color: 0
+Nodo: T6 -> Color: 0
+Nodo: T7 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 87
+3::f433
+0
+poniendo noddes: SP, FP
+
+ esto es: initial
+ {}
+
+ esto es: color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 1
+Nodo: T13 -> Color: 1
+Nodo: T14 -> Color: 1
+Nodo: T15 -> Color: 1
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 1
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 1
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 1
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 0
+Nodo: T27 -> Color: 9
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T1 -> Color: 9
+Nodo: T31 -> Color: 9
+Nodo: T2 -> Color: 0
+Nodo: T32 -> Color: 9
+Nodo: T3 -> Color: 0
+Nodo: T4 -> Color: 0
+Nodo: T5 -> Color: 0
+Nodo: T6 -> Color: 0
+Nodo: T7 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+
+ esto es: degree
+ {Nodo: FP -> Valor: 1000
+Nodo: SP -> Valor: 1000
+}
+
+ esto es: moveList
+ {MOVE: FP,FP
+MOVE: SP,SP
+}
+
+ esto es: spillWorklist
+ {}
+
+ esto es: simplifyWorklist
+ {}
+
+ esto es: freezeWorklist
+ {}
+
+ esto es: adjList
+ {Nodo: FP -> 
+}
+
+ esto es: worklistMoves
+ { MOVE: SP,SP
+MOVE: FP,FP
+}
+
+ esto es: activeMoves
+ { }
+
+ esto es: Stack
+ {}
+addWorklist SP
+addWorklist FP
+getAlias de T0 es RV
+getAlias de T1 es ARG2
+getAlias de T2 es RV
+getAlias de T27 es ARG2
+getAlias de T29 es ARG2
+getAlias de T3 es RV
+getAlias de T31 es ARG2
+getAlias de T32 es ARG2
+getAlias de T4 es RV
+getAlias de T5 es RV
+getAlias de T6 es RV
+getAlias de T7 es RV
+getAlias de T8 es RV
+
+ esto es: spilledNodes
+ {}
+
+ esto es: Color
+ {Nodo: FP -> Color: 14
+Nodo: RDX -> Color: 10
+Nodo: ARG1 -> Color: 8
+Nodo: ARG2 -> Color: 9
+Nodo: ARG3 -> Color: 10
+Nodo: ARG4 -> Color: 11
+Nodo: ARG5 -> Color: 12
+Nodo: ARG6 -> Color: 13
+Nodo: T10 -> Color: 0
+Nodo: T11 -> Color: 0
+Nodo: T12 -> Color: 1
+Nodo: T13 -> Color: 1
+Nodo: T14 -> Color: 1
+Nodo: T15 -> Color: 1
+Nodo: RAX -> Color: 0
+Nodo: T16 -> Color: 1
+Nodo: T17 -> Color: 1
+Nodo: T18 -> Color: 1
+Nodo: T19 -> Color: 1
+Nodo: T20 -> Color: 1
+Nodo: T21 -> Color: 1
+Nodo: T22 -> Color: 1
+Nodo: T23 -> Color: 1
+Nodo: T24 -> Color: 1
+Nodo: T25 -> Color: 1
+Nodo: RBX -> Color: 1
+Nodo: T26 -> Color: 0
+Nodo: T27 -> Color: 9
+Nodo: T28 -> Color: 0
+Nodo: T29 -> Color: 9
+Nodo: RV -> Color: 0
+Nodo: T0 -> Color: 0
+Nodo: T30 -> Color: 0
+Nodo: T1 -> Color: 9
+Nodo: T31 -> Color: 9
+Nodo: T2 -> Color: 0
+Nodo: T32 -> Color: 9
+Nodo: T3 -> Color: 0
+Nodo: T4 -> Color: 0
+Nodo: T5 -> Color: 0
+Nodo: T6 -> Color: 0
+Nodo: T7 -> Color: 0
+Nodo: T8 -> Color: 0
+Nodo: R10 -> Color: 2
+Nodo: T9 -> Color: 0
+Nodo: R11 -> Color: 3
+Nodo: R12 -> Color: 4
+Nodo: R13 -> Color: 5
+Nodo: SP -> Color: 15
+Nodo: R14 -> Color: 6
+Nodo: R15 -> Color: 7
+}
+Acumm (false): 129
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T0 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T32 -> %rsi
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: RV -> %rax
+TEMP -> REG: RV -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T31 -> %rsi
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: RV -> %rax
+TEMP -> REG: RV -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T29 -> %rsi
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: RV -> %rax
+TEMP -> REG: RV -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: T27 -> %rsi
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T2 -> %rax
+TEMP -> REG: RV -> %rax
+TEMP -> REG: T3 -> %rax
+TEMP -> REG: T2 -> %rax
+TEMP -> REG: T4 -> %rax
+TEMP -> REG: T3 -> %rax
+TEMP -> REG: T5 -> %rax
+TEMP -> REG: T4 -> %rax
+TEMP -> REG: T6 -> %rax
+TEMP -> REG: T5 -> %rax
+TEMP -> REG: T7 -> %rax
+TEMP -> REG: T6 -> %rax
+TEMP -> REG: T8 -> %rax
+TEMP -> REG: T7 -> %rax
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: T1 -> %rsi
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: SP -> %rsp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+Limpiados MOV con igual src y dst
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T11 -> %rax
+TEMP -> REG: T11 -> %rax
+TEMP -> REG: T10 -> %rax
+TEMP -> REG: T10 -> %rax
+TEMP -> REG: T9 -> %rax
+TEMP -> REG: T9 -> %rax
+TEMP -> REG: T8 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T14 -> %rbx
+TEMP -> REG: T14 -> %rbx
+TEMP -> REG: T13 -> %rbx
+TEMP -> REG: T13 -> %rbx
+TEMP -> REG: T12 -> %rbx
+TEMP -> REG: T12 -> %rbx
+TEMP -> REG: T7 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T16 -> %rbx
+TEMP -> REG: T16 -> %rbx
+TEMP -> REG: T15 -> %rbx
+TEMP -> REG: T15 -> %rbx
+TEMP -> REG: T6 -> %rax
+TEMP -> REG: T1 -> %rsi
+TEMP -> REG: T5 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T20 -> %rbx
+TEMP -> REG: T20 -> %rbx
+TEMP -> REG: T19 -> %rbx
+TEMP -> REG: T19 -> %rbx
+TEMP -> REG: T18 -> %rbx
+TEMP -> REG: T18 -> %rbx
+TEMP -> REG: T17 -> %rbx
+TEMP -> REG: T17 -> %rbx
+TEMP -> REG: T4 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T23 -> %rbx
+TEMP -> REG: T23 -> %rbx
+TEMP -> REG: T22 -> %rbx
+TEMP -> REG: T22 -> %rbx
+TEMP -> REG: T21 -> %rbx
+TEMP -> REG: T21 -> %rbx
+TEMP -> REG: T3 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T25 -> %rbx
+TEMP -> REG: T25 -> %rbx
+TEMP -> REG: T24 -> %rbx
+TEMP -> REG: T24 -> %rbx
+TEMP -> REG: T2 -> %rax
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T26 -> %rax
+TEMP -> REG: T26 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T27 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T28 -> %rax
+TEMP -> REG: T28 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T29 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG2 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T30 -> %rax
+TEMP -> REG: T30 -> %rax
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T31 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: T0 -> %rax
+TEMP -> REG: T32 -> %rsi
+TEMP -> REG: FP -> %rbp
+TEMP -> REG: ARG1 -> %rdi
+TEMP -> REG: RV -> %rax
+.globl L3
+.type L3, @function
+L3: 
+pushq %rbp
+movq %rsp, %rbp
+subq $40, %rsp
+jmp L5
+L5: 
+movq %rdi, -8(%rbp)
+movq -8(%rbp), %rax
+movq -8(%rax), %rax
+movq -8(%rax), %rax
+movq -16(%rax), %rax
+movq -8(%rbp), %rbx
+movq -8(%rbx), %rbx
+movq -16(%rbx), %rbx
+addq %rbx, %rax
+movq -8(%rbp), %rbx
+movq -16(%rbx), %rbx
+addq %rbx, %rax
+addq %rsi, %rax
+movq -8(%rbp), %rbx
+movq -8(%rbx), %rbx
+movq -8(%rbx), %rbx
+movq -24(%rbx), %rbx
+addq %rbx, %rax
+movq -8(%rbp), %rbx
+movq -8(%rbx), %rbx
+movq -24(%rbx), %rbx
+addq %rbx, %rax
+movq -8(%rbp), %rbx
+movq -24(%rbx), %rbx
+addq %rbx, %rax
+jmp L4 
+L4: 
+leave
+ret
+.size L3, .-L3
+.globl L2
+.type L2, @function
+L2: 
+pushq %rbp
+movq %rsp, %rbp
+subq $40, %rsp
+jmp L7
+L7: 
+movq %rdi, -8(%rbp)
+movq %rsi, -16(%rbp)
+movq $3, %rax 
+movq %rax, -24(%rbp)
+movq $12, %rsi 
+movq %rbp, %rdi
+call L3
+jmp L6 
+L6: 
+leave
+ret
+.size L2, .-L2
+.globl L1
+.type L1, @function
+L1: 
+pushq %rbp
+movq %rsp, %rbp
+subq $40, %rsp
+jmp L9
+L9: 
+movq %rdi, -8(%rbp)
+movq %rsi, -16(%rbp)
+movq $2, %rax 
+movq %rax, -24(%rbp)
+movq $11, %rsi 
+movq %rbp, %rdi
+call L2
+jmp L8 
+L8: 
+leave
+ret
+.size L1, .-L1
+.globl L0
+.type L0, @function
+L0: 
+pushq %rbp
+movq %rsp, %rbp
+subq $40, %rsp
+jmp L11
+L11: 
+movq %rdi, -8(%rbp)
+movq %rsi, -16(%rbp)
+movq $1, %rax 
+movq %rax, -24(%rbp)
+movq $10, %rsi 
+movq %rbp, %rdi
+call L1
+jmp L10 
+L10: 
+leave
+ret
+.size L0, .-L0
+.globl _tigermain
+.type _tigermain, @function
+_tigermain: 
+pushq %rbp
+movq %rsp, %rbp
+subq $40, %rsp
+jmp L13
+L13: 
+movq %rdi, -8(%rbp)
+movq $0, %rax 
+movq $9, %rsi 
+movq %rbp, %rdi
+call L0
+movq $0, %rax 
+jmp L12 
+L12: 
+leave
+ret
+.size _tigermain, .-_tigermain
+
+ bien!
+yes!!
