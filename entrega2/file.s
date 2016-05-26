@@ -1,42 +1,34 @@
 .file "file.tig"
 .text
-.globl L1
-.type L1, @function
-L1: 
-pushq %rbp
-movq %rsp, %rbp
-subq $40, %rsp
-jmp L3
-L3: 
-movq %rdi, -8(%rbp)
-movq -8(%rbp), %rax
-movq -16(%rax), %rax
-movq -8(%rbp), %rbx
-movq -24(%rbx), %rbx
-addq %rbx, %rax
-jmp L2 
-L2: 
-leave
-ret
-.size L1, .-L1
+.section  .rodata
+.L1:
+	.quad 6
+	.string "ieaaa\x0a"
+	.text
 .globl L0
 .type L0, @function
 L0: 
 pushq %rbp
 movq %rsp, %rbp
 subq $40, %rsp
-jmp L5
-L5: 
+jmp L6
+L6: 
 movq %rdi, -8(%rbp)
-movq %rsi, -16(%rbp)
+movq $-0, %rax 
+cmp %rax, %rsi 
+je L2 
+L3: 
 movq $1, %rax 
-movq %rax, -24(%rbp)
-movq $2, %rbx 
-movq %rbp, %rdi
-call L1
-movq %rax, %rbx 
-jmp L4 
+subq %rax, %rsi
+movq -8(%rbp), %rdi
+call L0
 L4: 
+jmp L5 
+L2: 
+movq $.L1, %rdi
+call print
+jmp L4 
+L5: 
 leave
 ret
 .size L0, .-L0
@@ -46,12 +38,15 @@ _tigermain:
 pushq %rbp
 movq %rsp, %rbp
 subq $40, %rsp
-jmp L7
-L7: 
+jmp L8
+L8: 
 movq %rdi, -8(%rbp)
+movq $9999999, %rsi 
+movq %rbp, %rdi
+call L0
 movq $0, %rax 
-jmp L6 
-L6: 
+jmp L7 
+L7: 
 leave
 ret
 .size _tigermain, .-_tigermain

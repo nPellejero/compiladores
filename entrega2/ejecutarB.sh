@@ -9,4 +9,3 @@ gcc -o file file.o runtime.o
 name=`echo $1 | sed 's/....$//g'` 
 ./file > $name.txt 
 cp $name.txt /home/jbaruffaldi/public_html/salida2.txt
-#mv $name.txt ../tests/good/

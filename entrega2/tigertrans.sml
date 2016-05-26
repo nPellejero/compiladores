@@ -171,10 +171,15 @@ fun simpleVar(acc, nivel) =
 fun varDec(acc) = simpleVar(acc, getActualLev())
 
 fun fieldVar(var, fieldindex) = 
-	let val varEx = unEx var in
-		Ex (MEM (BINOP (PLUS, varEx,
-					BINOP(MUL, CONST fieldindex, CONST tigerframe.wSz))))
-	end (*COMPLETAR capaz que ya esta*)
+	let 
+		val varEx = unEx var 
+		val rr = newtemp()
+in
+		Ex (ESEQ(seq[MOVE(TEMP rr, varEx),
+		EXP(externalCall("_checkNil", [TEMP rr]))],
+		MEM (BINOP (PLUS, varEx,
+					BINOP(MUL, CONST fieldindex, CONST tigerframe.wSz)))))
+end 
 
 fun subscriptVar(arr, ind) =
 let
